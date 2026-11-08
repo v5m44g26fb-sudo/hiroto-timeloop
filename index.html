@@ -139,6 +139,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 .gitem .gn span:last-child{font-weight:800}
 #st-body .dlg.picked{background:rgba(125,211,252,.09);border-left:3px solid #7dd3fc;border-radius:0 10px 10px 0;padding:8px 11px}
 #st-choices button{animation:chin .32s ease both}
+.tnew{background:#ff3b30;color:#fff;font-size:9.5px;border-radius:99px;padding:1.5px 7px;margin-left:6px;vertical-align:2px;font-weight:700;letter-spacing:.05em}
 #st-choices button:nth-child(2){animation-delay:.06s}
 #st-choices button:nth-child(3){animation-delay:.12s}
 @keyframes chin{from{opacity:0;transform:translateY(7px)}}
@@ -512,7 +513,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v41";
+const VER="v42";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1724,7 +1725,7 @@ function renderTalk(){
  const curOrd=S.eraNow!==undefined?eraOrd[S.eraNow]:(S.flags.boys?2:S.flags.chuang?1:0);
  const msgEra=m=>{if(!m.flag)return 0;if(m.flag==="chuang"||m.flag==="ranked21"||m.flag==="known21"||m.flag.indexOf("c21")===0)return 1;if(m.flag==="boys"||m.flag==="ranked23"||m.flag==="ranked23B"||m.flag==="known23"||m.flag.indexOf("b23")===0)return 2;return 0;};
  const vis=msgs.filter(m=>(m.flag?!!S.flags[m.flag]:(S.idx>=m.at))&&msgEra(m)<=curOrd);
- $("#talk-body").innerHTML=(vis.length?vis.map(m=>`<div class="trow"><img src="${m.img}"><div><div class="tn">${m.who}</div><div class="tp">${m.p}</div></div><div class="tt">${m.t}</div></div>`).join(""):`<div class="empty">まだトークはありません。<br>物語を進めると、合宿中の連絡が届きます。</div>`)+`<p class="small" style="padding:12px 16px">※ 彼のメッセージは短く、少ない。人見知りの彼のペースそのままです。<br>※ 井汲大翔のトークをタップすると、スレッドが開きます（フリートークはおまけで、物語の数値には影響しません）。</p>`;
+ $("#talk-body").innerHTML=(vis.length?vis.map((m,i)=>`<div class="trow"><img src="${m.img}"><div><div class="tn">${m.who}${i===vis.length-1?'<span class="tnew">新着</span>':''}</div><div class="tp">${m.p}</div></div><div class="tt">${m.t}</div></div>`).join(""):`<div class="empty">まだトークはありません。<br>物語を進めると、合宿中の連絡が届きます。</div>`)+`<p class="small" style="padding:12px 16px">※ 彼のメッセージは短く、少ない。人見知りの彼のペースそのままです。<br>※ 井汲大翔のトークをタップすると、スレッドが開きます（フリートークはおまけで、物語の数値には影響しません）。</p>`;
  document.querySelectorAll("#talk-body .trow").forEach((el,i)=>{const m=vis[i];if(m&&m.who==="井汲大翔"){el.classList.add("th-open");el.onclick=()=>{seTap(1);openThread(vis.filter(x=>x.who==="井汲大翔"));};}});
 }
 /* ============ talk thread + free chat (bonus; no effect on story numbers) ============ */
