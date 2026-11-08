@@ -194,6 +194,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 #vw-nav button{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:22px;cursor:pointer}
 #vw-count{color:rgba(255,255,255,.65);font-size:12.5px;letter-spacing:.1em}
 .gal figure{cursor:pointer}
+.recap{margin:14px auto;max-width:92%;text-align:center;font-size:11.5px;letter-spacing:.04em;color:#ffe9a8;background:rgba(255,214,10,.08);border:1px solid rgba(255,214,10,.35);border-radius:999px;padding:7px 14px;line-height:1.6}
 #lock .lk-notif.sub{padding:10px 13px;border-radius:16px}
 #lock .lk-notif.sub .lk-nic{width:26px;height:26px;border-radius:7px}
 #lock .lk-notif .lk-when{margin-left:auto;font-size:10.5px;color:rgba(255,255,255,.55);flex:none;padding-top:2px}
@@ -485,7 +486,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v29";
+const VER="v30";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1452,7 +1453,7 @@ function processItem(it){
   S.idx=SCRIPT.length;save();renderGauges();return;
  }
  switch(it.k){
-  case 'chap':{const c=chapTitleOf(it);$("#st-chap").textContent=it.title;$("#st-loc").textContent=it.sub||"";pushLog(`<div class="narr sys">―― ${esc(it.title)} ――</div>`);S.idx++;break;}
+  case 'chap':{const c=chapTitleOf(it);$("#st-chap").textContent=it.title;$("#st-loc").textContent=it.sub||"";pushLog(`<div class="narr sys">―― ${esc(it.title)} ――</div>`);if(S.flags.leaped&&(S.diffs.length||S.g.todoita||S.keeps.length))pushLog(`<div class="recap">前章までの記録 ― 差分 ${S.diffs.length}件 ／ 届いた応援 ${S.g.todoita}件 ／ Keepsake ${S.keeps.length}点</div>`);S.idx++;break;}
   case 'bg':setStage(it.img,it.cap);S.idx++;processNext();break;
   case 'flag':S.flags[it.f]=true;S.idx++;processNext();break;
   case 'era':S.eraNow=it.e;if(it.e==='2021')S.flags.chuang=true;if(it.e==='2023'){S.flags.chuang=true;S.flags.boys=true;}if(it.e==='2019'){S.flags.chuang=false;S.flags.boys=false;}S.idx++;processNext();break;
