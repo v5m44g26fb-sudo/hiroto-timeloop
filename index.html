@@ -192,6 +192,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 #lock .lk-notif span{font-size:12.5px;line-height:1.55;color:#e6e4f0}
 #lock .lk-bottom{position:absolute;left:0;right:0;bottom:30px;display:flex;justify-content:space-between;align-items:center;padding:0 42px}
 #lk-stack{display:flex;flex-direction:column;gap:8px;margin-top:8px;position:relative}
+#lock .lk-chap{position:relative;margin-top:8px;font-size:12.5px;color:rgba(255,255,255,.85);text-shadow:0 1px 6px rgba(0,0,0,.5)}
 #viewer{position:absolute;inset:0;background:#050508;z-index:30;display:none;flex-direction:column}
 #viewer.on{display:flex}
 #vw-img{flex:1;width:100%;min-height:0;object-fit:contain}
@@ -400,6 +401,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
   <div class="lk-date" id="lk-date">2026年</div>
   <div class="lk-time" id="lk-time">0:00</div>
   <div class="lk-era" id="lk-era">0周目 ― 現在</div>
+  <div class="lk-chap" id="lk-chap"></div>
   <div class="lk-notif" id="lk-notif"><span class="lk-nic"><svg width="15" height="15" viewBox="0 0 24 24"><path fill="#fff" d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span><div><b>物語の通知</b><span id="lk-notif-t">物語を進めると、ここに通知が届きます。</span></div></div>
   <div id="lk-stack"></div>
   <div class="lk-bottom">
@@ -510,7 +512,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v40";
+const VER="v41";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1407,6 +1409,7 @@ function enterLock(){tick();const cur=SCRIPT[Math.min(S.idx,SCRIPT.length-1)];
  $("#lk-date").textContent=S.eraNow==="nxd"?"2024年":S.eraNow==="now"?"2026年":S.eraNow==="2023"?"2023年":S.eraNow==="2021"?"2021年":S.eraNow==="2019"?"2019年":S.flags.boys?"2023年":S.flags.chuang?"2021年":(S.flags&&S.flags.leaped)?"2019年":"2026年";
  $("#lk-era").textContent=S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":S.finishedNXDB?"大周回B ― 現在編へ":S.finished23B?"大周回B ― NXD期へ":S.finished21B?"大周回B ― 次は2023年":S.flags.known21?"大周回B ― 2021年":S.finishedB?"大周回B ― 2020年へ":S.flags.known?"大周回B ― 2019年":S.flags.bStarted?"大周回B ― 2019年":S.finishedNXDA?"2026年 ― 大周回A 完":S.flags.boys?"2023年 ― 大周回A":S.finished23A?"NXD期 ― 大周回A":S.flags.chuang?"2021年 ― 大周回A":S.finished21A?"幕間 ― 岐路":S.finishedA?"幕間 ― 岐路":(S.flags&&S.flags.leaped?"2019年 ― 大周回A":"0周目 ― 現在");
  $("#lk-notif-t").textContent=S.trueEnd?"大周回は終わりました。ここからが本編です。":S.normalEnd?"彼の歌は、今日も続いています。":S.loopBad?"番組アプリから、通知が届いています……また。":S.bareEnd?"その時代の物語は、閉じました。":S.ridatsuEnd?"彼の歌声は、もう流れていません。":S.finishedNXDB?"約束の現在が待っています。フィナーレへ。":S.finished23B?"番組のない日々が、もう一度始まります。最後の岐路が近づいています。":S.finished21B?"三度目の時代が待っています。韓国への準備が始まります。":S.flags.known21?"彼は思い出しました。中国での共同作戦が始まります。":S.finishedB?"時間は2020年へ。RBWの日々が、もう一度始まります。":S.flags.known?"彼は思い出しました。二人の作戦会議が始まります。":S.flags.bStarted?"彼女は再び、2019年4月に戻りました。":S.finishedNXDA?"大周回Aが終わりました。物語は、第2の大周回へ。":S.flags.boys?"BOYS PLANETの練習生証が届いています。韓国での合宿が始まります。":S.finished23A?"番組のない日々が始まります。RBWの最終部へ。":S.flags.chuang?"創造営2021の学員証が届いています。中国での合宿が始まります。":S.finished21A?"時間は流れます。彼の帰国後の日々へ。":S.finishedA?"彼は岐路に立っています。幕間が始まります。":(S.flags&&S.flags.leaped?"番組アプリが届いています。合宿が始まります。":"PRODUCE 101 JAPAN の思い出が、通知で届きました。");
+ const _lc=$("#lk-chap");if(_lc)try{_lc.textContent=chapNow().title||"";}catch(e){}
  const _stk=$("#lk-stack");
  if(_stk){const _bell='<svg width="13" height="13" viewBox="0 0 24 24"><path fill="#fff" d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>';const _cards=[];
   if(S.keeps&&S.keeps.length)_cards.push({app:"Keepsake",bg:"linear-gradient(150deg,#b388ff,#7c4dff)",t:"彼が残すと決めたもの ― "+S.keeps[S.keeps.length-1]});
