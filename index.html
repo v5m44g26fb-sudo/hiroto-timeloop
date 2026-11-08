@@ -519,7 +519,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v64";
+const VER="v65";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1441,6 +1441,8 @@ function enterLock(){tick();const cur=SCRIPT[Math.min(S.idx,SCRIPT.length-1)];
  const _stk=$("#lk-stack");
  if(_stk){const _bell='<svg width="13" height="13" viewBox="0 0 24 24"><path fill="#fff" d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>';const _cards=[];
   if(S.keeps&&S.keeps.length)_cards.push({app:"Keepsake",bg:"linear-gradient(150deg,#b388ff,#7c4dff)",t:"彼が残すと決めたもの ― "+S.keeps[S.keeps.length-1]});
+  const _rk=S.flags.ranked23B?["2023・周B",19]:S.flags.ranked23?["2023",22]:S.flags.ranked21B?["2021・周B",16]:S.flags.ranked21?["2021",18]:S.flags.rankedB?["2019・周B",36]:S.flags.ranked?["2019",38]:null;
+  if(_rk)_cards.push({app:"番組アプリ",bg:"linear-gradient(150deg,#ffd60a,#f59e0b)",t:"順位発表 ― 三浦渚央は"+_rk[0]+"で最終"+_rk[1]+"位でした"});
   if(S.diffs&&S.diffs.length)_cards.push({app:"Diff Log",bg:"linear-gradient(150deg,#64b5f6,#1e88e5)",t:"差分の記録が"+S.diffs.length+"件に増えました"});
   if(S.g&&S.g.todoita>0)_cards.push({app:"応援台帳",bg:"linear-gradient(150deg,#ff8a80,#e53935)",t:"届いた応援 "+S.g.todoita+"件 ― 彼の背中を押しています"});
   _stk.innerHTML=_cards.slice(0,2).map(c=>`<div class="lk-notif sub"><span class="lk-nic" style="background:${c.bg}">${_bell}</span><div style="flex:1;min-width:0"><b>${c.app}</b><span>${c.t}</span></div><span class="lk-when">少し前</span></div>`).join("");}
