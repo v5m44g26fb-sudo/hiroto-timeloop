@@ -287,6 +287,23 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 #st-body .narr.same{opacity:.52;color:#c6c6da;font-size:13.5px;border-left:3px solid #3a3a52;padding:6px 10px;background:rgba(255,255,255,.03);border-radius:0 8px 8px 0}
 .rec.samerec{background:#3a3a52;color:#cfcfe2}
 .dgrp{font-size:11px;font-weight:800;letter-spacing:.1em;color:#8a8aa0;padding:14px 16px 2px}
+/* ===== v19: talk thread + free chat ===== */
+#thread{background:#7496c0}
+#thd-body{background:linear-gradient(180deg,#7d9cc4,#7496c0);padding:14px 12px 18px}
+.thd-row{display:flex;gap:8px;margin-bottom:12px;align-items:flex-start}
+.thd-row img{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:top;flex:none;background:#fff}
+.thd-bub{background:#fff;border-radius:14px;border-top-left-radius:4px;padding:8px 11px;font-size:13.5px;line-height:1.6;max-width:76%;box-shadow:0 1px 3px rgba(20,30,60,.18);white-space:pre-wrap;word-break:break-word}
+.thd-row.me{justify-content:flex-end}
+.thd-row.me .thd-bub{background:#9fe870;border-top-left-radius:14px;border-top-right-radius:4px}
+.thd-note{text-align:center;font-size:10.5px;color:rgba(255,255,255,.85);margin:2px 0 14px}
+#thd-chips{display:flex;gap:7px;padding:8px 10px;background:#f4f4f8;overflow-x:auto}
+#thd-chips button{flex:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:12.5px;cursor:pointer;color:#33333d}
+#thd-chips button:active{background:#eef}
+#thd-bar{display:flex;gap:8px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line)}
+#thd-in{flex:1;border:1px solid var(--line);border-radius:999px;padding:10px 14px;font-size:14px;outline:none;background:#f7f7fa}
+#thd-send{background:var(--acc);color:#fff;border:none;border-radius:999px;padding:0 18px;font-size:13.5px;font-weight:700;cursor:pointer}
+.trow.th-open{cursor:pointer}
+.trow.th-open .tn::after{content:" ›";color:#c2c2cf}
 @keyframes bannerpulse{0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.4)}50%{box-shadow:0 10px 30px rgba(255,214,10,.28)}}
 #story-banner{animation:bannerpulse 3.2s ease-in-out infinite}
 .trow:active,.rcard:active,.rankrow:active{background:#f4f2ff}
@@ -407,6 +424,14 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
   <div class="appbody" id="talk-body"></div>
 </section>
 
+<!-- thread -->
+<section class="screen" id="thread">
+  <div class="apphead"><button class="back" id="thd-back">‹</button><div><div class="ah-t">井汲大翔</div><div class="ah-s">フリートーク ― 彼の返信は短く、少ないです</div></div></div>
+  <div class="appbody" id="thd-body"></div>
+  <div id="thd-chips"></div>
+  <div id="thd-bar"><input id="thd-in" type="text" placeholder="メッセージを入力" autocomplete="off"><button id="thd-send">送信</button></div>
+</section>
+
 <!-- settings -->
 <section class="screen" id="settings">
   <div class="apphead"><button class="back" data-home>‹</button><div><div class="ah-t">設定・記録</div><div class="ah-s">ゲージ／応援台帳／Keepsake／Diff Log</div></div></div>
@@ -420,7 +445,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v18";
+const VER="v19";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1274,7 +1299,7 @@ N('逃げ道は、もうなかった。いや――彼女が、逃げ道を探�
 <script>
 "use strict";
 /* ============ navigation ============ */
-const SCREENS=["consent","lock","home","story","his","prog","gallery","talk","settings"];
+const SCREENS=["consent","lock","home","story","his","prog","gallery","talk","thread","settings"];
 function show(id){SCREENS.forEach(s=>$("#"+s).classList.toggle("on",s===id));window.scrollTo(0,0);const b=$("#"+id+" .appbody");if(b)b.scrollTop=0;}
 document.querySelectorAll("[data-home]").forEach(b=>b.onclick=()=>{renderHome();show("home");});
 /* ============ clock ============ */
@@ -1571,8 +1596,30 @@ function renderTalk(){
  const curOrd=S.eraNow!==undefined?eraOrd[S.eraNow]:(S.flags.boys?2:S.flags.chuang?1:0);
  const msgEra=m=>{if(!m.flag)return 0;if(m.flag==="chuang"||m.flag==="ranked21"||m.flag==="known21"||m.flag.indexOf("c21")===0)return 1;if(m.flag==="boys"||m.flag==="ranked23"||m.flag==="ranked23B"||m.flag==="known23"||m.flag.indexOf("b23")===0)return 2;return 0;};
  const vis=msgs.filter(m=>(m.flag?!!S.flags[m.flag]:(S.idx>=m.at))&&msgEra(m)<=curOrd);
- $("#talk-body").innerHTML=(vis.length?vis.map(m=>`<div class="trow"><img src="${m.img}"><div><div class="tn">${m.who}</div><div class="tp">${m.p}</div></div><div class="tt">${m.t}</div></div>`).join(""):`<div class="empty">まだトークはありません。<br>物語を進めると、合宿中の連絡が届きます。</div>`)+`<p class="small" style="padding:12px 16px">※ 彼のメッセージは短く、少ない。人見知りの彼のペースそのままです。</p>`;
+ $("#talk-body").innerHTML=(vis.length?vis.map(m=>`<div class="trow"><img src="${m.img}"><div><div class="tn">${m.who}</div><div class="tp">${m.p}</div></div><div class="tt">${m.t}</div></div>`).join(""):`<div class="empty">まだトークはありません。<br>物語を進めると、合宿中の連絡が届きます。</div>`)+`<p class="small" style="padding:12px 16px">※ 彼のメッセージは短く、少ない。人見知りの彼のペースそのままです。<br>※ 井汲大翔のトークをタップすると、スレッドが開きます（フリートークはおまけで、物語の数値には影響しません）。</p>`;
+ document.querySelectorAll("#talk-body .trow").forEach((el,i)=>{const m=vis[i];if(m&&m.who==="井汲大翔"){el.classList.add("th-open");el.onclick=()=>{seTap(1);openThread(vis.filter(x=>x.who==="井汲大翔"));};}});
 }
+/* ============ talk thread + free chat (bonus; no effect on story numbers) ============ */
+let thdImg="assets/hiroto/hiroto.jpg",thdBusy=false,thdDef=0;
+const THD_RULES=[
+ {k:["飴","あめ","甘い","ごはん","食べ"],r:["……ありがとう。……甘いの、好きやねん","……もらってばっかりやな。……ありがとう"]},
+ {k:["がんば","頑張","応援","大丈夫","ファイト"],r:["……うん。……届いてる","……ありがとう。……がんばる"]},
+ {k:["歌","うた"],r:["……歌は、好きや。……まだ下手やけど","……もっと上手くなりたい"]},
+ {k:["ダンス","踊","振り","振付"],r:["……ダンスは、まだまだや。……教えてな","……今日も練習した。……少しはマシになった？"]},
+ {k:["ツカメ"],r:["……ツカメは、もう大丈夫なはず","……あの曲は、特別や"]},
+ {k:["おつかれ","お疲れ","寝て","休ん","ねて"],r:["……おつかれさま。……そっちも寝てな","……うん。……今日はもう寝るわ"]},
+ {k:["ありがとう"],r:["……こっちこそ","……ううん。ありがとうは、俺のセリフや"]},
+ {k:["未来","知って","秘密","バレ"],r:["……それ以上は、聞かんとく","……なあ、その話は……また今度な"]},
+ {k:["おはよう","こんにちは","こんばんは","やあ","よろ"],r:["……やあ","……こんばんは。……練習、終わったとこ"]}
+];
+const THD_DEF=["……うん","……ありがとう","……また明日な","……練習、戻るわ","……そっか"];
+function thdBub(me,t,img){return me?`<div class="thd-row me"><div class="thd-bub">${esc(t)}</div></div>`:`<div class="thd-row"><img src="${img||thdImg}"><div class="thd-bub">${esc(t)}</div></div>`;}
+function openThread(hist){if(hist.length)thdImg=hist[hist.length-1].img;const b=$("#thd-body");b.innerHTML=`<div class="thd-note">― これまでのトーク ―</div>`+hist.map(m=>thdBub(false,m.p,m.img)).join("")+`<div class="thd-note">― フリートーク（ここから自由に送れます）―</div>`;$("#thd-chips").innerHTML=["おつかれさま","応援してる","飴あげる","明日もがんばろ"].map(c=>`<button>${c}</button>`).join("");document.querySelectorAll("#thd-chips button").forEach(x=>x.onclick=()=>sendThd(x.textContent));b.scrollTop=b.scrollHeight;show("thread");}
+function hirotoReply(t){for(const rule of THD_RULES){if(rule.k.some(k=>t.includes(k)))return rule.r[Math.floor(Math.random()*rule.r.length)];}const d=THD_DEF[thdDef%THD_DEF.length];thdDef++;return d;}
+function sendThd(txt){txt=(txt||"").trim();if(!txt||thdBusy)return;const b=$("#thd-body");b.insertAdjacentHTML("beforeend",thdBub(true,txt));$("#thd-in").value="";b.scrollTop=b.scrollHeight;thdBusy=true;setTimeout(()=>{b.insertAdjacentHTML("beforeend",`<div class="thd-row" id="thd-typing"><img src="${thdImg}"><div class="thd-bub">……</div></div>`);b.scrollTop=b.scrollHeight;},450);setTimeout(()=>{const ty=$("#thd-typing");if(ty)ty.outerHTML=thdBub(false,hirotoReply(txt));b.scrollTop=b.scrollHeight;thdBusy=false;seTap(0.7);},1250);}
+$("#thd-send").onclick=()=>sendThd($("#thd-in").value);
+$("#thd-in").addEventListener("keydown",e=>{if(e.key==="Enter")sendThd($("#thd-in").value);});
+$("#thd-back").onclick=()=>{renderTalk();show("talk");};
 /* ============ settings ============ */
 let setTab="gauge";
 document.querySelectorAll("#set-tabs button").forEach(b=>b.onclick=()=>renderSettings(b.dataset.stab));
