@@ -195,6 +195,13 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 #vw-count{color:rgba(255,255,255,.65);font-size:12.5px;letter-spacing:.1em}
 .gal figure{cursor:pointer}
 .recap{margin:14px auto;max-width:92%;text-align:center;font-size:11.5px;letter-spacing:.04em;color:#ffe9a8;background:rgba(255,214,10,.08);border:1px solid rgba(255,214,10,.35);border-radius:999px;padding:7px 14px;line-height:1.6}
+.vote-prof{display:flex;gap:11px;align-items:center;background:#f7f5ee;border:1px solid #eadfc0;border-radius:14px;padding:10px 12px;margin:10px 0}
+.vote-prof img{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top}
+.vote-prof .vp-n{font-weight:800;font-size:14.5px}
+.vote-prof .vp-m{font-size:11px;color:#8a8aa0}
+.vote-done{background:linear-gradient(120deg,#fff8e1,#ffecb3);border:1px solid #e8c96a;border-radius:14px;padding:12px 14px;margin:10px 0;display:flex;flex-direction:column;gap:2px}
+.vote-done b{color:#8a6d1a;font-size:14px}
+.vote-done span{font-size:12px;color:#6b5a20}
 #lock .lk-notif.sub{padding:10px 13px;border-radius:16px}
 #lock .lk-notif.sub .lk-nic{width:26px;height:26px;border-radius:7px}
 #lock .lk-notif .lk-when{margin-left:auto;font-size:10.5px;color:rgba(255,255,255,.55);flex:none;padding-top:2px}
@@ -486,11 +493,11 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v33";
+const VER="v34";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
- flags:{},ledger:[],keeps:[],diffs:[],votedDay:-1,day:1,finishedA:false,hisSeen:false};
+ flags:{},ledger:[],keeps:[],diffs:[],votedDay:-1,voteTime:"",day:1,finishedA:false,hisSeen:false};
 let S; try{S=Object.assign(JSON.parse(JSON.stringify(DEF)),JSON.parse(localStorage.getItem("tlSaveV2")||"{}"));}catch(e){S=JSON.parse(JSON.stringify(DEF));}
 if(!S.g)S.g=JSON.parse(JSON.stringify(DEF.g));
 function save(){try{localStorage.setItem("tlSaveV2",JSON.stringify(S));}catch(e){}}
@@ -1628,7 +1635,7 @@ function renderProg(tab){progTab=tab;document.querySelectorAll("#prog-tabs butto
    <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2019/profile-close.jpg"><div><div class="rnm">ナオ</div><div class="rmeta">脱落（生存枠の手前）</div></div></div>`+naoPopHTML("y2019"):"");}
  }
  if(tab==="vote"){
-   if(!S.flags.leaped){body.innerHTML=`<div class="pad"><div class="card"><h3>国民プロデューサー投票</h3><p>0周目の彼女は、ファンとして毎日投票していました。公式ルール内の投票のみです。</p><button class="btn gold" id="vote-btn" ${S.votedDay===0?"disabled":""}>${S.votedDay===0?"本日分は投票済み":"井汲大翔に投票する"}</button><p class="small" style="margin-top:8px">投票済み回数：${S.voteCount||0}回</p></div></div>`;const vb=$("#vote-btn");if(vb)vb.onclick=()=>{seNotif();S.votedDay=0;S.voteCount=(S.voteCount||0)+1;save();renderProg("vote");};}
+   if(!S.flags.leaped){body.innerHTML=`<div class="pad"><div class="card"><h3>国民プロデューサー投票</h3><p>0周目の彼女は、ファンとして毎日投票していました。公式ルール内の投票のみです。</p><div class="vote-prof"><img src="assets/hiroto/hiroto.jpg"><div><div class="vp-n">井汲大翔</div><div class="vp-m">PRODUCE 101 JAPAN ― 練習生</div></div></div>${S.votedDay===0?`<div class="vote-done"><b>投票を受け付けました</b><span>井汲大翔 ― 1票${S.voteTime?`（${S.voteTime} 受付）`:""}</span></div>`:`<button class="btn gold" id="vote-btn">井汲大翔に投票する</button>`}<p class="small" style="margin-top:8px">投票済み回数：${S.voteCount||0}回 ― 彼女の毎日は、こうして積み重なっていました。</p></div></div>`;const vb=$("#vote-btn");if(vb)vb.onclick=()=>{seNotif();S.votedDay=0;S.voteCount=(S.voteCount||0)+1;const _d=new Date();S.voteTime=_d.getHours()+":"+String(_d.getMinutes()).padStart(2,"0");save();renderProg("vote");};}
    else{body.innerHTML=`<div class="empty">練習生は投票できません。<br>――いま彼女が届けられる応援は、<br>画面の向こうではなく、同じ時代の中にあります。</div>`;}
  }
  if(tab==="mission"){const ci=chapIndexNow();body.innerHTML=`<div style="padding:6px 0 14px">${missionsNow().map((m,i)=>`<div class="ledrow"><div class="lt">${i<ci?"完了":i===ci?"現在のミッション":"今後"}</div>${m.t}<div class="small">${m.d}</div></div>`).join("")}</div>`;}
