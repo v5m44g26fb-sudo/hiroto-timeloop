@@ -399,7 +399,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v6";
+const VER="v7";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -768,7 +768,73 @@ D('hiroto','……あと、もうちょっとやったな'),
  D('hiroto','……気のせい、か')
 ]},
 {k:'diff',t:'2021年の差分：言葉のアウェーでも、彼女は彼の隣にいた。彼の「前にもあった気がする」は、時代を跨いで濃くなっている。'},
-{k:'end21A'}
+{k:'end21A'},
+/* ================= 2021編・周B ================= */
+{k:'chap',title:'第2部 2021 創造営編 ― 周B',sub:'夢じゃなかった、と彼は言った',era:'CYCLE B ― 2021 / CHUANG 2021',wdate:'2020年・再び、応募前',lock:'2021年 ― 周B'},
+SYS('― 彼女は再び2020年に戻った。そして彼は、ファイナルの夜に初めてこの時代で巻き戻った ―'),
+N('2020年。目覚めた瞬間に分かった。戻ってきた、と。中国行きの応募が、また始まる時期だった。'),
+M('（彼は周Aの全部を覚えてる。……そして、薄れていた2019年の記憶も、私に会えば――）'),
+{k:'hisin',lines:[
+ M('（……戻ってきた。ファイナルの、あの瞬間から）'),
+ M('（中国語のカウントも、寮の匂いも、全部覚えてる）'),
+ M('（あの子や。……ナオ）'),
+ M('（夢やと思ってた、2019年の「いなかったはずの子」と、同じ顔、同じ助け方）'),
+ M('（今度こそ、確かめる）')
+]},
+{k:'chap',title:'再会 ― 時代を跨いだ確信',sub:'先に声をかけたのは、また彼だった',era:'CYCLE B ― 2021 / CHUANG 2021',wdate:'2021年・海南島、登録の日（2回目）',lock:'2021年 ― 周B'},
+{k:'bg',img:'assets/nao/2021/profile.jpg',cap:'創造営2021 ― 登録の日、2回目'},
+N('登録の列。彼女が書類を整えていると、後ろから声がした。'),
+D('hiroto','……ナオ'),
+N('振り向くと彼がいた。まだ、この時代では名乗っていないのに。'),
+D('hiroto','いち、に、さん、で入るとこ。……お前が教えてくれたカウントや'),
+M('（周Aで、私が添えた日本語のカウント。……覚えてる）'),
+D('hiroto','それと、な。……夢やと思ってたことがある。2019年、日プの合宿に、お前みたいな子がおった夢'),
+D('hiroto','お前、1周目にはおらんかった。……この時代でも、俺の「最初」にはおらんかった'),
+{k:'c',opts:[
+ {t:'全部話す（2019年のことも、未来のファンだったことも）',fx:{todoita:1},res:[D('nao','……2019年も、私やった。未来から来た、あんたのファン。テレビの向こうで見てた側の人間'),D('hiroto','……やっぱり'),N('彼は目を伏せて、長い息を吐いた。そして顔を上げた時、その目は「試す」色をしていなかった。'),D('hiroto','……2つの時代で、隣におってくれたんか。……ありがとう、な')]},
+ {t:'この時代のことだけ認める',fx:{},res:[D('nao','……この時代のことは、認める。私も戻ってきた側'),D('hiroto','2019年のことは？'),D('nao','……今は、まだ言えない'),N('彼は少しだけ笑った。「無理には聞かん」。その優しさは、どの時代でも同じだった。')]},
+ {t:'「気のせい」で押し通す',fx:{iwakan:6},res:[D('nao','……気のせい、ちゃうかな'),D('hiroto','カウントの癖まで、気のせいか'),N('彼女は押し切れなかった。彼の確信は、もう揺るがなかった。')]}
+]},
+{k:'flag',f:'known21'},
+D('hiroto','ルールは、前と同じでええ？　先のことは言うな。……順位は、上げられるか？'),
+D('nao','15位が、この時代の最低ライン。デビュー圏の手前、12位までなら'),
+D('hiroto','……ほな、やろう。二人で。今度は中国のステージで'),
+{k:'diff',t:'発覚（2021編）：彼の薄れた記憶と今周の記憶が繋がった。秘密は再び「二人の作戦」になった。性別の秘密は、まだ彼も知らない。'},
+{k:'chap',title:'共同作戦 ― 言葉の壁を越える',sub:'第2層は、努力で動く',era:'CYCLE B ― 2021 / CHUANG 2021',wdate:'2021年・合宿（2回目）',lock:'2021年 ― 周B'},
+N('作戦の柱は2つ。彼の中国語のアピールを底上げすること。そして、周Aで届けた応援を、もう一度届け直すこと（台帳の維持）。'),
+{k:'c',opts:[
+ {t:'自己紹介と受け答えの中国語を、毎日30分みっちり練習する',fx:{uta:2},res:[N('「大家好，我是井汲大翔」。発音を直し、質問への返しを体に入れていく。彼は「言葉が届けば、人は見てくれる」と言った。')],effort21:2},
+ {t:'ステージの立ち位置と表情を、二人で詰める',fx:{dance:2},res:[N('カメラの位置を確認し、彼の笑顔が一番届く角度を探した。言葉の代わりに、目線で語るステージにしていく。')],effort21:2},
+ {t:'周Aの応援を届け直す（台帳の維持）',fx:{todoita:1},res:[N('カウントの補助を、もう一度。彼は今度は、それが彼女だと知った上で受け取った。「……ありがとう。今度は分かってる」'),{k:'ledger',t:'（周Bで維持）創造営のカウント補助を届け直した。彼は書いた相手を知った上で受け取った。'}],effort21:1}
+]},
+{k:'c',opts:[
+ {t:'中国語の練習ノート作りを手伝う',fx:{},res:[N('彼はノートに、発音をカタカナで書き込んでいった。最後のページに、なぜか彼女の名前も練習で書いてあった。'),{k:'keep',t:'彼の中国語練習ノート。最後のページに、彼女の名前がカタカナで練習書きされている。'}],effort21:1},
+ {t:'他の学員との交流の場に、彼を連れていく',fx:{ishi:3},res:[N('言葉は拙くても、輪の中に入る勇気。彼の礼儀正しさは、国境を越えて伝わった。')],effort21:2},
+ {t:'「詰まっても止まるな」を、中国語でも伝える',fx:{ishi:3},res:[D('nao','“不要停（止まるな）”。……詰まっても、歌は続く'),D('hiroto','……不要停。……うん、覚えた')],effort21:1}
+]},
+{k:'bg',img:'assets/nao/2021/stage.jpg',cap:'創造営2021 ― 周Bのステージ'},
+N('周Bのステージ。彼の中国語の自己紹介は、周Aより長く、はっきりしていた。観客の反応が、目に見えて変わった。'),
+M('（結末は同じでも、景色は変えられる。……この時代でも）'),
+{k:'chap',title:'順位発表 ― 周B',sub:'最低ラインから、上へ',era:'CYCLE B ― 2021 / CHUANG 2021',wdate:'2021年・ファイナルの夜（2回目）',lock:'2021年 ― 順位発表'},
+SYS('― ファイナルの夜、2回目。ここから先は、ふざけられない時間です ―'),
+N('彼女の挑戦は、今回もデビューの枠の手前で終わった。椅子は、誰のものも奪っていない。'),
+N('そして、彼の名前が呼ばれる順番が来た。周Aでは、ここで15位のコールが彼の挑戦を閉じた。'),
+{k:'rank21B'},
+N('通路で彼は、窓の外の海を見て笑った。'),
+D('hiroto','……結末は、同じやったな'),
+D('nao','でも順位は上がった。……言葉も、届いた'),
+D('hiroto','……うん。次は韓国、か。……いや、先のことは聞かん。……でも、行く気はある'),
+{k:'diff',t:'周Bの結果（2021編）：デビューできない結末は不変。ただし彼の最終順位は周A（15位）から上振れした。'},
+{k:'chap',title:'現在インタールード 2',sub:'2026年、小さく変わった現在（2）',era:'CYCLE B ― 2026 / 現在インタールード',wdate:'2026年・少しだけ違う現在',lock:'2026年 ― 現在'},
+{k:'bg',img:'assets/nao/common/audience-back.jpg',cap:'現在 ― 変わったのは、また一文'},
+N('――2026年。なおの部屋。'),
+N('彼の経歴の骨格は、変わっていない。創造営2021、15位前後の記録。デビューはしていない。それでも。'),
+N('中国のファンが訳した古いインタビューを読み返した時、記憶と違う一文があった。'),
+D('other','「中国でも、隣にいてくれた子がいたんです。言葉より先に、カウントを数えてくれる子が」'),
+M('（……この一文も、0周目には無かった）'),
+N('彼の手帳に挟まった飴の包み紙と、中国語ノートの最後のページ。時代を跨いで残るものが、少しずつ増えていく。'),
+{k:'diff',t:'現在の差分：彼の中国時代のインタビューの一文が変わった。「隣にいてくれた子」が、2つの時代に残った。'},
+{k:'end21B'}
 ];
 </script>
 <script>
@@ -784,8 +850,8 @@ setInterval(tick,20000);
 $("#consent-btn").onclick=()=>{S.consented=true;S.started=true;save();enterLock();};
 function enterLock(){tick();const cur=SCRIPT[Math.min(S.idx,SCRIPT.length-1)];
  $("#lk-date").textContent=S.flags.chuang?"2021年":(S.flags&&S.flags.leaped)?"2019年":"2026年";
- $("#lk-era").textContent=S.finished21A?"2021年 ― 周Bへ":S.flags.chuang?"2021年 ― 周A":S.finishedB?"幕間 ― 岐路":S.finishedA?"2019年 ― 周B":(S.flags&&S.flags.leaped?"2019年 ― 周A":"0周目 ― 現在");
- $("#lk-notif-t").textContent=S.finished21A?"2021編・周Aが終わりました。記録は各アプリから見返せます。":S.flags.chuang?"創造営2021の学員証が届いています。中国での合宿が始まります。":S.finishedB?"彼は岐路に立っています。幕間が始まります。":S.finishedA?"彼は巻き戻りました。周Bが始まります。":(S.flags&&S.flags.leaped?"番組アプリが届いています。合宿が始まります。":"PRODUCE 101 JAPAN の思い出が、通知で届きました。");
+ $("#lk-era").textContent=S.finished21B?"2021編 ― 完":S.finished21A?"2021年 ― 周Bへ":S.flags.chuang?"2021年 ― 周A":S.finishedB?"幕間 ― 岐路":S.finishedA?"2019年 ― 周B":(S.flags&&S.flags.leaped?"2019年 ― 周A":"0周目 ― 現在");
+ $("#lk-notif-t").textContent=S.finished21B?"2021編が終わりました。記録は各アプリから見返せます。":S.finished21A?"彼は巻き戻りました。2021編・周Bが始まります。":S.flags.chuang?"創造営2021の学員証が届いています。中国での合宿が始まります。":S.finishedB?"彼は岐路に立っています。幕間が始まります。":S.finishedA?"彼は巻き戻りました。周Bが始まります。":(S.flags&&S.flags.leaped?"番組アプリが届いています。合宿が始まります。":"PRODUCE 101 JAPAN の思い出が、通知で届きました。");
  show("lock");}
 $("#lock").onclick=()=>{renderHome();show("home");};
 /* ============ home ============ */
@@ -804,10 +870,10 @@ function renderHome(){
  const c=chapNow();
  if(c.era)$("#w-era").textContent=c.era;
  if(c.wdate)$("#w-date").textContent=c.wdate;
- $("#w-cycle").textContent=S.finished21A?"周回：2021編 周A 完":S.flags.chuang?"周回：2021編（周A）":S.finishedB?"周回：幕間":S.finishedA?"周回：周B（2周目）":"周回："+(S.flags.leaped?"1周目（周A）":"0周目");
- $("#w-sub").textContent=S.finished21A?"2つ目の時代でも、彼女は彼の隣にいた。":S.flags.chuang?"言葉のアウェーでも、応援は届く。":S.finishedB?"彼の歴史に、彼女のいた証拠が残った。":(S.flags.leaped?"結末は変えられない。でも順位も毎日も、努力で動く。":"1周目（史実）には、彼女は彼の歴史のどこにもいない。");
- $("#sb-title").textContent=S.finished21A?"2021 創造営編 ― 周A 完":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"2019 日プ編 ― 完":c.title;
- $("#sb-desc").textContent=S.finished21A?"おつかれさまでした。次は2021編・周Bです（次版）。記録は「設定・記録」で見返せます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub;
+ $("#w-cycle").textContent=S.finished21B?"周回：2021編 完":S.finished21A?"周回：2021編 周Bへ":S.flags.chuang?"周回：2021編（周A）":S.finishedB?"周回：幕間":S.finishedA?"周回：周B（2周目）":"周回："+(S.flags.leaped?"1周目（周A）":"0周目");
+ $("#w-sub").textContent=S.finished21B?"2つの時代に、彼女のいた証拠が残った。":S.finished21A?"2つ目の時代でも、彼女は彼の隣にいた。":S.flags.chuang?"言葉のアウェーでも、応援は届く。":S.finishedB?"彼の歴史に、彼女のいた証拠が残った。":(S.flags.leaped?"結末は変えられない。でも順位も毎日も、努力で動く。":"1周目（史実）には、彼女は彼の歴史のどこにもいない。");
+ $("#sb-title").textContent=S.finished21B?"2021 創造営編 ― 完":S.finished21A?"2021 創造営編 ― 周A 完":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"2019 日プ編 ― 完":c.title;
+ $("#sb-desc").textContent=S.finished21B?"おつかれさまでした。次は幕間2と2023年編です（次版）。記録は「設定・記録」で見返せます。":S.finished21A?"2021編・周Bへ進みます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub;
  $("#apps").innerHTML=APPS.map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span><span>${a.lb}</span></button>`).join("");
  document.querySelectorAll("#apps .appicon").forEach(b=>b.onclick=()=>{const a=APPS.find(x=>x.id===b.dataset.app);if(a.lock&&a.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}openApp(a.id);});
  const w3t=$("#w3-title"),w3d=$("#w3-desc");
@@ -864,7 +930,9 @@ function processItem(it){
   case 'ishiGate':{const hi=S.g.ishi>=(it.th||60);(hi?it.hi:it.lo).forEach(l=>{if(l.k==='ledger'||l.k==='keep'||l.k==='diff'||l.k==='fx')processResItem(l);else pushLog(lineHTML(l));});S.idx++;break;}
   case 'rank21':S.flags.ranked21=true;pushLog(canon21HTML());S.idx++;break;
   case 'endM1':S.finishedM1=true;pushLog(`<div class="canon"><h3>幕間1 ― 完</h3><div style="font-size:13px;line-height:1.8">彼は「もう一度」を選んだ。行く先は中国、大規模サバイバル番組『創造営2021』。<br>――第2部・2021 創造営編へ続く。</div></div>`);S.idx++;break;
-  case 'end21A':S.finished21A=true;pushLog(`<div class="canon"><h3>2021 創造営編 ― 周A 終了</h3><div style="font-size:13px;line-height:1.8">15位は、周Aの結果（最低ライン）。デビューできない結末は、この時代でも変わらなかった。<br>そして彼の脱落の瞬間――記憶は再び巻き戻り、彼女の「既視感」は彼の確信へ近づいていく。――周Bへ続く（次版）。</div></div>`);S.idx++;break;
+  case 'end21A':S.finished21A=true;pushLog(`<div class="canon"><h3>2021 創造営編 ― 周A 終了</h3><div style="font-size:13px;line-height:1.8">15位は、周Aの結果（最低ライン）。デビューできない結末は、この時代でも変わらなかった。<br>そして彼の脱落の瞬間――記憶は再び巻き戻り、彼女の「既視感」は彼の確信へ近づいていく。――周Bへ続く。</div></div>`);S.idx++;break;
+  case 'rank21B':{let r=15;r-=(S.flags.effort21>=4?2:S.flags.effort21>=2?1:0);r-=(S.g.todoita>=8?1:0);if(r<12)r=12;S.rank21B=r;S.flags.ranked21B=true;pushLog(canon21BHTML(r));S.idx++;break;}
+  case 'end21B':S.finished21B=true;pushLog(`<div class="canon"><h3>2021 創造営編 ― 完</h3><div style="font-size:13px;line-height:1.8">デビューできない結末は変わらなかった。でも彼の歴史に「隣にいてくれた子」が、2つの時代に残った。<br>――次は幕間2（NXDへの流れ）と、2023年・ボイプラ編へ。（次版で公開）</div></div>`);S.idx++;break;
   case 'his':S.idx++;save();openHis(it.lines);break;
   case 'c':renderChoices(it);break;
   case 'endA':S.finishedA=true;pushLog(`<div class="canon"><h3>2019 日プ編 ― 周A 終了</h3><div style="font-size:13px;line-height:1.8">36位は、周Aの結果（最低ライン）。でも、0周目にはなかったものが、この周には残った。<br>そして脱落の瞬間――彼は初めて、2019年4月へ巻き戻る。――周Bへ続く。</div></div>`);S.idx++;break;
@@ -873,6 +941,10 @@ function processItem(it){
  save();renderGauges();updProg();
 }
 function updProg(){const i=$("#st-prog-i");if(i)i.style.width=Math.min(100,Math.round((S?S.idx:0)/SCRIPT.length*100))+"%";}
+function canon21BHTML(r){const g=S.g;return `<div class="canon"><h3>CANON LOCK ― 創造営2021・周Bの内訳</h3>
+ <div class="crow"><span class="fixed">絶対不変</span><div>デビューできない結末（INTO1には入らない）／脱落した発表回は史実と同じ／大きな節目：変更なし</div></div>
+ <div class="crow"><span class="changed">努力で動いた</span><div>井汲大翔の最終順位：15位 → <b>${r}位</b>（デビュー圏＝11位以内の手前まで上昇）／中国語のアピールが届いた／届いた応援：<b>${g.todoita}件</b></div></div>
+ <div style="font-size:11.5px;color:#a9a9c4;margin-top:6px">結末は同じでも、言葉の壁の向こうの景色は、二人で変えた。</div></div>`;}
 function canon21HTML(){const g=S.g;return `<div class="canon"><h3>CANON LOCK ― 創造営2021・順位発表の内訳</h3>
  <div class="crow"><span class="fixed">絶対不変</span><div>デビューできない結末（彼はINTO1のメンバーに入らない）／ファイナルまで残る節目は変更なし</div></div>
  <div class="crow"><span class="changed">周Aの結果</span><div>井汲大翔：<b>15位</b>（史実どおり＝最低ライン）／届いた応援：<b>${g.todoita}件</b>／言葉の壁の向こうで、隣に立つ人がいた</div></div>
@@ -892,6 +964,7 @@ function renderChoices(it){
    pushLog(`<div class="dlg nao"><div class="who">ナオ ― 選んだこと</div>${esc(o.t)}</div>`);
    if(o.fx)applyFx(o.fx);
    if(o.effort)S.flags.effortB=(S.flags.effortB||0)+o.effort;
+   if(o.effort21)S.flags.effort21=(S.flags.effort21||0)+o.effort21;
    (o.res||[]).forEach(r=>{if(r.k==='ledger'||r.k==='keep'||r.k==='diff'||r.k==='fx'){processResItem(r);}else pushLog(lineHTML(r));});
    S.idx++;save();renderGauges();
  });
@@ -933,7 +1006,7 @@ function renderProg(tab){progTab=tab;document.querySelectorAll("#prog-tabs butto
  if(tab==="roster"){body.innerHTML=`<div class="roster">${rosterNow().map(r=>`<div class="rcard ${r.me?"me":""} ${r.hiroto?"hiroto":""}"><img src="${r.img}" alt=""><div class="rn">${r.nm}${r.me?"（自分）":""}</div><div class="rm">${r.meta}</div></div>`).join("")}</div><p class="small" style="padding:0 16px 16px">名簿は一部を表示しています。金枠＝自分、ピンク枠＝井汲大翔。${S.flags.chuang?"（創造営2021の名簿）":""}</p>`;}
  if(tab==="rank"){
    if(!S.flags.ranked&&!S.flags.ranked21){body.innerHTML=`<div class="empty">順位発表はまだ行われていません。<br>発表の夜に、ここへ結果が刻まれます。</div>`;}
-   else{body.innerHTML=(S.flags.ranked21?canon21HTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">1位〜14位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
+   else{body.innerHTML=(S.flags.ranked21B?canon21BHTML(S.rank21B)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rank21B}</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">井汲大翔（創造営・周B）</div><div class="rmeta">デビュー圏外 ― 周Aの15位から上昇</div></div></div>`:"")+(S.flags.ranked21?canon21HTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">1位〜14位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
    <div class="rankrow"><div class="rk" style="color:var(--pink)">15</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">井汲大翔（創造営）</div><div class="rmeta">デビュー圏外 ― 周Aの結果（最低ライン）</div></div></div>
    <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2021/profile.jpg"><div><div class="rnm">ナオ</div><div class="rmeta">脱落（デビューの枠の手前）</div></div></div>`:"")+(S.flags.rankedB?canonBHTML(S.rankB)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rankB}</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">井汲大翔（周B）</div><div class="rmeta">脱落 ― 周Aの36位から上昇（デビュー圏外）</div></div></div>`:"")+(S.flags.ranked?canonHTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">1位〜35位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
    <div class="rankrow"><div class="rk" style="color:var(--pink)">36</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">井汲大翔</div><div class="rmeta">脱落 ― 周Aの結果（最低ライン）</div></div></div>
@@ -971,7 +1044,8 @@ function renderTalk(){
   {at:100,who:"井汲大翔",img:"assets/hiroto/hiroto.jpg",p:"飴、……ありがとう",t:"脱落の夜"},
   {flag:"chuang",who:"創造営・学員連絡（全体）",img:"assets/hiroto21/hiroto.jpg",p:"欢迎来到创造营2021（ようこそ創造営2021へ）。初回評価のリハーサルは明日9時からです。",t:"2021年"},
   {flag:"c21practice",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"今日の練習、ありがとうございました。中国語、もっと頑張ります",t:"2021年・合宿中"},
-  {flag:"ranked21",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"15位でした。……見ててくれて、ありがとう",t:"ファイナルの夜"}
+  {flag:"ranked21",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"15位でした。……見ててくれて、ありがとう",t:"ファイナルの夜"},
+  {flag:"known21",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"ノート、最後のページ見た？　……名前、練習した",t:"2021年・周B"}
  ];
  const vis=msgs.filter(m=>m.flag?!!S.flags[m.flag]:(S.idx>=m.at));
  $("#talk-body").innerHTML=(vis.length?vis.map(m=>`<div class="trow"><img src="${m.img}"><div><div class="tn">${m.who}</div><div class="tp">${m.p}</div></div><div class="tt">${m.t}</div></div>`).join(""):`<div class="empty">まだトークはありません。<br>物語を進めると、合宿中の連絡が届きます。</div>`)+`<p class="small" style="padding:12px 16px">※ 彼のメッセージは短く、少ない。人見知りの彼のペースそのままです。</p>`;
@@ -992,8 +1066,8 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  if(tab==="keep"){body.innerHTML=S.keeps.length?S.keeps.map(t=>`<div class="ledrow"><div class="lt">Keepsake</div>${esc(t)}</div>`).join(""):`<div class="empty">まだ何も残っていません。<br>周を跨いで残るのは「彼が残すと決めたもの」だけです。</div>`;}
  if(tab==="diff"){body.innerHTML=S.diffs.length?S.diffs.map(t=>`<div class="ledrow"><div class="lt">Diff Log</div>${esc(t)}</div>`).join(""):`<div class="empty">まだ差分がありません。<br>0周目と変わったことが、ここに集まります。</div>`;}
  if(tab==="about"){body.innerHTML=`<div class="srow"><span>タイトル</span><span class="sv">1周目にはいなかったファンの件</span></div>
- <div class="srow"><span>バージョン</span><span class="sv">${VER}（0周目＋2019編＋幕間1＋2021編・周A）</span></div>
- <div class="srow"><span>進行</span><span class="sv">${S.finished21A?"2021編 周A 完":S.flags.chuang?"2021編 周A 進行中":S.finishedB?"幕間／2021編へ":S.finishedA?"周B 進行中":chapNow().title}</span></div>
+ <div class="srow"><span>バージョン</span><span class="sv">${VER}（0周目＋2019編＋幕間1＋2021編・周A/周B）</span></div>
+ <div class="srow"><span>進行</span><span class="sv">${S.finished21B?"2021編 完":S.finished21A?"2021編 周B 進行中":S.flags.chuang?"2021編 周A 進行中":S.finishedB?"幕間／2021編へ":S.finishedA?"周B 進行中":chapNow().title}</span></div>
  <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
  <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
  const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV1");location.reload();}};}
