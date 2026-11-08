@@ -23,7 +23,7 @@
 
 | 時代 | ファイル | 仕様 |
 |---|---|---|
-| 2019年版（日プ用） | `~/workspace/imagine_media/media-generation-nao-male-2019-0-8b2afb33-0012-4826-bbe9-1a760350e630.webp` | 17歳・黒髪短髪・白T・素朴なプロフィール |
+| 2019年版（日プ用）**確定・本人OK（2026-11-09）** | `~/workspace/imagine_media/media-generation-nao-male-2019-uniform-0-afdcabbf-adf2-4742-a185-3c858cec5133.webp` | 17歳・日プ制服（グレーブレザー＋白パイピング＋青チェック蝶ネクタイ＋名札）・立ちガッツポーズ・元の顔と白い肌を維持 |
 | 2021年版（創造営用） | `~/workspace/imagine_media/media-generation-nao-male-2021-0-7a3d7c55-bd9c-41c9-a8de-b3df560bc841.webp` | 19歳・訓練生ジャケット正面プロフィール |
 | 2023年版（ボイプラ用） | `~/workspace/imagine_media/media-generation-nao-male-2023-0-646fc911-55a8-45dd-a5d1-8e4b0f1fa204.webp` | 21歳・明るい茶髪レイヤー・韓国風練習生プロフィール |
 
@@ -63,3 +63,5 @@
 | 2023 ボイプラ | `~/workspace/boysplanet-uragawa/assets/cast/`（93名分＋α） | 大翔 `hiroto.jpg` ほか。出典: Mnet公式プロフィール（MANIFEST.mdに照合記録あり） |
 
 - Tinder版 assets にもある時代写真（`bp-profile.jpg`、`china2021.jpg`）は補助素材として使えるが、正は上記の各サバイバル編リポジトリ側とする
+
+- 2019年版の初回生成（白T・座りポーズ）は本人が「別人すぎる、顔が茶色い」と却下したため**破棄**（ファイルは残置するが使用禁止）。2019の正は制服版のみ。
