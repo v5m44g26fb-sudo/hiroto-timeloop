@@ -519,7 +519,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v100";
+const VER="v101";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1615,12 +1615,12 @@ function processItem(it){
   case 'flag':S.flags[it.f]=true;S.idx++;processNext();break;
   case 'era':S.eraNow=it.e;if(it.e==='2021')S.flags.chuang=true;if(it.e==='2023'){S.flags.chuang=true;S.flags.boys=true;}if(it.e==='2019'){S.flags.chuang=false;S.flags.boys=false;}S.idx++;processNext();break;
   case 'fx':applyFx(it.fx);S.idx++;processNext();break;
-  case 'ledger':if(!S.ledger.includes(it.t))S.ledger.push(it.t);pushLog(`<div class="narr sys"><span class="rec">台帳</span>応援台帳に記録されました</div>`);S.idx++;break;
-  case 'keep':if(!S.keeps.includes(it.t))S.keeps.push(it.t);pushLog(`<div class="narr sys"><span class="rec">KEEPSAKE</span>Keepsake Box に残りました</div>`);S.idx++;break;
+  case 'ledger':if(!S.ledger.includes(it.t))S.ledger.push(it.t);pushLog(`<div class="narr sys"><span class="rec">台帳</span>応援台帳に記録されました</div>`);sePop();S.idx++;break;
+  case 'keep':if(!S.keeps.includes(it.t))S.keeps.push(it.t);pushLog(`<div class="narr sys"><span class="rec">KEEPSAKE</span>Keepsake Box に残りました</div>`);seKeep();S.idx++;break;
   case 'diff':if(!S.diffs.includes(it.t))S.diffs.push(it.t);pushLog(lineHTML(it));seDiff();S.idx++;break;
   case 'n': case 'd': case 'm': case 'sys': case 'same':pushLog(lineHTML(it));S.idx++;break;
   case 'rank':S.flags.ranked=true;seRank();pushLog(canonHTML());pushLog(naoRankRow("y2019","A"));S.idx++;break;
-  case 'hisin':{const inner=it.lines.map(l=>lineHTML(l)).join("");pushLog(`<div class="hisin"><div class="hisin-tag">彼の画面 ― 大翔の視点</div>${inner}</div>`);S.idx++;break;}
+  case 'hisin':{const inner=it.lines.map(l=>lineHTML(l)).join("");pushLog(`<div class="hisin"><div class="hisin-tag">彼の画面 ― 大翔の視点</div>${inner}</div>`);seHis();S.idx++;break;}
   case 'tsukame':{const score=(S.flags.effortB||0)+(S.g.todoita>=4?1:0)+(S.g.ishi>=60?1:0);let out,lines;
    if(score>=4){out='keep';lines=[N('再評価の日。彼の番が来た。中盤、歌詞が一瞬詰まった。――でも、彼は止まらなかった。体が覚えた振りが、次の歌詞を連れてきた。'),N('最後まで、歌い切った。クラスは――C維持。周Aでは号泣と降格だったこの日が、静かに書き換わった。'),SYS('ツカメ再評価（周B）― 井汲大翔：C維持')];}
    else if(score>=2){out='nodrop';lines=[N('再評価の日。やはり中盤で、歌詞が飛んだ。クラスはDへ降格。――でも、彼は泣かなかった。'),N('「……止まらんかったら、歌は続く」。彼は自分にそう言い聞かせるように、最後まで踊り切った。'),SYS('ツカメ再評価（周B）― 井汲大翔：D降格（ただし号泣なし）')];}
@@ -1738,8 +1738,8 @@ function renderChoices(it){
  });
 }
 function processResItem(r){
- if(r.k==='ledger'){if(!S.ledger.includes(r.t))S.ledger.push(r.t);pushLog(`<div class="narr sys"><span class="rec">台帳</span>応援台帳に記録されました</div>`);}
- if(r.k==='keep'){if(!S.keeps.includes(r.t))S.keeps.push(r.t);pushLog(`<div class="narr sys"><span class="rec">KEEPSAKE</span>Keepsake Box に残りました</div>`);}
+ if(r.k==='ledger'){if(!S.ledger.includes(r.t))S.ledger.push(r.t);pushLog(`<div class="narr sys"><span class="rec">台帳</span>応援台帳に記録されました</div>`);sePop();}
+ if(r.k==='keep'){if(!S.keeps.includes(r.t))S.keeps.push(r.t);pushLog(`<div class="narr sys"><span class="rec">KEEPSAKE</span>Keepsake Box に残りました</div>`);seKeep();}
  if(r.k==='diff'){if(!S.diffs.includes(r.t))S.diffs.push(r.t);pushLog(lineHTML(r));}
  if(r.k==='fx'){applyFx(r.fx);}
 }
@@ -1760,7 +1760,7 @@ function openStory(){
 }
 /* ============ his screen ============ */
 let hisQueue=[],hisTotal=0;
-function openHis(lines){S.hisSeen=true;hisQueue=lines.slice();hisTotal=lines.length;$("#his-body").innerHTML="";show("his");hisNext();}
+function openHis(lines){S.hisSeen=true;hisQueue=lines.slice();hisTotal=lines.length;$("#his-body").innerHTML="";show("his");seHis();hisNext();}
 function hisNext(){
  if(!hisQueue.length){renderHome();show("home");return;}
  const it=hisQueue.shift();const d=document.createElement("div");
@@ -1937,7 +1937,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  <div class="srow"><span>到達した結末</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":"（まだ到達していません）"}</span></div>
  <div class="srow"><span>サウンド</span><span class="sv"><button id="snd-btn" style="background:${S.soundOn!==false?"#17172a":"#c6c6d4"};color:#fff;border:none;border-radius:999px;padding:6px 18px;font-size:12.5px;font-weight:700;cursor:pointer">${S.soundOn!==false?"ON":"OFF"}</button></span></div>
  <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
- <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加／v83 フリーチャットの話題拡充（2019専用プール＋新キーワード6種＋チップ追加）／v84 周Aの彼の記憶の線引きで全監査（2021・2023到着場面と彼の画面3件を連続した同僚の前提に書き換え）／v85 2019周A・練習室の夜に彼の視点（インライン）を追加／v86 2021周A・寮の一夜に彼の視点（インライン）を追加／v87 2023周A・コンビニの夜に彼の視点（インライン）を追加／v88 台帳・Keepsake・Diffの時代分類を修正（NXD期グループ新設、誤分類6件を是正）／v89 場面カット追加（2023順位発表の夜・face2基準で新規生成）／v90 場面カット追加（2021ファイナルの夜・face2基準で新規生成）／v91 節目 ― 全アプリ走査／v92 日常回「自販機の夜」（2023・周B）を追加／v93 2019周A・レベル分け評価に彼の視点（インライン）を追加／v94 写真アプリに時代別グルーピング（見出し＋枚数）を追加／v95 場面カット追加（NXD期・夜の練習室、face2基準で新規生成）／v96 フリーチャットの時代別プールを拡充（各時代＋2件）／v97 2019周B・発覚に彼の視点（インライン）を追加／v98 2021周B・再会に彼の視点（インライン）を追加／v99 2023周B・発覚に彼の視点（インライン）を追加／v100 節目 ― 全編通しプレイ検証</span></div>
+ <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加／v83 フリーチャットの話題拡充（2019専用プール＋新キーワード6種＋チップ追加）／v84 周Aの彼の記憶の線引きで全監査（2021・2023到着場面と彼の画面3件を連続した同僚の前提に書き換え）／v85 2019周A・練習室の夜に彼の視点（インライン）を追加／v86 2021周A・寮の一夜に彼の視点（インライン）を追加／v87 2023周A・コンビニの夜に彼の視点（インライン）を追加／v88 台帳・Keepsake・Diffの時代分類を修正（NXD期グループ新設、誤分類6件を是正）／v89 場面カット追加（2023順位発表の夜・face2基準で新規生成）／v90 場面カット追加（2021ファイナルの夜・face2基準で新規生成）／v91 節目 ― 全アプリ走査／v92 日常回「自販機の夜」（2023・周B）を追加／v93 2019周A・レベル分け評価に彼の視点（インライン）を追加／v94 写真アプリに時代別グルーピング（見出し＋枚数）を追加／v95 場面カット追加（NXD期・夜の練習室、face2基準で新規生成）／v96 フリーチャットの時代別プールを拡充（各時代＋2件）／v97 2019周B・発覚に彼の視点（インライン）を追加／v98 2021周B・再会に彼の視点（インライン）を追加／v99 2023周B・発覚に彼の視点（インライン）を追加／v100 節目 ― 全編通しプレイ検証／v101 効果音の配線追加（台帳・Keepsake・彼の視点）</span></div>
  <div class="pad"><p class="small">エンディングは5種（TRUE現在／通常現在／離脱した現在／秘密バレIF／ループ継続BAD）。結末は、彼の岐路での関わり・手がかり（Keepsakeと届いた数）・男装バレ度・最後の選択で分かれます。なお「デビューしてしまう現在」はIF候補として設計にのみ記録され、本編では採用していません（デビューメンバー構成は不変のため）。</p></div>
  <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
  const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV2");location.reload();}};
@@ -1954,6 +1954,8 @@ function seNotif(){tone(880,0.12,{type:"sine",vol:0.05});tone(1318.5,0.22,{type:
 function sePop(){tone(1046.5,0.14,{type:"triangle",vol:0.05});tone(1568,0.2,{type:"sine",vol:0.035,delay:0.06});}
 function seDiff(){tone(659.25,0.18,{type:"sine",vol:0.04});tone(987.77,0.3,{type:"sine",vol:0.032,delay:0.12});}
 function seRank(){tone(130.81,0.9,{type:"sine",vol:0.05,att:0.3});tone(196,0.9,{type:"sine",vol:0.04,att:0.3,delay:0.1});tone(523.25,0.5,{type:"triangle",vol:0.028,delay:0.35});tone(783.99,0.6,{type:"sine",vol:0.024,delay:0.5});}
+function seKeep(){tone(523.25,0.5,{type:"sine",vol:0.035,att:0.05});tone(659.25,0.55,{type:"sine",vol:0.032,att:0.05,delay:0.12});tone(783.99,0.8,{type:"sine",vol:0.028,att:0.08,delay:0.24});}
+function seHis(){tone(261.63,0.9,{type:"sine",vol:0.026,att:0.25});tone(196,1.1,{type:"sine",vol:0.02,att:0.3,delay:0.15});}
 const BGM_SETS={
  base:[[220,261.63,329.63,493.88],[174.61,220,261.63,349.23],[196,246.94,293.66,392],[164.81,220,261.63,329.63]],
  y2021:[[261.63,329.63,392,493.88],[196,293.66,392,587.33],[220,261.63,329.63,440],[174.61,261.63,349.23,440]],
