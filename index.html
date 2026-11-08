@@ -103,6 +103,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 .rcard.me{outline:2.5px solid var(--gold)}
 .rcard.hiroto{outline:2.5px solid var(--pink)}
 .rankrow{display:flex;align-items:center;gap:12px;background:#fff;margin:9px 12px 0;border-radius:13px;padding:10px 13px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.rankrow.me{border:2px solid var(--gold);background:#fffdf3}
 .rankrow img{width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:top}
 .rankrow .rk{font-size:17px;font-weight:800;width:38px;text-align:center}
 .rankrow>div{min-width:0}
@@ -430,7 +431,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
     <span class="w-cycle" id="w-cycle">周回：0周目</span>
   </div>
   <div id="story-banner">
-    <img class="sb-thumb" id="sb-thumb" src="assets/nao/2019/profile-face2-close.jpg" alt="">
+    <img class="sb-thumb" id="sb-thumb" src="assets/nao/2019/profile-face2-close2.jpg" alt="">
     <div class="sb-main">
       <div class="sb-badge" id="sb-badge">▶ ストーリーを進める</div>
       <div class="sb-title" id="sb-title">0周目プロローグ</div>
@@ -518,7 +519,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v59";
+const VER="v60";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -531,7 +532,7 @@ function save(){try{localStorage.setItem("tlSaveV2",JSON.stringify(S));}catch(e)
 "use strict";
 /* ============ cast / program data (2019) ============ */
 const ROSTER=[
- {nm:"三浦渚央",meta:"高3・ダンス未経験に近い",img:"assets/nao/2019/profile-face2-close.jpg",me:true},
+ {nm:"三浦渚央",meta:"高3・ダンス未経験に近い",img:"assets/nao/2019/profile-face2-close2.jpg",me:true},
  {nm:"井汲大翔",meta:"高2・ダンス未経験",img:"assets/hiroto/hiroto.jpg",hiroto:true},
  {nm:"河野純喜",meta:"練習生",img:"assets/cast2019/junki.jpg"},
  {nm:"川尻蓮",meta:"練習生",img:"assets/cast2019/ren.jpg"},
@@ -548,7 +549,7 @@ const MISSIONS=[
  {at:3,t:"順位発表式",d:"国民プロデューサーの投票結果が発表される。生存と脱落が決まる夜。"}
 ];
 const ROSTER21=[
- {nm:"三浦渚央",meta:"19歳・日本",img:"assets/nao/2021/profile.jpg",me:true},
+ {nm:"三浦渚央",meta:"19歳・日本",img:"assets/nao/2021/profile-close.jpg",me:true},
  {nm:"井汲大翔",meta:"18歳・日本",img:"assets/hiroto21/hiroto.jpg",hiroto:true},
  {nm:"劉宇（リウユー）",meta:"中国・学員",img:"assets/cast2021/liuyu.jpg"},
  {nm:"赞多（サンタ）",meta:"日本・学員",img:"assets/cast2021/santa.jpg"},
@@ -1524,22 +1525,22 @@ function processItem(it){
   case 'keep':if(!S.keeps.includes(it.t))S.keeps.push(it.t);pushLog(`<div class="narr sys"><span class="rec">KEEPSAKE</span>Keepsake Box に残りました</div>`);S.idx++;break;
   case 'diff':if(!S.diffs.includes(it.t))S.diffs.push(it.t);pushLog(lineHTML(it));seDiff();S.idx++;break;
   case 'n': case 'd': case 'm': case 'sys': case 'same':pushLog(lineHTML(it));S.idx++;break;
-  case 'rank':S.flags.ranked=true;seRank();pushLog(canonHTML());S.idx++;break;
+  case 'rank':S.flags.ranked=true;seRank();pushLog(canonHTML());pushLog(naoRankRow("y2019","A"));S.idx++;break;
   case 'hisin':{const inner=it.lines.map(l=>lineHTML(l)).join("");pushLog(`<div class="hisin"><div class="hisin-tag">彼の画面 ― 大翔の視点</div>${inner}</div>`);S.idx++;break;}
   case 'tsukame':{const score=(S.flags.effortB||0)+(S.g.todoita>=4?1:0)+(S.g.ishi>=60?1:0);let out,lines;
    if(score>=4){out='keep';lines=[N('再評価の日。彼の番が来た。中盤、歌詞が一瞬詰まった。――でも、彼は止まらなかった。体が覚えた振りが、次の歌詞を連れてきた。'),N('最後まで、歌い切った。クラスは――C維持。周Aでは号泣と降格だったこの日が、静かに書き換わった。'),SYS('ツカメ再評価（周B）― 井汲大翔：C維持')];}
    else if(score>=2){out='nodrop';lines=[N('再評価の日。やはり中盤で、歌詞が飛んだ。クラスはDへ降格。――でも、彼は泣かなかった。'),N('「……止まらんかったら、歌は続く」。彼は自分にそう言い聞かせるように、最後まで踊り切った。'),SYS('ツカメ再評価（周B）― 井汲大翔：D降格（ただし号泣なし）')];}
    else{out='same';lines=[N('再評価の日。対策は、届かなかった。彼は歌詞を飛ばし、その場で号泣した。周Aと寸分違わない光景だった。'),SYS('ツカメ再評価（周B）― 井汲大翔：D降格（史実どおり）')];}
    S.flags.tsukameB=out;lines.forEach(l=>pushLog(lineHTML(l)));S.idx++;break;}
-  case 'rankB':{let r=36;r-=(S.flags.tsukameB==='keep'?8:S.flags.tsukameB==='nodrop'?4:0);r-=(S.g.todoita>=5?4:S.g.todoita>=3?2:0);r-=(S.g.ishi>=65?3:0);if(r<12)r=12;S.rankB=r;S.flags.rankedB=true;seRank();pushLog(canonBHTML(r));S.idx++;break;}
+  case 'rankB':{let r=36;r-=(S.flags.tsukameB==='keep'?8:S.flags.tsukameB==='nodrop'?4:0);r-=(S.g.todoita>=5?4:S.g.todoita>=3?2:0);r-=(S.g.ishi>=65?3:0);if(r<12)r=12;S.rankB=r;S.flags.rankedB=true;seRank();pushLog(canonBHTML(r));pushLog(naoRankRow("y2019","B"));S.idx++;break;}
   case 'endB':S.finishedB=true;pushLog(`<div class="canon"><h3>2019 日プ編 ― 完</h3><div style="font-size:13px;line-height:1.8">デビューできない結末は変わらなかった。でも、彼の歴史に「隣で踊ってくれた子」が残り、順位は最低ラインから上へ動いた。<br>――大周回Bは、2020年へ続く。</div></div>`);S.idx++;break;
   case 'ishiGate':{const hi=S.g.ishi>=(it.th||60);(hi?it.hi:it.lo).forEach(l=>{if(l.k==='ledger'||l.k==='keep'||l.k==='diff'||l.k==='fx')processResItem(l);else pushLog(lineHTML(l));});S.idx++;break;}
-  case 'rank21':S.flags.ranked21=true;seRank();pushLog(canon21HTML());S.idx++;break;
+  case 'rank21':S.flags.ranked21=true;seRank();pushLog(canon21HTML());pushLog(naoRankRow("y2021","A"));S.idx++;break;
   case 'endM1':S.finishedM1=true;pushLog(`<div class="canon"><h3>幕間1 ― 完</h3><div style="font-size:13px;line-height:1.8">彼はRBW JAPANの練習生になり、「もう一度」を選んだ。2021年、事務所の派遣として創造営へ。<br>――第2部・2021 創造営編へ続く。</div></div>`);S.idx++;break;
   case 'end21A':S.finished21A=true;pushLog(`<div class="canon"><h3>2021 創造営編 ― 大周回A・終了</h3><div style="font-size:13px;line-height:1.8">15位は、大周回Aの結果（最低ライン）。デビューできない結末は、この時代でも変わらなかった。<br>彼は巻き戻らない。時間は流れ、彼女だけが「この先」を知っている。――現在インタールードへ続く。</div></div>`);S.idx++;break;
-  case 'rank21B':{let r=15;r-=(S.flags.effort21>=4?2:S.flags.effort21>=2?1:0);r-=(S.g.todoita>=8?1:0);if(r<12)r=12;S.rank21B=r;S.flags.ranked21B=true;seRank();pushLog(canon21BHTML(r));S.idx++;break;}
+  case 'rank21B':{let r=15;r-=(S.flags.effort21>=4?2:S.flags.effort21>=2?1:0);r-=(S.g.todoita>=8?1:0);if(r<12)r=12;S.rank21B=r;S.flags.ranked21B=true;seRank();pushLog(canon21BHTML(r));pushLog(naoRankRow("y2021","B"));S.idx++;break;}
   case 'end21B':S.finished21B=true;pushLog(`<div class="canon"><h3>2021 創造営編 ― 完</h3><div style="font-size:13px;line-height:1.8">デビューできない結末は変わらなかった。でも彼の歴史に「隣にいてくれた子」が、2つの時代に残った。<br>――大周回B、次は2023年へ続く。</div></div>`);S.idx++;break;
-  case 'rank23B':{let r=21;r-=(S.flags.effort23>=4?4:S.flags.effort23>=3?3:S.flags.effort23>=2?2:S.flags.effort23>=1?1:0);r-=(S.g.todoita>=12?2:S.g.todoita>=9?1:0);r-=(S.g.ishi>=85?1:0);if(r<12)r=12;if(r>21)r=21;S.rank23B=r;S.flags.ranked23B=true;seRank();pushLog(canon23BHTML(r));
+  case 'rank23B':{let r=21;r-=(S.flags.effort23>=4?4:S.flags.effort23>=3?3:S.flags.effort23>=2?2:S.flags.effort23>=1?1:0);r-=(S.g.todoita>=12?2:S.g.todoita>=9?1:0);r-=(S.g.ishi>=85?1:0);if(r<12)r=12;if(r>21)r=21;S.rank23B=r;S.flags.ranked23B=true;seRank();pushLog(canon23BHTML(r));pushLog(naoRankRow("y2023","B"));
    if(r<=18){pushLog(lineHTML(N('第3回順位発表。17位、18位――生存の枠の中に、彼の名前が残った。')));pushLog(lineHTML(N('大周回Aでは閉ざされた扉が、開いた。彼はファイナルへ進んだ。')));pushLog(lineHTML(N('ファイナルの夜。最後のステージを終え、静寂の中で順位が読み上げられた。デビューの9人には届かなかった。――でも彼の名前は、ずっと後の順番まで、呼ばれなかった。')));}
    else{pushLog(lineHTML(N('第3回順位発表。19位、20位が過ぎ――彼の名前は、'+r+'位で呼ばれた。')));pushLog(lineHTML(N('脱落する回は、大周回Aと同じだった。でも順位は、確かに上へ動いていた。')));}
    S.idx++;break;}
@@ -1580,7 +1581,7 @@ function processItem(it){
     pushLog(`<div class="canon"><h3>BAD END ― ループ継続</h3><div style="font-size:13px;line-height:1.8">二人は「止める」と約束したのに、彼女は怖さに負けて、もう一度戻ってしまった。空虚な追加周回が始まる。<br>――認める勇気が、この物語の最後の鍵だった。</div></div>`);
    }
    S.idx=SCRIPT.length;break;}
-  case 'rank23':S.flags.ranked23=true;seRank();pushLog(canon23HTML());S.idx++;break;
+  case 'rank23':S.flags.ranked23=true;seRank();pushLog(canon23HTML());pushLog(naoRankRow("y2023","A"));S.idx++;break;
   case 'endM2':S.finishedM2=true;pushLog(`<div class="canon"><h3>幕間2 ― 完</h3><div style="font-size:13px;line-height:1.8">彼は三度目を選んだ。行く先は韓国『BOYS PLANET』。<br>――第3部・2023 ボイプラ編へ続く。</div></div>`);S.idx++;break;
   case 'end23A':S.finished23A=true;pushLog(`<div class="canon"><h3>2023 ボイプラ編 ― 大周回A・終了</h3><div style="font-size:13px;line-height:1.8">21位は、大周回Aの結果（最低ライン）。デビューできない結末は、三度目も変わらなかった。<br>彼の挑戦は一度ここで閉じる。でも物語は、番組のない日々へ続いていく。――NXD期へ続く。</div></div>`);S.idx++;break;
   case 'endNXDA':S.finishedNXDA=true;pushLog(`<div class="canon"><h3>大周回A ― 完</h3><div style="font-size:13px;line-height:1.8">彼女は2026年に帰ってきた。0周目とほとんど同じ顔をした現在。でも彼女の中には、彼の隣で生きた7年分の記憶がある。<br>――そして、もう一度。第2の大周回が始まる。</div></div>`);S.idx++;break;
@@ -1592,7 +1593,16 @@ function processItem(it){
  save();renderGauges();updProg();
 }
 function updProg(){const i=$("#st-prog-i");if(i)i.style.width=Math.min(100,Math.round((S?S.idx:0)/SCRIPT.length*100))+"%";}
-function naoPopHTML(era){const t={y2019:`個人ファンカムの再生は上位圏。実力クラスはCまでで、「顔は上位圏、実力は中位」のギャップが番組内外で話題に。中間発表の人気は高かったが、最終結果は生存枠の手前だった。`,y2021:`中国でもビジュアル先行で名前が売れた。人気は上位圏、実力は中位のまま――ギャップはこの時代でも話題になり、結果はデビューの枠の手前で止まった。`,y2023:`個人ファンカム（チッケム）の再生が実力以上に伸び、中間発表の順位はそこそこ上まで来た。ただしデビュー圏には入れない。人気が上がるほど「近づいてしまう」緊張が、彼女を離脱（辞退）へ向かわせる伏線になる。`};return `<div class="rankrow"><div class="rk" style="font-size:12px;color:var(--gold)">人気</div><img src="assets/nao/${era==="y2019"?"2019/profile-face2-close":era==="y2021"?"2021/profile":"2023/profile-close"}.jpg"><div><div class="rnm">三浦渚央 ― ビジュアル人気</div><div class="rmeta" style="white-space:normal">${t[era]}</div></div></div>`;}
+function naoRankRow(era,loop){const D={
+"y2019A":[38,"第1回 19位 → 第2回 38位で脱落（生存枠の手前）"],
+"y2019B":[36,"第1回 13位 → 第2回 36位で脱落 ― 周Aの38位から上昇（デビュー圏外）"],
+"y2021A":[18,"中間 23位 → 最終 18位（デビューの枠の手前）"],
+"y2021B":[16,"中間 17位 → 最終 16位 ― 周Aの18位から上昇（デビュー圏外）"],
+"y2023A":[22,"第1回 27位 → 第2回 23位 → 第3回 22位で脱落（枠の手前）"],
+"y2023B":[19,"第1回 20位 → 第2回 17位 → 第3回 19位で脱落 ― 周Aの22位から上昇（デビュー圏外）"]};
+const img=era==="y2019"?"assets/nao/2019/profile-face2-close2.jpg":era==="y2021"?"assets/nao/2021/profile-close.jpg":"assets/nao/2023/profile-close.jpg";
+const d=D[era+loop];return `<div class="rankrow me"><div class="rk" style="color:var(--gold)">${d[0]}</div><img src="${img}"><div><div class="rnm">三浦渚央${loop==="B"?"（周B）":""}</div><div class="rmeta">${d[1]}</div></div></div>`;}
+function naoPopHTML(era){const t={y2019:`個人ファンカムの再生は上位圏。実力クラスはCまでで、「顔は上位圏、実力は中位」のギャップが番組内外で話題に。中間発表の人気は高かったが、最終結果は生存枠の手前だった。`,y2021:`中国でもビジュアル先行で名前が売れた。人気は上位圏、実力は中位のまま――ギャップはこの時代でも話題になり、結果はデビューの枠の手前で止まった。`,y2023:`個人ファンカム（チッケム）の再生が実力以上に伸び、中間発表の順位はそこそこ上まで来た。ただしデビュー圏には入れない。人気が上がるほど「近づいてしまう」緊張が、彼女を離脱（辞退）へ向かわせる伏線になる。`};return `<div class="rankrow"><div class="rk" style="font-size:12px;color:var(--gold)">人気</div><img src="assets/nao/${era==="y2019"?"2019/profile-face2-close2":era==="y2021"?"2021/profile-close":"2023/profile-close"}.jpg"><div><div class="rnm">三浦渚央 ― ビジュアル人気</div><div class="rmeta" style="white-space:normal">${t[era]}</div></div></div>`;}
 function canon23HTML(){const g=S.g;return `<div class="canon"><h3>CANON LOCK ― BOYS PLANET・第3回順位発表の内訳</h3>
  <div class="crow"><span class="fixed">絶対不変</span><div>デビューできない結末（彼はZEROBASEONEのメンバーに入らない）／第3回発表で脱落する回は変更なし</div></div>
  <div class="crow"><span class="changed">周Aの結果</span><div>井汲大翔：<b>21位</b>（史実どおり＝最低ライン）／届いた応援：<b>${g.todoita}件</b>／評価と人気が噛み合わない中でも、キリングパートは届いた</div></div>
@@ -1680,13 +1690,13 @@ function renderProg(tab){progTab=tab;if(tab!=="roster")rosterSel=-1;document.que
  if(tab==="roster"){const _rn2=rosterNow();const _kind=_rn2===ROSTER21?"21":_rn2===ROSTER23?"23":"19";document.querySelectorAll("#prog-body .rcard").forEach((el,i)=>{el.style.cursor="pointer";el.onclick=()=>{seTap(1);rosterSel=(rosterSel===i?-1:i);renderProg("roster");};});if(rosterSel>=0&&_rn2[rosterSel]){const r=_rn2[rosterSel];body.insertAdjacentHTML("beforeend",`<div class="rdetail"><img src="${r.img}"><div><div class="rd-n">${r.nm}${r.me?"（自分）":""}</div><div class="rd-m">${r.meta}</div><p>${rosterMemo(r,_kind)}</p></div></div>`);}}
  if(tab==="rank"){
    if(!S.flags.ranked&&!S.flags.ranked21&&!S.flags.ranked23){body.innerHTML=`<div class="empty">順位発表はまだ行われていません。<br>発表の夜に、ここへ結果が刻まれます。</div>`;}
-   else{body.innerHTML=`<div class="rank-note">これは<b>公式発表の写し</b>です。デビュー圏（日プ・創造営は11位まで／ボイプラは9位まで）には、どの周でも入りません ― <b>Canon Lock</b>。動くのは、圏の外側の景色です。</div>`+(S.flags.ranked23B?canon23BHTML(S.rank23B)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rank23B}</div><img src="assets/hiroto23/hiroto.jpg"><div><div class="rnm">井汲大翔（ボイプラ・周B）</div><div class="rmeta">デビュー圏外 ― 周Aの21位から上昇</div></div></div>`:"")+(S.flags.ranked23?canon23HTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto23/hiroto.jpg"><div><div class="rnm">1位〜20位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
+   else{body.innerHTML=`<div class="rank-note">これは<b>公式発表の写し</b>です。デビュー圏（日プ・創造営は11位まで／ボイプラは9位まで）には、どの周でも入りません ― <b>Canon Lock</b>。動くのは、圏の外側の景色です。</div>`+(S.flags.ranked23B?canon23BHTML(S.rank23B)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rank23B}</div><img src="assets/hiroto23/hiroto.jpg"><div><div class="rnm">井汲大翔（ボイプラ・周B）</div><div class="rmeta">デビュー圏外 ― 周Aの21位から上昇</div></div></div>`+naoRankRow("y2023","B"):"")+(S.flags.ranked23?canon23HTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto23/hiroto.jpg"><div><div class="rnm">1位〜20位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
    <div class="rankrow"><div class="rk" style="color:var(--pink)">21</div><img src="assets/hiroto23/hiroto.jpg"><div><div class="rnm">井汲大翔（ボイプラ）</div><div class="rmeta">デビュー圏外 ― 周Aの結果（最低ライン）</div></div></div>
-   <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2023/profile-close.jpg"><div><div class="rnm">三浦渚央</div><div class="rmeta">脱落（デビューの枠の手前）</div></div></div>`+naoPopHTML("y2023"):"")+(S.flags.ranked21B?canon21BHTML(S.rank21B)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rank21B}</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">井汲大翔（創造営・周B）</div><div class="rmeta">デビュー圏外 ― 周Aの15位から上昇</div></div></div>`:"")+(S.flags.ranked21?canon21HTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">1位〜14位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
+   ${naoRankRow("y2023","A")}`+naoPopHTML("y2023"):"")+(S.flags.ranked21B?canon21BHTML(S.rank21B)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rank21B}</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">井汲大翔（創造営・周B）</div><div class="rmeta">デビュー圏外 ― 周Aの15位から上昇</div></div></div>`+naoRankRow("y2021","B"):"")+(S.flags.ranked21?canon21HTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">1位〜14位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
    <div class="rankrow"><div class="rk" style="color:var(--pink)">15</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">井汲大翔（創造営）</div><div class="rmeta">デビュー圏外 ― 周Aの結果（最低ライン）</div></div></div>
-   <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2021/profile.jpg"><div><div class="rnm">三浦渚央</div><div class="rmeta">脱落（デビューの枠の手前）</div></div></div>`+naoPopHTML("y2021"):"")+(S.flags.rankedB?canonBHTML(S.rankB)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rankB}</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">井汲大翔（周B）</div><div class="rmeta">脱落 ― 周Aの36位から上昇（デビュー圏外）</div></div></div>`:"")+(S.flags.ranked?canonHTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">1位〜35位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
+   ${naoRankRow("y2021","A")}`+naoPopHTML("y2021"):"")+(S.flags.rankedB?canonBHTML(S.rankB)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rankB}</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">井汲大翔（周B）</div><div class="rmeta">脱落 ― 周Aの36位から上昇（デビュー圏外）</div></div></div>`+naoRankRow("y2019","B"):"")+(S.flags.ranked?canonHTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">1位〜35位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
    <div class="rankrow"><div class="rk" style="color:var(--pink)">36</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">井汲大翔</div><div class="rmeta">脱落 ― 周Aの結果（最低ライン）</div></div></div>
-   <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2019/profile-face2-close.jpg"><div><div class="rnm">三浦渚央</div><div class="rmeta">脱落（生存枠の手前）</div></div></div>`+naoPopHTML("y2019"):"");}
+   ${naoRankRow("y2019","A")}`+naoPopHTML("y2019"):"");}
  }
  if(tab==="vote"){
    if(!S.flags.leaped){body.innerHTML=`<div class="pad"><div class="card"><h3>国民プロデューサー投票</h3><p>0周目の彼女は、ファンとして毎日投票していました。公式ルール内の投票のみです。</p><div class="vote-prof"><img src="assets/hiroto/hiroto.jpg"><div><div class="vp-n">井汲大翔</div><div class="vp-m">PRODUCE 101 JAPAN ― 練習生</div></div></div>${S.votedDay===0?`<div class="vote-done"><b>投票を受け付けました</b><span>井汲大翔 ― 1票${S.voteTime?`（${S.voteTime} 受付）`:""}</span></div>`:`<button class="btn gold" id="vote-btn">井汲大翔に投票する</button>`}<p class="small" style="margin-top:8px">投票済み回数：${S.voteCount||0}回 ― 彼女の毎日は、こうして積み重なっていました。</p></div></div>`;const vb=$("#vote-btn");if(vb)vb.onclick=()=>{seNotif();S.votedDay=0;S.voteCount=(S.voteCount||0)+1;const _d=new Date();S.voteTime=_d.getHours()+":"+String(_d.getMinutes()).padStart(2,"0");save();renderProg("vote");};}
@@ -1813,7 +1823,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  <div class="srow"><span>到達した結末</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":"（まだ到達していません）"}</span></div>
  <div class="srow"><span>サウンド</span><span class="sv"><button id="snd-btn" style="background:${S.soundOn!==false?"#17172a":"#c6c6d4"};color:#fff;border:none;border-radius:999px;padding:6px 18px;font-size:12.5px;font-weight:700;cursor:pointer">${S.soundOn!==false?"ON":"OFF"}</button></span></div>
  <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
- <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え</span></div>
+ <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示</span></div>
  <div class="pad"><p class="small">エンディングは5種（TRUE現在／通常現在／離脱した現在／秘密バレIF／ループ継続BAD）。結末は、彼の岐路での関わり・手がかり（Keepsakeと届いた数）・男装バレ度・最後の選択で分かれます。なお「デビューしてしまう現在」はIF候補として設計にのみ記録され、本編では採用していません（デビューメンバー構成は不変のため）。</p></div>
  <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
  const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV2");location.reload();}};
