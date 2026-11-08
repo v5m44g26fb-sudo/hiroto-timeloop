@@ -140,6 +140,11 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 #st-body .dlg.picked{background:rgba(125,211,252,.09);border-left:3px solid #7dd3fc;border-radius:0 10px 10px 0;padding:8px 11px}
 #st-choices button{animation:chin .32s ease both}
 .tnew{background:#ff3b30;color:#fff;font-size:9.5px;border-radius:99px;padding:1.5px 7px;margin-left:6px;vertical-align:2px;font-weight:700;letter-spacing:.05em}
+.rdetail{margin:2px 16px 14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;display:flex;gap:12px;box-shadow:0 4px 16px rgba(20,20,40,.09);animation:chin .3s ease both}
+.rdetail img{width:64px;height:64px;border-radius:12px;object-fit:cover;object-position:top;flex:none}
+.rdetail .rd-n{font-weight:800;font-size:15px}
+.rdetail .rd-m{font-size:11.5px;color:#8a8aa0}
+.rdetail p{font-size:12.5px;line-height:1.75;margin-top:5px;color:#3c3c4a}
 #st-choices button:nth-child(2){animation-delay:.06s}
 #st-choices button:nth-child(3){animation-delay:.12s}
 @keyframes chin{from{opacity:0;transform:translateY(7px)}}
@@ -513,7 +518,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v42";
+const VER="v43";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1643,8 +1648,11 @@ $("#his-next").onclick=hisNext;$("#his-body").onclick=hisNext;
 /* ============ program app ============ */
 let progTab="roster";
 document.querySelectorAll("#prog-tabs button").forEach(b=>b.onclick=()=>renderProg(b.dataset.tab));
-function renderProg(tab){progTab=tab;document.querySelectorAll("#prog-tabs button").forEach(b=>b.classList.toggle("on",b.dataset.tab===tab));const body=$("#prog-body");const ps=$("#prog-sub");if(ps)ps.textContent=S.eraNow==="nxd"?"RBW JAPAN ― 練習生記録":S.eraNow==="2023"?"BOYS PLANET ― 練習生用":S.eraNow==="2021"?"CHUANG 2021 ― 学員用":S.eraNow==="2019"?"PRODUCE 101 JAPAN ― 練習生用":S.flags.boys?"BOYS PLANET ― 練習生用":S.flags.chuang?"CHUANG 2021 ― 学員用":"PRODUCE 101 JAPAN ― 練習生用";
+let rosterSel=-1;
+function rosterMemo(r,kind){if(r.me){return kind==="21"?"クラスは周回スキルで上昇中。ビジュアル人気型は継続 ― 言葉の壁の時代でも、顔で覚えられる。":kind==="23"?"人気は上位圏、実力は中位。そのギャップが三度目の話題になる。デビュー圏には入らない。":"クラス推移：初回D → ツカメ再評価でCへ上昇（歌詞も振付も、ファンとして完璧に知っていた）。ビジュアル人気型 ― ファンカムは実力以上に伸びる。";}if(r.hiroto){return kind==="21"?"RBW JAPANから派遣された3人のうちの1人。周Aの結果は15位（最低ライン）。デビューできない結末は変わらない。":kind==="23"?"3度目の挑戦。周Aの結果は21位（最低ライン）。評価と人気が噛み合わない、と言われた人。":"クラス推移：初回C → ツカメ再評価は、周Aでは歌詞が飛んでD降格・号泣（史実）。周Bでは二人で対策すれば変えられる。結果はCanon Lock ― 36位（周A）が最低ライン。";}return "番組の公式名簿に載る練習生。実在の結果は、この物語では奪わない。";}
+function renderProg(tab){progTab=tab;if(tab!=="roster")rosterSel=-1;document.querySelectorAll("#prog-tabs button").forEach(b=>b.classList.toggle("on",b.dataset.tab===tab));const body=$("#prog-body");const ps=$("#prog-sub");if(ps)ps.textContent=S.eraNow==="nxd"?"RBW JAPAN ― 練習生記録":S.eraNow==="2023"?"BOYS PLANET ― 練習生用":S.eraNow==="2021"?"CHUANG 2021 ― 学員用":S.eraNow==="2019"?"PRODUCE 101 JAPAN ― 練習生用":S.flags.boys?"BOYS PLANET ― 練習生用":S.flags.chuang?"CHUANG 2021 ― 学員用":"PRODUCE 101 JAPAN ― 練習生用";
  if(tab==="roster"){const _rn=rosterNow();body.innerHTML=`<div class="roster-head"><div class="rh-t">練習生名簿</div><div class="rh-c">${_rn.length}名を表示</div></div><div class="legend"><span class="lg-me">金枠＝自分（ナオ）</span><span class="lg-hi">ピンク枠＝井汲大翔</span></div><div class="roster">${_rn.map(r=>`<div class="rcard ${r.me?"me":""} ${r.hiroto?"hiroto":""}"><img src="${r.img}" alt=""><div class="rn">${r.nm}${r.me?"（自分）":""}</div><div class="rm">${r.meta}</div></div>`).join("")}</div><p class="small" style="padding:0 16px 16px">名簿は一部を表示しています。金枠＝自分、ピンク枠＝井汲大翔。${S.eraNow==="nxd"?"（RBW JAPANの練習生記録 ― 名簿は直近の番組当時のもの）":(S.eraNow==="2023"||S.flags.boys)?"（BOYS PLANETの名簿）":(S.eraNow==="2021"||S.flags.chuang)?"（創造営2021の名簿）":""}</p>`;}
+ if(tab==="roster"){const _rn2=rosterNow();const _kind=_rn2===ROSTER21?"21":_rn2===ROSTER23?"23":"19";document.querySelectorAll("#prog-body .rcard").forEach((el,i)=>{el.style.cursor="pointer";el.onclick=()=>{seTap(1);rosterSel=(rosterSel===i?-1:i);renderProg("roster");};});if(rosterSel>=0&&_rn2[rosterSel]){const r=_rn2[rosterSel];body.insertAdjacentHTML("beforeend",`<div class="rdetail"><img src="${r.img}"><div><div class="rd-n">${r.nm}${r.me?"（自分）":""}</div><div class="rd-m">${r.meta}</div><p>${rosterMemo(r,_kind)}</p></div></div>`);}}
  if(tab==="rank"){
    if(!S.flags.ranked&&!S.flags.ranked21&&!S.flags.ranked23){body.innerHTML=`<div class="empty">順位発表はまだ行われていません。<br>発表の夜に、ここへ結果が刻まれます。</div>`;}
    else{body.innerHTML=`<div class="rank-note">これは<b>公式発表の写し</b>です。デビュー圏（日プ・創造営は11位まで／ボイプラは9位まで）には、どの周でも入りません ― <b>Canon Lock</b>。動くのは、圏の外側の景色です。</div>`+(S.flags.ranked23B?canon23BHTML(S.rank23B)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rank23B}</div><img src="assets/hiroto23/hiroto.jpg"><div><div class="rnm">井汲大翔（ボイプラ・周B）</div><div class="rmeta">デビュー圏外 ― 周Aの21位から上昇</div></div></div>`:"")+(S.flags.ranked23?canon23HTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto23/hiroto.jpg"><div><div class="rnm">1位〜20位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
