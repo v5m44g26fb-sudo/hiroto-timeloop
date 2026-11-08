@@ -273,6 +273,22 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 #st-prog{height:3px;background:rgba(255,255,255,.12);position:relative;z-index:3}
 #st-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffd60a,#ffb340);border-radius:0 2px 2px 0;transition:width .35s ease}
 </style>
+<style>
+/* ===== v16: screen transitions + story motion ===== */
+@keyframes scrin{from{opacity:0;transform:translateY(10px) scale(.995)}to{opacity:1;transform:none}}
+.screen.on{animation:scrin .3s cubic-bezier(.22,.8,.32,1)}
+#consent.on{animation:none}
+@keyframes lnin{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+#st-body>*{animation:lnin .32s ease both}
+#his-body>*{animation:lnin .32s ease both}
+#st-stage img{transition:opacity .5s ease}
+@keyframes notifdrop{0%{transform:translateY(-16px);opacity:0}100%{transform:none;opacity:1}}
+#lock .lk-notif{animation:notifdrop .55s .25s cubic-bezier(.22,.8,.32,1) both}
+@keyframes bannerpulse{0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.4)}50%{box-shadow:0 10px 30px rgba(255,214,10,.28)}}
+#story-banner{animation:bannerpulse 3.2s ease-in-out infinite}
+.trow:active,.rcard:active,.rankrow:active{background:#f4f2ff}
+.appbody>*{animation:lnin .25s ease both}
+</style>
 </head>
 <body>
 <div id="phone">
@@ -401,9 +417,9 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v15";
+const VER="v16";
 /* ============ state ============ */
-const DEF={idx:0,started:false,consented:false,
+const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
  flags:{},ledger:[],keeps:[],diffs:[],votedDay:-1,day:1,finishedA:false,hisSeen:false};
 let S; try{S=Object.assign(JSON.parse(JSON.stringify(DEF)),JSON.parse(localStorage.getItem("tlSaveV2")||"{}"));}catch(e){S=JSON.parse(JSON.stringify(DEF));}
@@ -1243,13 +1259,13 @@ document.querySelectorAll("[data-home]").forEach(b=>b.onclick=()=>{renderHome();
 function tick(){const d=new Date();const hh=d.getHours(),mm=String(d.getMinutes()).padStart(2,"0");const t=hh+":"+mm;const lc=$("#lk-time");if(lc)lc.textContent=t;const hc=$("#home-clock");if(hc)hc.textContent=t;}
 setInterval(tick,20000);
 /* ============ consent / lock ============ */
-$("#consent-btn").onclick=()=>{S.consented=true;S.started=true;save();enterLock();};
+$("#consent-btn").onclick=()=>{S.consented=true;S.started=true;save();sndStart();seNotif();enterLock();};
 function enterLock(){tick();const cur=SCRIPT[Math.min(S.idx,SCRIPT.length-1)];
  $("#lk-date").textContent=S.eraNow==="nxd"?"2024年":S.eraNow==="now"?"2026年":S.eraNow==="2023"?"2023年":S.eraNow==="2021"?"2021年":S.eraNow==="2019"?"2019年":S.flags.boys?"2023年":S.flags.chuang?"2021年":(S.flags&&S.flags.leaped)?"2019年":"2026年";
  $("#lk-era").textContent=S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":S.finishedNXDB?"大周回B ― 現在編へ":S.finished23B?"大周回B ― NXD期へ":S.finished21B?"大周回B ― 次は2023年":S.flags.known21?"大周回B ― 2021年":S.finishedB?"大周回B ― 2020年へ":S.flags.known?"大周回B ― 2019年":S.flags.bStarted?"大周回B ― 2019年":S.finishedNXDA?"2026年 ― 大周回A 完":S.flags.boys?"2023年 ― 大周回A":S.finished23A?"NXD期 ― 大周回A":S.flags.chuang?"2021年 ― 大周回A":S.finished21A?"幕間 ― 岐路":S.finishedA?"幕間 ― 岐路":(S.flags&&S.flags.leaped?"2019年 ― 大周回A":"0周目 ― 現在");
  $("#lk-notif-t").textContent=S.trueEnd?"大周回は終わりました。ここからが本編です。":S.normalEnd?"彼の歌は、今日も続いています。":S.loopBad?"番組アプリから、通知が届いています……また。":S.bareEnd?"その時代の物語は、閉じました。":S.ridatsuEnd?"彼の歌声は、もう流れていません。":S.finishedNXDB?"約束の現在が待っています。フィナーレへ。":S.finished23B?"番組のない日々が、もう一度始まります。最後の岐路が近づいています。":S.finished21B?"三度目の時代が待っています。韓国への準備が始まります。":S.flags.known21?"彼は思い出しました。中国での共同作戦が始まります。":S.finishedB?"時間は2020年へ。RBWの日々が、もう一度始まります。":S.flags.known?"彼は思い出しました。二人の作戦会議が始まります。":S.flags.bStarted?"彼女は再び、2019年4月に戻りました。":S.finishedNXDA?"大周回Aが終わりました。物語は、第2の大周回へ。":S.flags.boys?"BOYS PLANETの練習生証が届いています。韓国での合宿が始まります。":S.finished23A?"番組のない日々が始まります。RBWの最終部へ。":S.flags.chuang?"創造営2021の学員証が届いています。中国での合宿が始まります。":S.finished21A?"時間は流れます。彼の帰国後の日々へ。":S.finishedA?"彼は岐路に立っています。幕間が始まります。":(S.flags&&S.flags.leaped?"番組アプリが届いています。合宿が始まります。":"PRODUCE 101 JAPAN の思い出が、通知で届きました。");
  show("lock");}
-$("#lock").onclick=()=>{renderHome();show("home");};
+$("#lock").onclick=()=>{seTap(1);renderHome();show("home");};
 /* ============ home ============ */
 const IC_TROPHY='<svg viewBox="0 0 56 56" width="32" height="32"><g fill="#fff"><circle cx="7.5" cy="17.3" r="2.6"/><circle cx="28" cy="12.8" r="2.6"/><circle cx="48.5" cy="17.3" r="2.6"/><path d="M11 39L7.5 18.5L19 28l9-13.5L37 28l11.5-9.5L45 39z"/><rect x="11" y="42.5" width="34" height="4.5" rx="2.25"/></g></svg>';
 const IC_TALK='<svg viewBox="0 0 56 56" width="34" height="34"><path fill="#fff" d="M17 8h22a10 10 0 0 1 10 10v11a10 10 0 0 1-10 10H17A10 10 0 0 1 7 29V18A10 10 0 0 1 17 8z"/><path fill="#fff" d="M18.5 35.5h11L21 46.8c-.7.9-2.1.4-2.1-.7z"/><text x="28" y="29" font-size="12" font-weight="900" fill="#00B900" text-anchor="middle" font-family="Arial, sans-serif" letter-spacing="1">LINE</text></svg>';
@@ -1299,10 +1315,10 @@ function lineHTML(it){
  if(it.k==='d'){const w=it.who==='nao'?["nao","ナオ"]:it.who==='hiroto'?["hiroto","井汲大翔"]:["other","MC"];return `<div class="dlg ${w[0]}"><div class="who">${w[1]}</div>${esc(it.t)}</div>`;}
  return "";}
 function pushLog(html){S.log.push(html);const b=$("#st-body");const d=document.createElement("div");d.innerHTML=html;b.appendChild(d.firstChild||d);b.scrollTop=b.scrollHeight;}
-function gaugePop(fx){const names={iwakan:"違和感",bare:"男装バレ度",todoita:"届いた数",uta:"スキル・歌",dance:"スキル・ダンス",ishi:"彼の継続意志"};const parts=Object.keys(fx).filter(k=>fx[k]).map(k=>`${names[k]} ${fx[k]>0?"+":""}${fx[k]}`);if(!parts.length)return;const p=$("#gpop");p.innerHTML=parts.join("<br>");p.classList.add("on");setTimeout(()=>p.classList.remove("on"),1400);}
+function gaugePop(fx){const names={iwakan:"違和感",bare:"男装バレ度",todoita:"届いた数",uta:"スキル・歌",dance:"スキル・ダンス",ishi:"彼の継続意志"};const parts=Object.keys(fx).filter(k=>fx[k]).map(k=>`${names[k]} ${fx[k]>0?"+":""}${fx[k]}`);if(!parts.length)return;sePop();const p=$("#gpop");p.innerHTML=parts.join("<br>");p.classList.add("on");setTimeout(()=>p.classList.remove("on"),1400);}
 function applyFx(fx){if(!fx)return;Object.keys(fx).forEach(k=>{S.g[k]=(S.g[k]||0)+fx[k];});if(S.g.ishi>100)S.g.ishi=100;if(S.g.ishi<0)S.g.ishi=0;if(S.g.bare>100)S.g.bare=100;gaugePop(fx);renderGauges();}
 function renderGauges(){const g=S.g;$("#st-gauges").innerHTML=[["違和感",g.iwakan],["バレ度",g.bare],["届いた数",g.todoita],["歌",g.uta],["ダンス",g.dance],["継続意志",g.ishi]].map(x=>`<span class="gchip">${x[0]} <b>${x[1]}</b></span>`).join("");}
-function setStage(img,cap){S.stageImg=img;S.capTxt=cap;const im=$("#st-img");if(img){im.src=img;im.style.display="";$("#st-cap").textContent=cap||"";$("#st-cap").style.display=cap?"":"none";}else{im.style.display="none";$("#st-cap").style.display="none";}}
+function setStage(img,cap){S.stageImg=img;S.capTxt=cap;const im=$("#st-img");if(img){if(im.dataset.cur!==img){im.dataset.cur=img;im.style.opacity=0;im.src=img;im.onload=()=>{im.style.opacity=.92;};setTimeout(()=>{im.style.opacity=.92;},350);}im.style.display="";$("#st-cap").textContent=cap||"";$("#st-cap").style.display=cap?"":"none";}else{im.style.display="none";$("#st-cap").style.display="none";}}
 function canonHTML(){const g=S.g;return `<div class="canon"><h3>CANON LOCK ― 順位発表の内訳</h3>
  <div class="crow"><span class="fixed">絶対不変</span><div>デビューできない結末（彼はデビューメンバーに入らない）／大きな節目：変更なし</div></div>
  <div class="crow"><span class="changed">周Aの結果</span><div>井汲大翔：<b>36位</b>で脱落（史実どおり＝最低ライン）／届いた応援：<b>${g.todoita}件</b>（0周目では0件）／練習室で隣にいた夜があった／脱落の夜、彼の肩は震えていなかった</div></div>
@@ -1421,6 +1437,7 @@ function renderChoices(it){
  box.innerHTML=it.opts.map((o,i)=>`<button data-ci="${i}">${esc(o.t)}</button>`).join("");
  box.querySelectorAll("button").forEach(b=>b.onclick=()=>{
    if(!S.pendingChoice)return;
+   seChoice();
    const o=it.opts[+b.dataset.ci];box.style.display="none";box.innerHTML="";$("#st-next").style.display="";S.pendingChoice=false;
    pushLog(`<div class="dlg nao"><div class="who">ナオ ― 選んだこと</div>${esc(o.t)}</div>`);
    if(o.fx)applyFx(o.fx);
@@ -1438,7 +1455,7 @@ function processResItem(r){
  if(r.k==='diff'){if(!S.diffs.includes(r.t))S.diffs.push(r.t);pushLog(lineHTML(r));}
  if(r.k==='fx'){applyFx(r.fx);}
 }
-function advance(){if(S.pendingChoice)return;if(S.idx>=SCRIPT.length)return;processItem(SCRIPT[S.idx]);}
+function advance(){if(S.pendingChoice)return;if(S.idx>=SCRIPT.length)return;seTap(0.55);processItem(SCRIPT[S.idx]);}
 $("#st-next").onclick=advance;
 $("#st-body").onclick=advance;
 $("#st-back").onclick=()=>{renderHome();show("home");};
@@ -1478,7 +1495,7 @@ function renderProg(tab){progTab=tab;document.querySelectorAll("#prog-tabs butto
    <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2019/profile-close.jpg"><div><div class="rnm">ナオ</div><div class="rmeta">脱落（生存枠の手前）</div></div></div>`+naoPopHTML("y2019"):"");}
  }
  if(tab==="vote"){
-   if(!S.flags.leaped){body.innerHTML=`<div class="pad"><div class="card"><h3>国民プロデューサー投票</h3><p>0周目の彼女は、ファンとして毎日投票していました。公式ルール内の投票のみです。</p><button class="btn gold" id="vote-btn" ${S.votedDay===0?"disabled":""}>${S.votedDay===0?"本日分は投票済み":"井汲大翔に投票する"}</button><p class="small" style="margin-top:8px">投票済み回数：${S.voteCount||0}回</p></div></div>`;const vb=$("#vote-btn");if(vb)vb.onclick=()=>{S.votedDay=0;S.voteCount=(S.voteCount||0)+1;save();renderProg("vote");};}
+   if(!S.flags.leaped){body.innerHTML=`<div class="pad"><div class="card"><h3>国民プロデューサー投票</h3><p>0周目の彼女は、ファンとして毎日投票していました。公式ルール内の投票のみです。</p><button class="btn gold" id="vote-btn" ${S.votedDay===0?"disabled":""}>${S.votedDay===0?"本日分は投票済み":"井汲大翔に投票する"}</button><p class="small" style="margin-top:8px">投票済み回数：${S.voteCount||0}回</p></div></div>`;const vb=$("#vote-btn");if(vb)vb.onclick=()=>{seNotif();S.votedDay=0;S.voteCount=(S.voteCount||0)+1;save();renderProg("vote");};}
    else{body.innerHTML=`<div class="empty">練習生は投票できません。<br>――いま彼女が届けられる応援は、<br>画面の向こうではなく、同じ時代の中にあります。</div>`;}
  }
  if(tab==="mission"){const ci=chapIndexNow();body.innerHTML=`<div style="padding:6px 0 14px">${missionsNow().map((m,i)=>`<div class="ledrow"><div class="lt">${i<ci?"完了":i===ci?"現在のミッション":"今後"}</div>${m.t}<div class="small">${m.d}</div></div>`).join("")}</div>`;}
@@ -1552,13 +1569,30 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  <div class="srow"><span>バージョン</span><span class="sv">${VER}（大周回制 ― 0周目＋大周回A（2019・2021・2023・NXD期）＋大周回B（2019・2021・2023・NXD期）＋現在編））</span></div>
  <div class="srow"><span>進行</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":S.finishedNXDB?"大周回B ― 現在編へ":S.finished23B?"大周回B ― NXD期へ":S.finished21B?"大周回B ― 2023編へ":S.flags.known21?"大周回B ― 2021編 進行中":S.finishedB?"大周回B ― 2020年へ":S.flags.known?"大周回B ― 2019編 進行中":S.flags.bStarted?"大周回B ― 2019編へ":S.finishedNXDA?"大周回A 完":S.finished23A?"NXD期（大周回A）進行中":S.flags.boys?"2023編（大周回A）進行中":S.finished21A?"幕間2／2023編へ":S.flags.chuang?"2021編（大周回A）進行中":S.finishedA?"幕間1／2021編へ":chapNow().title}</span></div>
  <div class="srow"><span>到達した結末</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":"（まだ到達していません）"}</span></div>
+ <div class="srow"><span>サウンド</span><span class="sv"><button id="snd-btn" style="background:${S.soundOn!==false?"#17172a":"#c6c6d4"};color:#fff;border:none;border-radius:999px;padding:6px 18px;font-size:12.5px;font-weight:700;cursor:pointer">${S.soundOn!==false?"ON":"OFF"}</button></span></div>
  <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
  <div class="pad"><p class="small">エンディングは5種（TRUE現在／通常現在／離脱した現在／秘密バレIF／ループ継続BAD）。結末は、彼の岐路での関わり・手がかり（Keepsakeと届いた数）・男装バレ度・最後の選択で分かれます。なお「デビューしてしまう現在」はIF候補として設計にのみ記録され、本編では採用していません（デビューメンバー構成は不変のため）。</p></div>
  <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
- const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV2");location.reload();}};}
+ const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV2");location.reload();}};
+ const sb2=$("#snd-btn");if(sb2)sb2.onclick=()=>{S.soundOn=!(S.soundOn!==false);save();if(S.soundOn){sndStart();seChoice();}else{stopBGM();}renderSettings("about");};}
 }
+/* ============ sound (all generated with WebAudio — no external files) ============ */
+let AC=null,bgmTimer=null,bgmStep=0;
+function sndOn(){return S.soundOn!==false;}
+function acGet(){if(!sndOn())return null;if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}}if(AC&&AC.state==="suspended")AC.resume();return AC;}
+function tone(f,dur,opt){const ac=acGet();if(!ac)return;const o=opt||{};const t=ac.currentTime+(o.delay||0);const osc=ac.createOscillator(),g=ac.createGain();osc.type=o.type||"sine";osc.frequency.setValueAtTime(f,t);if(o.slide)osc.frequency.exponentialRampToValueAtTime(o.slide,t+dur);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(o.vol||0.05,t+(o.att||0.012));g.gain.exponentialRampToValueAtTime(0.0001,t+dur);osc.connect(g);g.connect(o.dest||ac.destination);osc.start(t);osc.stop(t+dur+0.05);}
+function seTap(v){tone(660,0.07,{type:"triangle",vol:0.028*(v||1)});}
+function seChoice(){tone(523.25,0.1,{type:"triangle",vol:0.045});tone(783.99,0.16,{type:"triangle",vol:0.04,delay:0.07});}
+function seNotif(){tone(880,0.12,{type:"sine",vol:0.05});tone(1318.5,0.22,{type:"sine",vol:0.045,delay:0.1});}
+function sePop(){tone(1046.5,0.14,{type:"triangle",vol:0.05});tone(1568,0.2,{type:"sine",vol:0.035,delay:0.06});}
+const BGM_CHORDS=[[220,261.63,329.63,493.88],[174.61,220,261.63,349.23],[196,246.94,293.66,392],[164.81,220,261.63,329.63]];
+function bgmChord(){const ac=acGet();if(!ac)return;const ch=BGM_CHORDS[bgmStep%BGM_CHORDS.length];bgmStep++;const lp=ac.createBiquadFilter();lp.type="lowpass";lp.frequency.value=720;const g=ac.createGain();g.gain.value=0.9;lp.connect(g);g.connect(ac.destination);ch.forEach((f,i)=>{tone(f,4.6,{type:i<2?"sine":"triangle",vol:i<2?0.016:0.008,att:1.4,delay:i*0.06,dest:lp});});tone(ch[0]/2,4.6,{type:"sine",vol:0.02,att:1.2,dest:lp});}
+function startBGM(){if(bgmTimer||!sndOn())return;bgmChord();bgmTimer=setInterval(bgmChord,4200);}
+function stopBGM(){if(bgmTimer){clearInterval(bgmTimer);bgmTimer=null;}}
+function sndStart(){acGet();startBGM();}
 /* ============ init ============ */
 {const tv=document.querySelector("#ttl-ver");if(tv)tv.textContent="ver. "+VER;}
+document.addEventListener("pointerdown",function h16(){if(S.consented)sndStart();document.removeEventListener("pointerdown",h16);});
 setTimeout(()=>{const n=document.querySelector("#ttl-notif");if(n)n.classList.add("in");},1100);
 tick();
 if(S.consented){enterLock();}else{show("consent");}
