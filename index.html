@@ -518,7 +518,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v43";
+const VER="v44";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1710,6 +1710,7 @@ function vwShow(){const it=GAL[vwI];if(!it)return;$("#vw-img").src=it.img;$("#vw
 $("#vw-close").onclick=()=>$("#viewer").classList.remove("on");
 $("#vw-prev").onclick=()=>{if(!GAL.length)return;vwI=(vwI-1+GAL.length)%GAL.length;vwShow();seTap(0.6);};
 $("#vw-next").onclick=()=>{if(!GAL.length)return;vwI=(vwI+1)%GAL.length;vwShow();seTap(0.6);};
+(function(){const v=$("#viewer");if(!v)return;let sx=0,sy=0;v.addEventListener("touchstart",e=>{const t=e.changedTouches[0];sx=t.clientX;sy=t.clientY;},{passive:true});v.addEventListener("touchend",e=>{if(!GAL.length)return;const t=e.changedTouches[0];const dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.4){if(dx<0)vwI=(vwI+1)%GAL.length;else vwI=(vwI-1+GAL.length)%GAL.length;vwShow();seTap(0.6);}},{passive:true});})();
 /* ============ talk ============ */
 function renderTalk(){
  const msgs=[
