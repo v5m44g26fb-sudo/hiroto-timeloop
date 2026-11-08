@@ -459,7 +459,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
   <div id="st-gauges"></div>
   <div id="st-body"></div>
   <div id="st-choices"></div>
-  <div id="st-next">▼ タップで進む</div>
+  <div id="st-next">▼ タップで進む ・ 長押しで早送り</div>
   <div class="gpop" id="gpop"></div>
 </section>
 
@@ -518,7 +518,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v46";
+const VER="v47";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1618,6 +1618,9 @@ function processResItem(r){
 }
 function advance(){if(S.pendingChoice)return;if(S.idx>=SCRIPT.length)return;seTap(0.55);processItem(SCRIPT[S.idx]);}
 $("#st-next").onclick=advance;
+let ffTimer=null;
+$("#st-next").addEventListener("pointerdown",()=>{if(ffTimer)clearInterval(ffTimer);ffTimer=setInterval(()=>{if(S.pendingChoice||S.idx>=SCRIPT.length){clearInterval(ffTimer);ffTimer=null;return;}advance();},280);});
+["pointerup","pointerleave","pointercancel"].forEach(ev=>$("#st-next").addEventListener(ev,()=>{if(ffTimer){clearInterval(ffTimer);ffTimer=null;}}));
 $("#st-body").onclick=advance;
 $("#st-back").onclick=()=>{renderHome();show("home");};
 function openStory(){
