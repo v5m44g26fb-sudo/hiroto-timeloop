@@ -239,6 +239,38 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 .apphead .ah-t{letter-spacing:.02em}
 .gal figure,.rcard,.card,.rankrow,.ledrow{box-shadow:0 2px 10px rgba(20,20,40,.07)}
 </style>
+<style>
+/* ===== v5 design system: title life + home/story furniture ===== */
+@keyframes ttlkb{from{transform:scale(1.02)}to{transform:scale(1.1) translate(-1.2%,1.6%)}}
+#consent .ttl-bg{animation:ttlkb 18s ease-in-out infinite alternate}
+@keyframes ttlup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+#consent .ttl-sub{animation:ttlup .7s .05s ease both}
+#consent .ttl-logo{animation:ttlup .7s .18s ease both}
+#consent .ttl-rule{animation:ttlup .7s .3s ease both}
+#consent .ttl-lead{animation:ttlup .7s .4s ease both}
+#consent .ttl-chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;animation:ttlup .7s .5s ease both}
+#consent .ttl-chips span{font-size:11px;font-weight:700;color:#f2f0fa;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:4px 11px;backdrop-filter:blur(6px)}
+#ttl-notif{display:flex;gap:11px;align-items:flex-start;background:rgba(246,246,248,.95);color:#17172a;border-radius:20px;padding:12px 14px;margin-bottom:12px;box-shadow:0 14px 34px rgba(0,0,0,.42);opacity:0;transform:translateY(-14px);transition:opacity .55s ease,transform .55s ease;animation:ttlup .7s .6s ease both}
+#ttl-notif.in{opacity:1;transform:none}
+#ttl-notif .tn-ic{flex:none;width:38px;height:38px;border-radius:10px;background:linear-gradient(150deg,#ffd60a,#f59e0b);display:flex;align-items:center;justify-content:center}
+#ttl-notif .tn-hd{font-size:11.5px;color:#6e6e73;display:flex;justify-content:space-between;gap:10px}
+#ttl-notif .tn-bd{font-size:13px;line-height:1.55;margin-top:1px}
+#consent .ttl-notice{animation:ttlup .7s .72s ease both}
+#consent button{animation:ttlup .7s .84s ease both}
+#consent .ttl-tap{margin-top:10px;text-align:center;font-size:10.5px;color:rgba(255,255,255,.55);letter-spacing:.22em;animation:ttlup .7s .95s ease both}
+#consent .ttl-ver{animation:ttlup .7s 1.05s ease both}
+/* home next-mission widget + page dots */
+.widget.w3{cursor:pointer}
+.w3 .w3-k{font-size:10.5px;color:#e8c96a;font-weight:700;letter-spacing:.14em}
+.w3 .w3-t{font-size:15.5px;font-weight:700;margin-top:3px}
+.w3 .w3-d{font-size:11.5px;color:#d9d9ec;line-height:1.6;margin-top:2px}
+#home .dots{position:relative;z-index:2;display:flex;gap:7px;justify-content:center;margin-top:auto;padding:14px 0 20px}
+#home .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.85)}
+#home .dots i.off{background:rgba(255,255,255,.35)}
+/* story progress */
+#st-prog{height:3px;background:rgba(255,255,255,.12);position:relative;z-index:3}
+#st-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffd60a,#ffb340);border-radius:0 2px 2px 0;transition:width .35s ease}
+</style>
 </head>
 <body>
 <div id="phone">
@@ -252,11 +284,14 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
     <div class="ttl-logo"><span class="ttl-1">1周目には</span><span class="ttl-2">いなかった</span><span class="ttl-3">ファンの件</span></div>
     <div class="ttl-rule"></div>
     <p class="ttl-lead">井汲大翔のファンのなおが、2019年へ跳ぶ。<br>男装練習生として、彼の隣に立つために。</p>
+    <div class="ttl-chips"><span>0周目＋2019編 収録</span><span>彼の視点あり</span><span>応援が残る物語</span></div>
+    <div id="ttl-notif"><span class="tn-ic"><svg viewBox="0 0 56 56" width="21" height="21"><g fill="#fff"><circle cx="7.5" cy="17.3" r="2.6"/><circle cx="28" cy="12.8" r="2.6"/><circle cx="48.5" cy="17.3" r="2.6"/><path d="M11 39L7.5 18.5L19 28l9-13.5L37 28l11.5-9.5L45 39z"/><rect x="11" y="42.5" width="34" height="4.5" rx="2.25"/></g></svg></span><span style="flex:1;min-width:0"><span class="tn-hd"><span><b>番組アプリ</b></span><span>2019年4月</span></span><span class="tn-bd">練習生名簿が更新されました ― <b>1周目にはいなかった名前</b>が、1件追加されています</span></span></div>
     <div class="ttl-notice">
       <p>本作はフィクションです。実在の人物・番組の記録をもとにした創作であり、登場人物の言動はすべて作中のものです。</p>
       <p>デビューできない結末は変わりません。でも、順位も、毎日も、努力で動かせます。</p>
     </div>
     <button id="consent-btn">同意してはじめる</button>
+    <div class="ttl-tap">TAP TO START</div>
     <div class="ttl-ver" id="ttl-ver"></div>
   </div>
 </section>
@@ -303,11 +338,18 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
     <div class="w2-row"><span class="w2-k">届いた応援</span><span class="w2-v" id="w2-todoita">0件</span><span class="w2-k">違和感</span><span class="w2-v" id="w2-iwakan">0</span><span class="w2-k">差分の記録</span><span class="w2-v" id="w2-diff">0件</span></div>
     <div class="w2-sub">タップで「設定・記録」を開く</div>
   </div>
+  <div class="widget w3" id="w3">
+    <div class="w3-k">次のミッション</div>
+    <div class="w3-t" id="w3-title">レベル分け評価</div>
+    <div class="w3-d" id="w3-desc">物語を進めると、ここに現在の課題が表示されます。</div>
+  </div>
+  <div class="dots"><i></i><i class="off"></i></div>
 </section>
 
 <!-- story -->
 <section class="screen" id="story">
   <div class="st-top"><button class="back" id="st-back">‹</button><div><div class="st-chap" id="st-chap">0周目プロローグ</div><div class="st-loc" id="st-loc"></div></div></div>
+  <div id="st-prog"><i id="st-prog-i"></i></div>
   <div id="st-stage"><img id="st-img" alt="" style="display:none" onerror="this.style.display='none'"><span class="st-imgcap" id="st-cap" style="display:none"></span></div>
   <div id="st-gauges"></div>
   <div id="st-body"></div>
@@ -357,7 +399,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v4";
+const VER="v5";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -648,11 +690,17 @@ function renderHome(){
  $("#sb-desc").textContent=S.finishedB?"おつかれさまでした。次は幕間と2021年編です（次版）。記録は「設定・記録」で見返せます。":c.sub;
  $("#apps").innerHTML=APPS.map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span><span>${a.lb}</span></button>`).join("");
  document.querySelectorAll("#apps .appicon").forEach(b=>b.onclick=()=>{const a=APPS.find(x=>x.id===b.dataset.app);if(a.lock&&a.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}openApp(a.id);});
+ const w3t=$("#w3-title"),w3d=$("#w3-desc");
+ if(w3t&&w3d){const ml=(typeof missionsNow==="function")?missionsNow():MISSIONS;const ci=Math.min(chapIndexNow(),ml.length-1);
+  if(S.finishedB&&!S.flags.chuang){w3t.textContent="2019編 ― 完";w3d.textContent="次は幕間（彼の岐路）と、2021年・創造営編です。";}
+  else if(!S.flags.leaped){w3t.textContent="まだ始まっていない";w3d.textContent="0周目の彼女は、テレビの向こうで見ているだけです。";}
+  else{w3t.textContent=ml[ci].t;w3d.textContent=ml[ci].d;}}
  const w2t=$("#w2-todoita");if(w2t)w2t.textContent=S.g.todoita+"件";
  const w2i=$("#w2-iwakan");if(w2i)w2i.textContent=S.g.iwakan;
  const w2d=$("#w2-diff");if(w2d)w2d.textContent=(S.diffs?S.diffs.length:0)+"件";
 }
 $("#w2").onclick=()=>{renderSettings("gauge");show("settings");};
+$("#w3").onclick=()=>{if(!S.flags.leaped){alert("まだ使えません（物語を進めると解放されます）");return;}renderProg("mission");show("prog");};
 $("#story-banner").onclick=()=>{openStory();};
 function openApp(id){if(id==="prog"){renderProg("roster");show("prog");}if(id==="gallery"){renderGallery();show("gallery");}if(id==="talk"){renderTalk();show("talk");}if(id==="settings"){renderSettings("gauge");show("settings");}}
 /* ============ story engine ============ */
@@ -698,8 +746,9 @@ function processItem(it){
   case 'endA':S.finishedA=true;pushLog(`<div class="canon"><h3>2019 日プ編 ― 周A 終了</h3><div style="font-size:13px;line-height:1.8">36位は、周Aの結果（最低ライン）。でも、0周目にはなかったものが、この周には残った。<br>そして脱落の瞬間――彼は初めて、2019年4月へ巻き戻る。――周Bへ続く。</div></div>`);S.idx++;break;
   default:S.idx++;break;
  }
- save();renderGauges();
+ save();renderGauges();updProg();
 }
+function updProg(){const i=$("#st-prog-i");if(i)i.style.width=Math.min(100,Math.round((S?S.idx:0)/SCRIPT.length*100))+"%";}
 function canonBHTML(r){const g=S.g;const tk=S.flags.tsukameB==='keep'?'ツカメ再評価：C維持（立て直した）':S.flags.tsukameB==='nodrop'?'ツカメ再評価：D降格（号泣なし）':'ツカメ再評価：D降格（史実どおり）';return `<div class="canon"><h3>CANON LOCK ― 周Bの内訳</h3>
  <div class="crow"><span class="fixed">絶対不変</span><div>デビューできない結末／脱落した発表回は史実と同じ／大きな節目：変更なし</div></div>
  <div class="crow"><span class="changed">努力で動いた</span><div>井汲大翔の最終順位：36位 → <b>${r}位</b>（デビュー圏外の範囲で上昇）／${tk}／届いた応援：<b>${g.todoita}件</b></div></div>
@@ -734,7 +783,7 @@ function openStory(){
  $("#st-body").innerHTML=S.log.join("");
  setStage(S.stageImg,S.capTxt);
  if(S.idx<SCRIPT.length&&SCRIPT[S.idx].k==='c'){renderChoices(SCRIPT[S.idx]);}
- renderGauges();show("story");
+ renderGauges();updProg();show("story");
  const b=$("#st-body");b.scrollTop=b.scrollHeight;
 }
 /* ============ his screen ============ */
@@ -814,6 +863,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
 }
 /* ============ init ============ */
 {const tv=document.querySelector("#ttl-ver");if(tv)tv.textContent="ver. "+VER;}
+setTimeout(()=>{const n=document.querySelector("#ttl-notif");if(n)n.classList.add("in");},1100);
 tick();
 if(S.consented){enterLock();}else{show("consent");}
 </script>
