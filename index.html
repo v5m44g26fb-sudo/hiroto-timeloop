@@ -510,7 +510,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v37";
+const VER="v38";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1763,7 +1763,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
   ["スキル・歌",g.uta,100,"周回で継承される"],
   ["スキル・ダンス",g.dance,100,"周回で継承される"]
  ].map(x=>{const _dc=(x[0].indexOf("バレ")>=0&&x[1]>=70)||(x[0].indexOf("継続意志")>=0&&x[1]<=30);const _wc=!_dc&&x[0].indexOf("違和感")>=0&&x[1]>=50;return `<div class="gitem"><div class="gn"><span>${x[0]}</span><span>${x[1]}</span></div><div class="gbar${_dc?" danger":_wc?" warn":""}"><i style="width:${bar(x[1],x[2])}%"></i></div><div class="gd">${x[3]}${_dc?" ― 注意：危険域です":""}</div></div>`;}).join("")+`<div class="gitem"><div class="gn"><span>届いた数</span><span>${g.todoita}件</span></div><div class="gd">順位には一切影響しません。彼宛の応援に、彼女宛のファンレターも含まれます。現在編で、彼が彼女を特定する手がかりになります。</div></div>`;}
- if(tab==="ledger"){body.innerHTML=S.ledger.length?S.ledger.map((t,i)=>`<div class="ledrow"><div class="lt">応援 ${i+1}件目</div>${esc(t)}</div>`).join("")+`<p class="small" style="padding:12px 16px">前の周で届いた応援は、次の周で「維持」する義務になります。</p>`:`<div class="empty">まだ記録がありません。<br>彼に届いた応援が、ここに残ります。</div>`;}
+ if(tab==="ledger"){const lg=t=>t.indexOf("（周Bで維持）")===0||t.indexOf("（周Bで再び）")===0?"大周回B ― 維持・再演":t.indexOf("（周B")===0?"大周回B":/創造営|布丁|中国/.test(t)?"2021 ― 創造営":/ボイプラ|韓国/.test(t)?"2023 ― ボイプラ":"2019 ― 日プ";const lo=["2019 ― 日プ","2021 ― 創造営","2023 ― ボイプラ","大周回B","大周回B ― 維持・再演"];const cnt={};body.innerHTML=S.ledger.length?`<p class="small" style="padding:10px 16px 0">届いた応援は全${S.ledger.length}件。時代ごとに並んでいます。</p>`+lo.map(o=>{const xs=S.ledger.filter(t=>lg(t)===o);return xs.length?`<div class="dgrp">${o}（${xs.length}件）</div>`+xs.map(t=>`<div class="ledrow"><div class="lt">応援 ${(cnt[o]=(cnt[o]||0)+1)}件目</div>${esc(t)}</div>`).join(""):"";}).join("")+`<p class="small" style="padding:12px 16px">前の周で届いた応援は、次の周で「維持」する義務になります。</p>`:`<div class="empty">まだ記録がありません。<br>彼に届いた応援が、ここに残ります。</div>`;}
  if(tab==="keep"){body.innerHTML=S.keeps.length?S.keeps.map(t=>`<div class="ledrow"><div class="lt">Keepsake</div>${esc(t)}</div>`).join(""):`<div class="empty">まだ何も残っていません。<br>周を跨いで残るのは「彼が残すと決めたもの」だけです。</div>`;}
  if(tab==="diff"){const grp=t=>/2023|ボイプラ|三つ|三度/.test(t)?"2023 ― BOYS PLANET":/2021|創造営|中国/.test(t)?"2021 ― CHUANG 2021":/現在|インタビュー/.test(t)?"現在 ― 少しだけ違う2026年":/幕間/.test(t)?"幕間 ― 岐路":/大周回/.test(t)?"大周回 ― 記録":"2019 ― PRODUCE 101 JAPAN";const order=["2019 ― PRODUCE 101 JAPAN","幕間 ― 岐路","2021 ― CHUANG 2021","2023 ― BOYS PLANET","現在 ― 少しだけ違う2026年","大周回 ― 記録"];body.innerHTML=S.diffs.length?`<p class="small" style="padding:10px 16px 0">差分は全${S.diffs.length}件。変わらなかった結末と、変わった景色の記録です。</p>`+order.map(o=>{const xs=S.diffs.filter(t=>grp(t)===o);return xs.length?`<div class="dgrp">${o}（${xs.length}件）</div>`+xs.map(t=>`<div class="ledrow"><div class="lt">Diff Log</div>${esc(t)}</div>`).join(""):"";}).join(""):`<div class="empty">まだ差分がありません。<br>0周目と変わったことが、ここに集まります。</div>`;}
  if(tab==="about"){body.innerHTML=`<div class="srow"><span>タイトル</span><span class="sv">1周目にはいなかったファンの件</span></div>
