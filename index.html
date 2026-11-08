@@ -285,11 +285,11 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
     <div class="ttl-logo"><span class="ttl-1">1周目には</span><span class="ttl-2">いなかった</span><span class="ttl-3">ファンの件</span></div>
     <div class="ttl-rule"></div>
     <p class="ttl-lead">井汲大翔のファンのなおが、2019年へ跳ぶ。<br>男装練習生として、彼の隣に立つために。</p>
-    <div class="ttl-chips"><span>0周目〜2023編 収録</span><span>彼の視点あり</span><span>応援が残る物語</span></div>
+    <div class="ttl-chips"><span>全編収録 ― 現在編まで</span><span>彼の視点あり</span><span>応援が残る物語</span></div>
     <div id="ttl-notif"><span class="tn-ic"><svg viewBox="0 0 56 56" width="21" height="21"><g fill="#fff"><circle cx="7.5" cy="17.3" r="2.6"/><circle cx="28" cy="12.8" r="2.6"/><circle cx="48.5" cy="17.3" r="2.6"/><path d="M11 39L7.5 18.5L19 28l9-13.5L37 28l11.5-9.5L45 39z"/><rect x="11" y="42.5" width="34" height="4.5" rx="2.25"/></g></svg></span><span style="flex:1;min-width:0"><span class="tn-hd"><span><b>番組アプリ</b></span><span>2019年4月</span></span><span class="tn-bd">練習生名簿が更新されました ― <b>1周目にはいなかった名前</b>が、1件追加されています</span></span></div>
     <div class="ttl-notice">
       <p>本作はフィクションです。実在の人物・番組の記録をもとにした創作であり、登場人物の言動はすべて作中のものです。</p>
-      <p>デビューできない結末は変わりません。でも、順位も、毎日も、努力で動かせます。</p>
+      <p>デビューできない結末は変わりません。でも、順位も、彼との毎日も、努力で動かせます。</p>
     </div>
     <button id="consent-btn">同意してはじめる</button>
     <div class="ttl-tap">TAP TO START</div>
@@ -400,7 +400,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v13";
+const VER="v14";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1266,7 +1266,7 @@ function renderHome(){
  if(c.era)$("#w-era").textContent=c.era;
  if(c.wdate)$("#w-date").textContent=c.wdate;
  $("#w-cycle").textContent=S.trueEnd?"周回：TRUE END":S.normalEnd?"周回：END ― 通常現在":S.loopBad?"周回：BAD END ― ループ継続":S.bareEnd?"周回：END ― 秘密バレIF":S.ridatsuEnd?"周回：END ― 離脱した現在":S.finishedNXDB?"周回：大周回B ― 過去編 完":S.finished23B?"周回：2023編 周B 完":S.finished23A?"周回：2023編 周A 完":S.flags.boys?"周回：2023編（周A）":S.finished21B?"周回：幕間":S.finished21A?"周回：2021編 周Bへ":S.flags.chuang?"周回：2021編（周A）":S.finishedB?"周回：幕間":S.finishedA?"周回：周B（2周目）":"周回："+(S.flags.leaped?"1周目（周A）":"0周目");
- $("#w-sub").textContent=S.trueEnd?"過去の全部を共有した、二人の現在。":S.normalEnd?"デジャヴだけが残った、優しい現在。":S.loopBad?"約束は、守れなかった。":S.bareEnd?"秘密は、限界を迎えた。":S.ridatsuEnd?"歌っていた彼を、知っているのは彼女だけになった。":S.finishedNXDB?"約束の現在が、待っている。":S.finished23B?"3つの時代に、彼女のいた証拠が残った。":S.finished23A?"三度目の隣にも、彼女がいた。":S.flags.boys?"評価と人気が噛み合わない彼と、人気が先行する彼女。":S.finished21B?"2つの時代に、彼女のいた証拠が残った。":S.finished21A?"2つ目の時代でも、彼女は彼の隣にいた。":S.flags.chuang?"言葉のアウェーでも、応援は届く。":S.finishedB?"彼の歴史に、彼女のいた証拠が残った。":(S.flags.leaped?"結末は変えられない。でも順位も毎日も、努力で動く。":"1周目（史実）には、彼女は彼の歴史のどこにもいない。");
+ $("#w-sub").textContent=S.trueEnd?"過去の全部を共有した、二人の現在。":S.normalEnd?"デジャヴだけが残った、優しい現在。":S.loopBad?"約束は、守れなかった。":S.bareEnd?"秘密は、限界を迎えた。":S.ridatsuEnd?"歌っていた彼を、知っているのは彼女だけになった。":S.finishedNXDB?"約束の現在が、待っている。":S.finished23B?"3つの時代に、彼女のいた証拠が残った。":S.finished23A?"三度目の隣にも、彼女がいた。":S.flags.boys?"評価と人気が噛み合わない彼と、人気が先行する彼女。":S.finished21B?"2つの時代に、彼女のいた証拠が残った。":S.finished21A?"2つ目の時代でも、彼女は彼の隣にいた。":S.flags.chuang?"言葉のアウェーでも、応援は届く。":S.finishedB?"彼の歴史に、彼女のいた証拠が残った。":(S.flags.leaped?"結末は変えられない。でも順位も、彼との毎日も、努力で動く。":"1周目（史実）には、彼女は彼の歴史のどこにもいない。");
  $("#sb-title").textContent=S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":S.finishedNXDB?"大周回B ― 過去編・完":S.finished23B?"2023 ボイプラ編 ― 完":S.finished23A?"2023 ボイプラ編 ― 周A 完":S.finished21B?"2021 創造営編 ― 完":S.finished21A?"2021 創造営編 ― 周A 完":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"2019 日プ編 ― 完":c.title;
  $("#sb-desc").textContent=(S.trueEnd||S.normalEnd||S.loopBad||S.bareEnd)?"物語は結末に到達しました。記録は「設定・記録」で見返せます。":S.ridatsuEnd?"彼の岐路での関わりが、結末を分けました。記録は「設定・記録」で見返せます。":S.finishedNXDB?"おつかれさまでした。次は現在編（フィナーレ）です（次版）。記録は「設定・記録」で見返せます。":S.finished23B?"おつかれさまでした。次は大周回B・NXD期です（次版）。記録は「設定・記録」で見返せます。":S.finished23A?"おつかれさまでした。次は2023編・周Bです（次版）。記録は「設定・記録」で見返せます。":S.finished21B?"幕間2 ― 三度目の誘いへ進みます。":S.finished21A?"2021編・周Bへ進みます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub;
  $("#apps").innerHTML=APPS.map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span><span>${a.lb}</span></button>`).join("");
@@ -1540,7 +1540,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  if(tab==="gauge"){body.innerHTML=[
   ["違和感（彼視点）",g.iwakan,100,"彼の「試し」や発覚イベントの条件になる"],
   ["男装バレ度",g.bare,100,"MAXで当該時代の秘密バレIFへ"],
-  ["彼の継続意志",g.ishi,100,"幕間の岐路で効く。尽きると「彼が挑戦を辞めた現在」へ"],
+  ["彼の継続意志",g.ishi,100,"彼の岐路（幕間・NXD期）で効く。尽きると「彼が挑戦を辞めた現在」へ"],
   ["スキル・歌",g.uta,100,"周回で継承される"],
   ["スキル・ダンス",g.dance,100,"周回で継承される"]
  ].map(x=>`<div class="gitem"><div class="gn"><span>${x[0]}</span><span>${x[1]}</span></div><div class="gbar"><i style="width:${bar(x[1],x[2])}%"></i></div><div class="gd">${x[3]}</div></div>`).join("")+`<div class="gitem"><div class="gn"><span>届いた数</span><span>${g.todoita}件</span></div><div class="gd">順位には一切影響しません。彼宛の応援に、彼女宛のファンレターも含まれます。現在編で、彼が彼女を特定する手がかりになります。</div></div>`;}
