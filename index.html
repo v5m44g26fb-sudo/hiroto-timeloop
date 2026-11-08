@@ -145,31 +145,144 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 .trow .tp{font-size:12px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
 .trow .tt{margin-left:auto;font-size:11px;color:var(--sub)}
 </style>
+<style>
+/* ===== v4 design system ===== */
+body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased}
+/* title */
+#consent{padding:0;justify-content:flex-end;text-align:left}
+#consent .ttl-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+#consent .ttl-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,20,.18) 0%,rgba(10,10,20,.05) 34%,rgba(8,8,16,.78) 68%,rgba(8,8,16,.96) 100%)}
+#consent .ttl-inner{position:relative;z-index:2;padding:0 26px calc(26px + env(safe-area-inset-bottom));width:100%}
+#consent .ttl-sub{font-size:10.5px;letter-spacing:.34em;color:#e8c96a;font-weight:700;margin-bottom:14px}
+#consent .ttl-logo{display:flex;flex-direction:column;line-height:1.16;font-weight:800;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.45)}
+#consent .ttl-logo .ttl-1{font-size:25px;letter-spacing:.1em;opacity:.92}
+#consent .ttl-logo .ttl-2{font-size:44px;letter-spacing:.04em}
+#consent .ttl-logo .ttl-3{font-size:44px;letter-spacing:.04em;color:#ffd60a}
+#consent .ttl-rule{width:46px;height:3px;background:#ffd60a;border-radius:2px;margin:16px 0 13px}
+#consent .ttl-lead{font-size:13.5px;line-height:1.9;color:#eceaf4;margin-bottom:13px}
+#consent .ttl-notice{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);border-radius:14px;padding:11px 13px;margin-bottom:16px}
+#consent .ttl-notice p{font-size:11px;line-height:1.75;color:#cfcde0;text-align:left;margin:0 0 5px}
+#consent .ttl-notice p:last-child{margin-bottom:0}
+#consent button{width:100%;background:#fff;color:#17172a;border:none;font-size:15.5px;font-weight:800;letter-spacing:.06em;padding:15px 0;border-radius:999px;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.45);margin:0}
+#consent button:active{transform:scale(.985)}
+#consent .ttl-ver{margin-top:11px;text-align:center;font-size:10.5px;color:rgba(255,255,255,.55);letter-spacing:.14em}
+/* lock */
+#lock{padding-top:0;justify-content:flex-start}
+#lock .lk-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+#lock .lk-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,18,.42),rgba(8,8,18,.25) 45%,rgba(8,8,18,.55))}
+#lock .lk-lock{position:relative;margin-top:9vh;text-align:center;opacity:.95}
+#lock .lk-date{position:relative;font-size:16.5px;font-weight:600;color:#fff;margin-top:7px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+#lock .lk-time{position:relative;font-size:79px;font-weight:100;letter-spacing:.01em;color:#fff;line-height:1.04;text-shadow:0 2px 16px rgba(0,0,0,.35)}
+#lock .lk-era{position:relative;margin-top:9px;background:rgba(20,20,32,.38);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(8px);color:#ffe9a8;font-weight:700}
+#lock .lk-notif{position:relative;display:flex;gap:10px;align-items:flex-start;text-align:left;background:rgba(28,28,40,.55);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(14px);border-radius:20px;padding:12px 13px}
+#lock .lk-notif .lk-nic{flex-shrink:0;width:30px;height:30px;border-radius:8px;background:linear-gradient(150deg,#ffd60a,#f59e0b);display:flex;align-items:center;justify-content:center}
+#lock .lk-notif b{font-size:12.5px;margin-bottom:1px}
+#lock .lk-notif span{font-size:12.5px;line-height:1.55;color:#e6e4f0}
+#lock .lk-bottom{position:absolute;left:0;right:0;bottom:30px;display:flex;justify-content:space-between;align-items:center;padding:0 42px}
+#lock .lk-btn{width:47px;height:47px;border-radius:50%;background:rgba(24,24,36,.55);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center}
+#lock .lk-hint{position:static;animation:blk 2.2s infinite;font-size:11.5px;color:rgba(255,255,255,.75)}
+#lock .lk-bar{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:rgba(255,255,255,.85)}
+/* home */
+#home{background:#14141f}
+#home .home-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+#home .home-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,20,.52) 0%,rgba(10,10,20,.38) 46%,rgba(10,10,20,.66) 100%)}
+#home .sb,#home .widget,#home #story-banner,#home #apps{position:relative;z-index:2}
+#home .sb{font-size:13.5px;padding:10px 20px 0}
+#home .sb .sb-icons{display:inline-flex;gap:6px;align-items:center}
+.widget{background:rgba(24,24,38,.5);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(14px);border-radius:22px;padding:15px 17px;box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.widget .w-era{color:#e8c96a;font-weight:700}
+.widget .w-date{font-size:18.5px}
+.widget .w-cycle{background:linear-gradient(120deg,#ffd60a,#ffb340);box-shadow:0 2px 8px rgba(0,0,0,.3)}
+#story-banner{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.97);color:#17172a;border-radius:20px;padding:12px 14px;box-shadow:0 10px 26px rgba(0,0,0,.4)}
+#story-banner .sb-thumb{width:56px;height:56px;border-radius:14px;object-fit:cover;object-position:top;flex-shrink:0}
+#story-banner .sb-main{flex:1;min-width:0}
+#story-banner .sb-badge{color:#b78a00;font-size:10.5px;letter-spacing:.1em}
+#story-banner .sb-title{font-size:16px;margin:2px 0}
+#story-banner .sb-desc{font-size:11.5px;color:#55556a;opacity:1}
+#story-banner .sb-chev{font-size:24px;color:#c2c2cf;font-weight:300}
+#apps{gap:18px 6px;padding:20px 20px 8px}
+.widget.w2{margin-top:14px;cursor:pointer}
+.w2-row{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.w2-k{font-size:10.5px;color:#b9b9d6;letter-spacing:.06em}
+.w2-v{font-size:16px;font-weight:800;color:#ffd60a;margin-right:8px}
+.w2-sub{font-size:10.5px;color:rgba(255,255,255,.55);margin-top:5px}
+.appicon{font-size:11px;font-weight:500;text-shadow:0 1px 6px rgba(0,0,0,.55)}
+.appicon .ic{width:58px;height:58px;border-radius:15px;box-shadow:0 4px 12px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.35)}
+.appicon:active .ic{transform:scale(.93)}
+.appicon .ic{transition:transform .12s}
+/* story */
+#story{background:#0b0b12}
+#st-stage{height:36%;min-height:190px}
+#st-stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,18,.12) 55%,rgba(11,11,18,.88))}
+#st-stage .st-imgcap{z-index:2;background:rgba(10,10,18,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.15);padding:4px 11px}
+#st-gauges{padding-top:10px}
+.gchip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(4px)}
+#st-body{font-size:14.5px;line-height:2.0}
+#st-body .dlg .who{font-size:11px;letter-spacing:.1em}
+#st-choices button{background:linear-gradient(180deg,#23233e,#1b1b30);border:1px solid #46466e;border-radius:14px;padding:13px 15px;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+#st-choices button:active{background:#2f2f52;border-color:#ffd60a}
+#st-next{font-size:11.5px;letter-spacing:.14em;color:#9a9ab5;padding:13px}
+.rec{display:inline-block;background:linear-gradient(120deg,#ffd60a,#ffb340);color:#241a00;font-size:9.5px;font-weight:800;letter-spacing:.08em;border-radius:5px;padding:2px 6px;margin-right:7px;vertical-align:1.5px}
+.canon{border:1px solid rgba(255,214,10,.35);box-shadow:0 8px 22px rgba(0,0,0,.25)}
+/* program app */
+#prog .apphead{background:linear-gradient(120deg,#1d3a63,#14263f);color:#fff;border-bottom:none}
+#prog .apphead .back{color:#ffd60a}
+#prog .apphead .ah-s{color:#a9bde0}
+#prog .tabs{background:#fff;padding:8px 10px;gap:6px;border-bottom:1px solid var(--line)}
+#prog .tabs button{border-radius:999px;padding:8px 0;border-bottom:none;color:#55556a}
+#prog .tabs button.on{background:#17172a;color:#ffd60a}
+/* settings tabs */
+#settings .tabs{background:#fff;padding:8px 8px;gap:4px}
+#settings .tabs button{border-radius:999px;border-bottom:none;padding:8px 0;font-size:12.5px}
+#settings .tabs button.on{background:#17172a;color:#fff}
+.apphead{padding:13px 14px}
+.apphead .ah-t{letter-spacing:.02em}
+.gal figure,.rcard,.card,.rankrow,.ledrow{box-shadow:0 2px 10px rgba(20,20,40,.07)}
+</style>
 </head>
 <body>
 <div id="phone">
 
-<!-- consent -->
+<!-- consent / title -->
 <section class="screen" id="consent">
-  <div class="ttl-sub">TIMELEAP / SURVIVAL / FICTION</div>
-  <h1>1周目にはいなかった<br>ファンの件</h1>
-  <p>本作はフィクションです。実在の人物・番組の記録をもとにした創作であり、登場人物の言動はすべて作中のものです。</p>
-  <p>主人公は、井汲大翔のファン。2026年から2019年へ跳び、彼と同じサバイバル番組に「男装練習生」として参加します。デビューできない結末は変わりません。でも、順位も、毎日も、努力で動かせます。</p>
-  <button id="consent-btn">同意してはじめる</button>
+  <img class="ttl-bg" src="assets/nao/2019/stage.jpg" alt="">
+  <div class="ttl-shade"></div>
+  <div class="ttl-inner">
+    <div class="ttl-sub">TIMELEAP ― SURVIVAL ― FICTION</div>
+    <div class="ttl-logo"><span class="ttl-1">1周目には</span><span class="ttl-2">いなかった</span><span class="ttl-3">ファンの件</span></div>
+    <div class="ttl-rule"></div>
+    <p class="ttl-lead">井汲大翔のファンのなおが、2019年へ跳ぶ。<br>男装練習生として、彼の隣に立つために。</p>
+    <div class="ttl-notice">
+      <p>本作はフィクションです。実在の人物・番組の記録をもとにした創作であり、登場人物の言動はすべて作中のものです。</p>
+      <p>デビューできない結末は変わりません。でも、順位も、毎日も、努力で動かせます。</p>
+    </div>
+    <button id="consent-btn">同意してはじめる</button>
+    <div class="ttl-ver" id="ttl-ver"></div>
+  </div>
 </section>
 
 <!-- lock -->
 <section class="screen" id="lock">
+  <img class="lk-bg" src="assets/nao/common/audience-back.jpg" alt="">
+  <div class="lk-shade"></div>
+  <div class="lk-lock"><svg width="17" height="17" viewBox="0 0 24 24"><path fill="#fff" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 1 1 6 0v3H9z"/></svg></div>
   <div class="lk-date" id="lk-date">2026年</div>
   <div class="lk-time" id="lk-time">0:00</div>
   <div class="lk-era" id="lk-era">0周目 ― 現在</div>
-  <div class="lk-notif" id="lk-notif"><b>通知</b><span id="lk-notif-t">物語を進めると、ここに通知が届きます。</span></div>
-  <div class="lk-hint">タップで開く</div>
+  <div class="lk-notif" id="lk-notif"><span class="lk-nic"><svg width="15" height="15" viewBox="0 0 24 24"><path fill="#fff" d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span><div><b>物語の通知</b><span id="lk-notif-t">物語を進めると、ここに通知が届きます。</span></div></div>
+  <div class="lk-bottom">
+    <span class="lk-btn"><svg width="21" height="21" viewBox="0 0 24 24"><path fill="#fff" d="M9 2h6v3H9zM10 5h4l-.6 4.2A3.5 3.5 0 1 1 10.6 9z"/></svg></span>
+    <span class="lk-hint">タップで開く</span>
+    <span class="lk-btn"><svg width="22" height="22" viewBox="0 0 24 24"><path fill="#fff" d="M4 7h3l2-2.5h6L17 7h3a1.5 1.5 0 0 1 1.5 1.5V18A1.5 1.5 0 0 1 20 19.5H4A1.5 1.5 0 0 1 2.5 18V8.5A1.5 1.5 0 0 1 4 7zm8 3.2A3.6 3.6 0 1 0 12 17.4a3.6 3.6 0 0 0 0-7.2z"/></svg></span>
+  </div>
+  <div class="lk-bar"></div>
 </section>
 
 <!-- home -->
 <section class="screen" id="home">
-  <div class="sb"><span id="home-clock">0:00</span><span>📶 🔋</span></div>
+  <img class="home-bg" src="assets/nao/2019/stage.jpg" alt="">
+  <div class="home-shade"></div>
+  <div class="sb"><span id="home-clock">0:00</span><span class="sb-icons"><svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff" opacity=".4"/></svg><svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" fill="none" stroke="#fff" opacity=".5"/><rect x="2.5" y="2.5" width="14" height="7" rx="2" fill="#fff"/><path d="M23.5 4v4a2.2 2.2 0 0 0 0-4z" fill="#fff" opacity=".6"/></svg></span></div>
   <div class="widget">
     <div class="w-era" id="w-era">CYCLE 0 ― 2026 / 現在</div>
     <div class="w-date" id="w-date">2026年・彼のソロ活動を見ている日々</div>
@@ -177,11 +290,19 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
     <span class="w-cycle" id="w-cycle">周回：0周目</span>
   </div>
   <div id="story-banner">
-    <div class="sb-badge" id="sb-badge">▶ ストーリー</div>
-    <div class="sb-title" id="sb-title">0周目プロローグ</div>
-    <div class="sb-desc" id="sb-desc">放送の向こう側にいた、ただのファンの時間。</div>
+    <img class="sb-thumb" id="sb-thumb" src="assets/nao/2019/profile.jpg" alt="">
+    <div class="sb-main">
+      <div class="sb-badge" id="sb-badge">▶ ストーリーを進める</div>
+      <div class="sb-title" id="sb-title">0周目プロローグ</div>
+      <div class="sb-desc" id="sb-desc">放送の向こう側にいた、ただのファンの時間。</div>
+    </div>
+    <div class="sb-chev">›</div>
   </div>
   <div id="apps"></div>
+  <div class="widget w2" id="w2">
+    <div class="w2-row"><span class="w2-k">届いた応援</span><span class="w2-v" id="w2-todoita">0件</span><span class="w2-k">違和感</span><span class="w2-v" id="w2-iwakan">0</span><span class="w2-k">差分の記録</span><span class="w2-v" id="w2-diff">0件</span></div>
+    <div class="w2-sub">タップで「設定・記録」を開く</div>
+  </div>
 </section>
 
 <!-- story -->
@@ -236,7 +357,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v3";
+const VER="v4";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -506,11 +627,15 @@ function enterLock(){tick();const cur=SCRIPT[Math.min(S.idx,SCRIPT.length-1)];
  show("lock");}
 $("#lock").onclick=()=>{renderHome();show("home");};
 /* ============ home ============ */
+const IC_TROPHY='<svg viewBox="0 0 56 56" width="32" height="32"><g fill="#fff"><circle cx="7.5" cy="17.3" r="2.6"/><circle cx="28" cy="12.8" r="2.6"/><circle cx="48.5" cy="17.3" r="2.6"/><path d="M11 39L7.5 18.5L19 28l9-13.5L37 28l11.5-9.5L45 39z"/><rect x="11" y="42.5" width="34" height="4.5" rx="2.25"/></g></svg>';
+const IC_TALK='<svg viewBox="0 0 56 56" width="34" height="34"><path fill="#fff" d="M17 8h22a10 10 0 0 1 10 10v11a10 10 0 0 1-10 10H17A10 10 0 0 1 7 29V18A10 10 0 0 1 17 8z"/><path fill="#fff" d="M18.5 35.5h11L21 46.8c-.7.9-2.1.4-2.1-.7z"/><text x="28" y="29" font-size="12" font-weight="900" fill="#00B900" text-anchor="middle" font-family="Arial, sans-serif" letter-spacing="1">LINE</text></svg>';
+const IC_PHOTO='<svg viewBox="0 0 56 56" width="32" height="32"><g><path d="M28 6c3.4 5.4 3.4 13.4 0 21-3.4-7.6-3.4-15.6 0-21z" fill="#f5c518"/><path d="M28 6c3.4 5.4 3.4 13.4 0 21-3.4-7.6-3.4-15.6 0-21z" fill="#f08a24" transform="rotate(45 28 28)"/><path d="M28 6c3.4 5.4 3.4 13.4 0 21-3.4-7.6-3.4-15.6 0-21z" fill="#e84e8a" transform="rotate(90 28 28)"/><path d="M28 6c3.4 5.4 3.4 13.4 0 21-3.4-7.6-3.4-15.6 0-21z" fill="#9b59c9" transform="rotate(135 28 28)"/><path d="M28 6c3.4 5.4 3.4 13.4 0 21-3.4-7.6-3.4-15.6 0-21z" fill="#3d7dc4" transform="rotate(180 28 28)"/><path d="M28 6c3.4 5.4 3.4 13.4 0 21-3.4-7.6-3.4-15.6 0-21z" fill="#39b5a8" transform="rotate(225 28 28)"/><path d="M28 6c3.4 5.4 3.4 13.4 0 21-3.4-7.6-3.4-15.6 0-21z" fill="#57ab4a" transform="rotate(270 28 28)"/><path d="M28 6c3.4 5.4 3.4 13.4 0 21-3.4-7.6-3.4-15.6 0-21z" fill="#a4c639" transform="rotate(315 28 28)"/></g></svg>';
+const IC_GEAR='<svg viewBox="0 0 24 24" width="29" height="29" fill="#fff" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>';
 const APPS=[
- {id:"prog",lb:"番組アプリ",ic:"🏆",bg:"linear-gradient(180deg,#ffd60a,#f5b800)",lock:()=>!S.flags.leaped},
- {id:"talk",lb:"トーク",ic:"💬",bg:"#00B900",lock:()=>!S.flags.leaped},
- {id:"gallery",lb:"写真",ic:"🌸",bg:"#fff"},
- {id:"settings",lb:"設定・記録",ic:"⚙️",bg:"linear-gradient(180deg,#f2f2f7,#c7c7cc)"}
+ {id:"prog",lb:"番組アプリ",ic:IC_TROPHY,bg:"linear-gradient(160deg,#ffd60a,#f59e0b)",lock:()=>!S.flags.leaped},
+ {id:"talk",lb:"トーク",ic:IC_TALK,bg:"linear-gradient(160deg,#06c755,#00a846)",lock:()=>!S.flags.leaped},
+ {id:"gallery",lb:"写真",ic:IC_PHOTO,bg:"#ffffff"},
+ {id:"settings",lb:"設定・記録",ic:IC_GEAR,bg:"linear-gradient(160deg,#9ca3af,#6b7280)"}
 ];
 function chapNow(){let c={title:"0周目プロローグ",sub:"放送の向こう側にいた、ただのファンの時間。"};for(let i=0;i<=Math.min(S.idx,SCRIPT.length-1);i++){if(SCRIPT[i].k==="chap")c=SCRIPT[i];}return c;}
 function renderHome(){
@@ -523,7 +648,11 @@ function renderHome(){
  $("#sb-desc").textContent=S.finishedB?"おつかれさまでした。次は幕間と2021年編です（次版）。記録は「設定・記録」で見返せます。":c.sub;
  $("#apps").innerHTML=APPS.map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span><span>${a.lb}</span></button>`).join("");
  document.querySelectorAll("#apps .appicon").forEach(b=>b.onclick=()=>{const a=APPS.find(x=>x.id===b.dataset.app);if(a.lock&&a.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}openApp(a.id);});
+ const w2t=$("#w2-todoita");if(w2t)w2t.textContent=S.g.todoita+"件";
+ const w2i=$("#w2-iwakan");if(w2i)w2i.textContent=S.g.iwakan;
+ const w2d=$("#w2-diff");if(w2d)w2d.textContent=(S.diffs?S.diffs.length:0)+"件";
 }
+$("#w2").onclick=()=>{renderSettings("gauge");show("settings");};
 $("#story-banner").onclick=()=>{openStory();};
 function openApp(id){if(id==="prog"){renderProg("roster");show("prog");}if(id==="gallery"){renderGallery();show("gallery");}if(id==="talk"){renderTalk();show("talk");}if(id==="settings"){renderSettings("gauge");show("settings");}}
 /* ============ story engine ============ */
@@ -533,7 +662,7 @@ function lineHTML(it){
  if(it.k==='n')return `<div class="narr">${esc(it.t)}</div>`;
  if(it.k==='sys')return `<div class="narr sys">${esc(it.t)}</div>`;
  if(it.k==='m')return `<div class="mono">${esc(it.t)}</div>`;
- if(it.k==='diff')return `<div class="narr diff">◆ 差分が記録されました<br>${esc(it.t)}</div>`;
+ if(it.k==='diff')return `<div class="narr diff"><span class="rec">DIFF</span>差分が記録されました<br>${esc(it.t)}</div>`;
  if(it.k==='d'){const w=it.who==='nao'?["nao","ナオ"]:it.who==='hiroto'?["hiroto","井汲大翔"]:["other","MC"];return `<div class="dlg ${w[0]}"><div class="who">${w[1]}</div>${esc(it.t)}</div>`;}
  return "";}
 function pushLog(html){S.log.push(html);const b=$("#st-body");const d=document.createElement("div");d.innerHTML=html;b.appendChild(d.firstChild||d);b.scrollTop=b.scrollHeight;}
@@ -551,8 +680,8 @@ function processItem(it){
   case 'bg':setStage(it.img,it.cap);S.idx++;processNext();break;
   case 'flag':S.flags[it.f]=true;S.idx++;processNext();break;
   case 'fx':applyFx(it.fx);S.idx++;processNext();break;
-  case 'ledger':if(!S.ledger.includes(it.t))S.ledger.push(it.t);pushLog(`<div class="narr sys">📖 応援台帳に記録されました</div>`);S.idx++;break;
-  case 'keep':if(!S.keeps.includes(it.t))S.keeps.push(it.t);pushLog(`<div class="narr sys">🎁 Keepsake Box に残りました</div>`);S.idx++;break;
+  case 'ledger':if(!S.ledger.includes(it.t))S.ledger.push(it.t);pushLog(`<div class="narr sys"><span class="rec">台帳</span>応援台帳に記録されました</div>`);S.idx++;break;
+  case 'keep':if(!S.keeps.includes(it.t))S.keeps.push(it.t);pushLog(`<div class="narr sys"><span class="rec">KEEPSAKE</span>Keepsake Box に残りました</div>`);S.idx++;break;
   case 'diff':if(!S.diffs.includes(it.t))S.diffs.push(it.t);pushLog(lineHTML(it));S.idx++;break;
   case 'n': case 'd': case 'm': case 'sys':pushLog(lineHTML(it));S.idx++;break;
   case 'rank':S.flags.ranked=true;pushLog(canonHTML());S.idx++;break;
@@ -591,8 +720,8 @@ function renderChoices(it){
  });
 }
 function processResItem(r){
- if(r.k==='ledger'){if(!S.ledger.includes(r.t))S.ledger.push(r.t);pushLog(`<div class="narr sys">📖 応援台帳に記録されました</div>`);}
- if(r.k==='keep'){if(!S.keeps.includes(r.t))S.keeps.push(r.t);pushLog(`<div class="narr sys">🎁 Keepsake Box に残りました</div>`);}
+ if(r.k==='ledger'){if(!S.ledger.includes(r.t))S.ledger.push(r.t);pushLog(`<div class="narr sys"><span class="rec">台帳</span>応援台帳に記録されました</div>`);}
+ if(r.k==='keep'){if(!S.keeps.includes(r.t))S.keeps.push(r.t);pushLog(`<div class="narr sys"><span class="rec">KEEPSAKE</span>Keepsake Box に残りました</div>`);}
  if(r.k==='diff'){if(!S.diffs.includes(r.t))S.diffs.push(r.t);pushLog(lineHTML(r));}
  if(r.k==='fx'){applyFx(r.fx);}
 }
@@ -632,7 +761,7 @@ function renderProg(tab){progTab=tab;document.querySelectorAll("#prog-tabs butto
    <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2019/profile.jpg"><div><div class="rnm">ナオ</div><div class="rmeta">脱落（生存枠の手前）</div></div></div>`;}
  }
  if(tab==="vote"){
-   if(!S.flags.leaped){body.innerHTML=`<div class="pad"><div class="card"><h3>国民プロデューサー投票</h3><p>0周目の彼女は、ファンとして毎日投票していました。公式ルール内の投票のみです。</p><button class="btn gold" id="vote-btn" ${S.votedDay===0?"disabled":""}>${S.votedDay===0?"本日分は投票済み ✓":"井汲大翔に投票する"}</button><p class="small" style="margin-top:8px">投票済み回数：${S.voteCount||0}回</p></div></div>`;const vb=$("#vote-btn");if(vb)vb.onclick=()=>{S.votedDay=0;S.voteCount=(S.voteCount||0)+1;save();renderProg("vote");};}
+   if(!S.flags.leaped){body.innerHTML=`<div class="pad"><div class="card"><h3>国民プロデューサー投票</h3><p>0周目の彼女は、ファンとして毎日投票していました。公式ルール内の投票のみです。</p><button class="btn gold" id="vote-btn" ${S.votedDay===0?"disabled":""}>${S.votedDay===0?"本日分は投票済み":"井汲大翔に投票する"}</button><p class="small" style="margin-top:8px">投票済み回数：${S.voteCount||0}回</p></div></div>`;const vb=$("#vote-btn");if(vb)vb.onclick=()=>{S.votedDay=0;S.voteCount=(S.voteCount||0)+1;save();renderProg("vote");};}
    else{body.innerHTML=`<div class="empty">練習生は投票できません。<br>――いま彼女が届けられる応援は、<br>画面の向こうではなく、同じ時代の中にあります。</div>`;}
  }
  if(tab==="mission"){const ci=chapIndexNow();body.innerHTML=`<div style="padding:6px 0 14px">${MISSIONS.map((m,i)=>`<div class="ledrow"><div class="lt">${i<ci?"完了":i===ci?"現在のミッション":"今後"}</div>${m.t}<div class="small">${m.d}</div></div>`).join("")}</div>`;}
@@ -684,6 +813,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV1");location.reload();}};}
 }
 /* ============ init ============ */
+{const tv=document.querySelector("#ttl-ver");if(tv)tv.textContent="ver. "+VER;}
 tick();
 if(S.consented){enterLock();}else{show("consent");}
 </script>
