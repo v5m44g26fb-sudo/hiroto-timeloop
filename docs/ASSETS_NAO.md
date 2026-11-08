@@ -33,7 +33,8 @@
 
 - 用途（想定）: 各時代のアバター、練習生名簿のプロフィール、番組公式プロフィール画面
 - 未確定事項: 本人のOKが出るまでゲームには組み込まない。差し替え生成が来たら本ファイルのパスを更新する
-- **2026-11-09 face2 全面差し替え（進行中）**: 2019は face2 へ差し替え完了。2021・2023のプロフィール（`2021/profile.jpg`、`2023/profile.jpg`、`2023/profile-close.jpg`）と、ナオが写る場面カット類（2019: dorm / practice / ranking-close / selfie / stage / stage2、2021: daily / practice / stage / study、2023: daily / fancam-close / fancam2 / practice / stage）は face2 基準で再生成する。再生成前の旧フェイス版は `hidden_files/nao-oldface-backup/` に保管。顔の写らないカット（`common/room.jpg`、`common/livehouse.jpg`、後ろ姿の `common/audience-back.jpg`）は差し替え対象外
+- **2026-11-09 face2 全面差し替え（完了・v56〜v60）**: 2019は face2 へ差し替え完了。2021・2023のプロフィール（`2021/profile.jpg`、`2023/profile.jpg`、`2023/profile-close.jpg`）と、ナオが写る場面カット類（2019: dorm / practice / ranking-close / selfie / stage / stage2、2021: daily / practice / stage / study、2023: daily / fancam-close / fancam2 / practice / stage）は face2 基準で再生成し、全点目視確認のうえ組み込み済み。旧フェイスとの混在なし。再生成前の旧フェイス版は `hidden_files/nao-oldface-backup/` に保管。顔の写らないカット（`common/room.jpg`、`common/livehouse.jpg`、後ろ姿の `common/audience-back.jpg`）は差し替え対象外
+- **渚央の順位の表示（v60〜）**: 順位タブと順位発表の場面に、彼女自身の順位を金枠の別行で表示する。数値の定義は DESIGN.md §3.6
 
 ## 3. まだ不足している画像リスト
 
