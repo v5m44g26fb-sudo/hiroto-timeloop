@@ -519,7 +519,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v68";
+const VER="v69";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1725,7 +1725,7 @@ function renderGallery(){
   {img:"assets/nao/2019/selfie.jpg",cap:"この周：練習終わりの自撮り",cmp:"差分 ― 同じ屋根の下で眠る顔",gate:S.idx<35},
   {img:"assets/nao/2019/stage.jpg",cap:"この周：ステージに立つ彼女",cmp:"差分 ― 見る側から、立つ側へ",gate:S.idx<81},
   {img:"assets/nao/2019/stage2.jpg",cap:"この周：歌にすべてを懸けたステージ",cmp:"差分 ― 立つ側の景色",gate:S.idx<81},
-  {img:"assets/nao/2019/ranking-close.jpg",cap:"順位発表の夜、呼ばれるのを待つ顔",cmp:"Canon Lock の夜",gate:!S.flags.ranked},
+  {img:"assets/nao/2019/ranking-close.jpg",cap:"順位発表の夜、呼ばれるのを待つ顔",cmp:"Canon Lock の夜 ― 彼は36位、彼女は38位で脱落",gate:!S.flags.ranked},
   {img:"assets/nao/2021/profile.jpg",cap:"2021年：学員「三浦渚央」として、再び彼の隣の時代へ",cmp:"差分 ― 2つ目の時代にも、いなかったはずの顔",gate:!S.flags.chuang},
   {img:"assets/nao/2021/practice.jpg",cap:"2021年：言葉の壁の手前で、一緒に練習した時間",cmp:"差分 ― アウェーで届いた応援",gate:!S.flags.c21practice},
   {img:"assets/nao/2021/stage.jpg",cap:"2021年：初回のステージに立つ彼女",cmp:"差分 ― スキルは周を跨いで残る",gate:!S.flags.c21stage},
