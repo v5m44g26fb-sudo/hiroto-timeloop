@@ -518,7 +518,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v44";
+const VER="v45";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1800,8 +1800,14 @@ function seTap(v){tone(660,0.07,{type:"triangle",vol:0.028*(v||1)});}
 function seChoice(){tone(523.25,0.1,{type:"triangle",vol:0.045});tone(783.99,0.16,{type:"triangle",vol:0.04,delay:0.07});}
 function seNotif(){tone(880,0.12,{type:"sine",vol:0.05});tone(1318.5,0.22,{type:"sine",vol:0.045,delay:0.1});}
 function sePop(){tone(1046.5,0.14,{type:"triangle",vol:0.05});tone(1568,0.2,{type:"sine",vol:0.035,delay:0.06});}
-const BGM_CHORDS=[[220,261.63,329.63,493.88],[174.61,220,261.63,349.23],[196,246.94,293.66,392],[164.81,220,261.63,329.63]];
-function bgmChord(){const ac=acGet();if(!ac)return;const ch=BGM_CHORDS[bgmStep%BGM_CHORDS.length];bgmStep++;const lp=ac.createBiquadFilter();lp.type="lowpass";lp.frequency.value=720;const g=ac.createGain();g.gain.value=0.9;lp.connect(g);g.connect(ac.destination);ch.forEach((f,i)=>{tone(f,4.6,{type:i<2?"sine":"triangle",vol:i<2?0.016:0.008,att:1.4,delay:i*0.06,dest:lp});});tone(ch[0]/2,4.6,{type:"sine",vol:0.02,att:1.2,dest:lp});}
+const BGM_SETS={
+ base:[[220,261.63,329.63,493.88],[174.61,220,261.63,349.23],[196,246.94,293.66,392],[164.81,220,261.63,329.63]],
+ y2021:[[261.63,329.63,392,493.88],[196,293.66,392,587.33],[220,261.63,329.63,440],[174.61,261.63,349.23,440]],
+ y2023:[[246.94,293.66,369.99,493.88],[220,261.63,329.63,440],[174.61,220,261.63,349.23],[196,246.94,293.66,392]],
+ pres:[[130.81,196,261.63,329.63],[110,164.81,220,261.63],[98,196,246.94,293.66],[87.31,174.61,220,261.63]]
+};
+function bgmSet(){if(typeof S==="undefined"||!S)return BGM_SETS.base;if(S.trueEnd||S.finishedNXDB||S.eraNow==="now")return BGM_SETS.pres;if(S.eraNow==="2023"||S.eraNow==="nxd")return BGM_SETS.y2023;if(S.eraNow==="2021")return BGM_SETS.y2021;return BGM_SETS.base;}
+function bgmChord(){const ac=acGet();if(!ac)return;const set=bgmSet();const ch=set[bgmStep%set.length];bgmStep++;const lp=ac.createBiquadFilter();lp.type="lowpass";lp.frequency.value=(set===BGM_SETS.pres)?500:720;const g=ac.createGain();g.gain.value=0.9;lp.connect(g);g.connect(ac.destination);ch.forEach((f,i)=>{tone(f,4.6,{type:i<2?"sine":"triangle",vol:i<2?0.016:0.008,att:1.4,delay:i*0.06,dest:lp});});tone(ch[0]/2,4.6,{type:"sine",vol:0.02,att:1.2,dest:lp});}
 function startBGM(){if(bgmTimer||!sndOn())return;bgmChord();bgmTimer=setInterval(bgmChord,4200);}
 function stopBGM(){if(bgmTimer){clearInterval(bgmTimer);bgmTimer=null;}}
 function sndStart(){acGet();startBGM();}
