@@ -1,1 +1,3 @@
 hidden_files/
+assets/**/media-generation-*.json
+assets/**/media-generation-*.webp
