@@ -31,3 +31,4 @@
 
 - 本作での使用許可は未確定。許可が出るまで使わない（現在編の表示素材は空欄で設計）。
 | `assets/hiroto21/hiroto.jpg` / `assets/cast2021/*.jpg` | `~/workspace/chuang-uragawa/assets/cast90/`（創造営2021 公式プロフィール写真） | 2021編の名簿表示用。世に出ている年の公式写真として扱う |
+| `assets/hiroto23/hiroto.jpg` / `assets/cast2023/*.jpg` | `~/workspace/boysplanet-uragawa/assets/cast/`（BOYS PLANET 公式プロフィール写真） | 2023編の名簿表示用。世に出ている年の公式写真として扱う |

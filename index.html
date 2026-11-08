@@ -284,7 +284,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
     <div class="ttl-logo"><span class="ttl-1">1周目には</span><span class="ttl-2">いなかった</span><span class="ttl-3">ファンの件</span></div>
     <div class="ttl-rule"></div>
     <p class="ttl-lead">井汲大翔のファンのなおが、2019年へ跳ぶ。<br>男装練習生として、彼の隣に立つために。</p>
-    <div class="ttl-chips"><span>0周目〜2021編 収録</span><span>彼の視点あり</span><span>応援が残る物語</span></div>
+    <div class="ttl-chips"><span>0周目〜2023編 収録</span><span>彼の視点あり</span><span>応援が残る物語</span></div>
     <div id="ttl-notif"><span class="tn-ic"><svg viewBox="0 0 56 56" width="21" height="21"><g fill="#fff"><circle cx="7.5" cy="17.3" r="2.6"/><circle cx="28" cy="12.8" r="2.6"/><circle cx="48.5" cy="17.3" r="2.6"/><path d="M11 39L7.5 18.5L19 28l9-13.5L37 28l11.5-9.5L45 39z"/><rect x="11" y="42.5" width="34" height="4.5" rx="2.25"/></g></svg></span><span style="flex:1;min-width:0"><span class="tn-hd"><span><b>番組アプリ</b></span><span>2019年4月</span></span><span class="tn-bd">練習生名簿が更新されました ― <b>1周目にはいなかった名前</b>が、1件追加されています</span></span></div>
     <div class="ttl-notice">
       <p>本作はフィクションです。実在の人物・番組の記録をもとにした創作であり、登場人物の言動はすべて作中のものです。</p>
@@ -399,7 +399,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v7";
+const VER="v8";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -446,8 +446,27 @@ const MISSIONS21=[
  {at:2,t:"寮生活 ― 距離の管理",d:"男装の秘密は、距離の近さで試される。"},
  {at:3,t:"ファイナル ― 順位発表",d:"最終順位が発表される夜。彼の15位は周Aの結果（最低ライン）。"}
 ];
-function missionsNow(){return S.flags.chuang?MISSIONS21:MISSIONS;}
-function rosterNow(){return S.flags.chuang?ROSTER21:ROSTER;}
+const ROSTER23=[
+ {nm:"ナオ",meta:"20歳・Gグループ",img:"assets/nao/2023/profile.jpg",me:true},
+ {nm:"井汲大翔",meta:"20歳・Gグループ",img:"assets/hiroto23/hiroto.jpg",hiroto:true},
+ {nm:"ジャン・ハオ",meta:"Gグループ",img:"assets/cast2023/zhanghao.jpg"},
+ {nm:"ソン・ハンビン",meta:"Kグループ",img:"assets/cast2023/hanbin.jpg"},
+ {nm:"ソク・マシュー",meta:"Gグループ",img:"assets/cast2023/matthew.jpg"},
+ {nm:"キム・ジウン",meta:"Kグループ",img:"assets/cast2023/jiwoong.jpg"},
+ {nm:"ハン・ユジン",meta:"Kグループ",img:"assets/cast2023/yujin.jpg"},
+ {nm:"パク・ゴヌク",meta:"Kグループ",img:"assets/cast2023/gunwook.jpg"},
+ {nm:"リッキー",meta:"Gグループ",img:"assets/cast2023/ricky.jpg"},
+ {nm:"キム・ギュビン",meta:"Kグループ",img:"assets/cast2023/gyuvin.jpg"},
+ {nm:"キム・テレ",meta:"Kグループ",img:"assets/cast2023/taerae.jpg"}
+];
+const MISSIONS23=[
+ {at:0,t:"スターレベルテスト",d:"自己評価と審査の星。彼は2スター、彼女は3スターだった。"},
+ {at:1,t:"シグナルソング『Here I Am』",d:"配られたばかりの振付を、彼女は三度目も最初から知っている。"},
+ {at:2,t:"グループバトル",d:"SEVENTEEN『VERY NICE』。彼のキリングパートを磨く時間。"},
+ {at:3,t:"第3回順位発表",d:"ファイナルへは18人。彼の21位は周Aの結果（最低ライン）。"}
+];
+function missionsNow(){return S.flags.boys?MISSIONS23:S.flags.chuang?MISSIONS21:MISSIONS;}
+function rosterNow(){return S.flags.boys?ROSTER23:S.flags.chuang?ROSTER21:ROSTER;}
 /* ============ story script ============ */
 const N=t=>({k:'n',t}), D=(who,t)=>({k:'d',who,t}), M=t=>({k:'m',t}), SYS=t=>({k:'sys',t});
 const SCRIPT=[
@@ -834,7 +853,122 @@ D('other','「中国でも、隣にいてくれた子がいたんです。言葉
 M('（……この一文も、0周目には無かった）'),
 N('彼の手帳に挟まった飴の包み紙と、中国語ノートの最後のページ。時代を跨いで残るものが、少しずつ増えていく。'),
 {k:'diff',t:'現在の差分：彼の中国時代のインタビューの一文が変わった。「隣にいてくれた子」が、2つの時代に残った。'},
-{k:'end21B'}
+{k:'end21B'},
+/* ================= 幕間2 ================= */
+{k:'chap',title:'幕間2 ― 三度目の誘い',sub:'2021〜2023 ― やめる理由なら、増えていく',era:'INTERLUDE ― 2021→2023',wdate:'2022年 ― 帰国後の日々',lock:'幕間 ― 岐路'},
+SYS('― ここからは「彼の時間」です。彼女はまだ、この時代にいない ―'),
+N('創造営が終わり、彼は日本へ帰った。今度は事務所の練習生として、デビューの見えない日々が始まる。20歳になろうとしていた。'),
+N('周囲は進学し、就職していく。「サバイバル2回も出たのに」という言葉は、応援の顔をして刺さった。'),
+{k:'hisin',lines:[
+ M('（やめる理由なら、毎日増えていく）'),
+ M('（でもな。……36位から、15位まで来たんや）'),
+ M('（あともうちょっと、を2回言えた。それは、嘘じゃない）'),
+ M('（……もう一回だけ、って思うのは、甘いんかな）')
+]},
+N('2022年。韓国のサバイバル番組『BOYS PLANET』の開催が発表された。3か国目、3度目の挑戦の誘いだった。'),
+{k:'c',opts:[
+ {t:'中国語ノートの、最後のページを開く',fx:{ishi:8},res:[N('発音練習のノート。最後のページには、誰かの名前がカタカナで書いてある。なぜ捨てられないのか、彼自身にもうまく説明できなかった。ただ、その名前を見るたび、背筋が伸びた。'),{k:'keep',t:'（彼の側のKeepsake）中国語ノートは、韓国の合宿にも持っていくことになる。'}]},
+ {t:'2つの順位を、静かに並べて見る',fx:{ishi:5},res:[N('36位、15位。上がってきた数字は、彼が歩いてきた道そのものだった。「次は、もっと上」。そう思える自分が、まだいた。')]},
+ {t:'年齢のことを考える（もう20歳だ）',fx:{ishi:2},res:[N('アイドルの「若さ」は、残酷なほど正直だ。それでも彼は、鏡の中の自分に「まだ終わってない」と言った。')]}
+]},
+{k:'ishiGate',th:60,
+ hi:[N('決断は、迷いよりも速かった。3度目の応募書類を、彼は送った。'),D('hiroto','……三度目。……行く。韓国で、やる'),{k:'diff',t:'幕間の差分：彼の「三度目」の決断は速かった。2つの時代で届いた応援が、背中を押している。'}],
+ lo:[N('決断には、長い夜が要った。それでも締め切りの日、彼は応募した。理由は一つだけ。「終わり方を、まだ自分で決めていない」。'),{k:'diff',t:'幕間の差分：迷いは長かったが、彼は三度目を選んだ。継続意志は細く繋がっている。'}]},
+{k:'endM2'},
+/* ================= 2023編・周A ================= */
+{k:'flag',f:'boys'},
+{k:'chap',title:'第3部 2023 ボイプラ編 ― 周A',sub:'三度目の隣に、三度目の彼女',era:'CYCLE A ― 2023 / BOYS PLANET',wdate:'2023年・韓国 ― 3か国目',lock:'2023年 ― 周A'},
+SYS('― 巻き戻った先は2022年、ボイプラの応募前。彼女は20歳になっていた ―'),
+N('目覚めた場所は、2022年の自分の部屋だった。今度の行き先は、韓国『BOYS PLANET』。3か国目、3つ目の言語だった。'),
+M('（彼は行く。三度目も。……私も行く。三度目の隣に）'),
+N('準備は、もはや手慣れたものだった。男装の所作、周回で積んだ歌とダンス。そして韓国語。ファンとして見てきた彼の3度目の挑戦を、今度は内側から支えるために。'),
+{k:'c',opts:[
+ {t:'韓国語の受け答えを徹底的に仕込む',fx:{uta:3},res:[N('3つ目の言語。発音の壁は高い。それでも「聞き取ろうとする姿勢」は、どの国でも先に届いた。')]},
+ {t:'ダンスのキレをさらに磨く',fx:{dance:4},res:[N('3つの時代で積んだ練習量は、体に刻まれていた。2019年のDクラスだった彼女は、もういない。')]},
+ {t:'ボイプラの流れを復習する（彼の見せ場と、落ちた場所を）',fx:{},res:[M('（彼は21位。第3回発表で落ちた。……評価と人気が、最後まで噛み合わなかった番組やった）'),N('彼女は史実を胸にしまった。先のことは言わない。約束は、時代を跨いでも約束だった。')]}
+]},
+{k:'bg',img:'assets/nao/2023/profile.jpg',cap:'BOYS PLANET ― 練習生「ナオ」として登録された、彼女'},
+N('韓国。KとG、二つのグループに分かれた練習生たち。彼女は彼と同じGグループに登録された。'),
+N('そして、ロビーで再び会った。井汲大翔、20歳。2つの番組を越えてきた顔は、少し大人びていた。'),
+D('hiroto','……あの'),
+D('hiroto','俺たち、前にも……いや、ごめん。初めまして、やんな'),
+M('（2つの時代の夢が、彼の中で重なってきてる。……それでも、まだ確信には届いてない）'),
+{k:'c',opts:[
+ {t:'「初めまして」と手を差し出す',fx:{},res:[D('nao','初めまして。ナオです。よろしく'),D('hiroto','井汲大翔です。……よろしく'),N('握手の手が、ほんの少しだけ長く重なった気がした。気のせいだと、彼は思ったはずだった。')]},
+ {t:'「運命かもね」と笑ってみせる',fx:{iwakan:4},res:[D('nao','……運命かもね。3回も同じ番組に集まるなんて'),D('hiroto','3回？　……ああ、俺の挑戦の回数、知ってるんや'),M('（しまった。ファンとしての知識が、先に漏れた）')]},
+ {t:'韓国語で挨拶して、ごまかす',fx:{bare:2},res:[D('nao','안녕하세요（こんにちは）。……ナオです'),D('hiroto','……！　韓国語、上手いな'),N('彼は感心して笑った。既視感の正体は、言葉の陰に隠れた。')]}
+]},
+{k:'flag',f:'b23stage'},
+{k:'bg',img:'assets/nao/2023/stage.jpg',cap:'BOYS PLANET ― スターレベルテスト'},
+N('スターレベルテスト。練習生が自ら星を付け、審査が実際の星を返す。'),
+N('彼女のパフォーマンスは、3つの時代の蓄積が実を結んだ。審査の星は――3つ。2019年のクラスDから、遠い場所まで来ていた。'),
+SYS('スターレベルテスト ― ナオ：3スター'),
+N('彼の番。自己評価はオールスター。だが審査の星は、2つだった。'),
+SYS('スターレベルテスト ― 井汲大翔：2スター（史実どおり）'),
+M('（評価と人気が噛み合わない。それが彼のボイプラやった。……ここからが、しんどい番組になる）'),
+N('シグナルソング『Here I Am』のレッスン。振付が配られた、その場で――彼女の体は、三度目も勝手に動いた。'),
+D('other','……お前、なんで毎回もう踊れるん？'),
+{k:'fx',fx:{iwakan:7}},
+{k:'chap',title:'グループバトル ― VERY NICE',sub:'彼のキリングパート',era:'CYCLE A ― 2023 / BOYS PLANET',wdate:'2023年・グループバトル',lock:'2023年 ― バトル'},
+{k:'bg',img:'assets/nao/2023/practice.jpg',cap:'ボイプラ ― 練習室'},
+{k:'flag',f:'b23battle'},
+N('グループバトル。彼女は彼と同じGチームに入り、課題曲は SEVENTEEN『VERY NICE』。キリングパート――曲の顔になる一瞬は、彼が担うことになった。'),
+N('夜の練習室。キリングパートの表情と角度を、彼は何十回も繰り返していた。'),
+{k:'c',opts:[
+ {t:'カメラ役になって、撮りながら付き合う',fx:{todoita:1,dance:2},res:[N('スマホを構えて「今の、よかった」「そこ、もう一回」。撮られた映像で確認する彼の目は、真剣そのものだった。'),D('hiroto','……ありがとう。……お前がいると、練習の質が上がる'),{k:'ledger',t:'ボイプラの練習室：カメラ役として彼のキリングパートを磨いた応援。撮る側と撮られる側の距離で届いた。'}]},
+ {t:'一緒に踊って、立ち位置を体で合わせる',fx:{dance:3},res:[N('二人で何度もフォーメーションを通した。隣で踊る感覚は、2019年の練習室と少しも変わらなかった。')]},
+ {t:'休憩を促して、体調を整えさせる',fx:{ishi:3},res:[D('nao','キリングは一瞬やから。万全で迎えよ'),D('hiroto','……うん。……ありがとう'),N('彼は素直に座った。無理をしすぎる彼を止めるのも、隣にいる者の仕事だった。')]}
+]},
+N('本番。彼のキリングパートは、放送でも大きく抜かれた。評価の星とは別に、彼の「見つけてもらう力」は確かに届いていた。'),
+{k:'chap',title:'伸びていくファンカム',sub:'ビジュアル人気という、もう一つの物語',era:'CYCLE A ― 2023 / BOYS PLANET',wdate:'2023年・合宿中盤',lock:'2023年 ― 合宿中盤'},
+{k:'bg',img:'assets/nao/2023/fancam-close.jpg',cap:'彼女の個人ファンカム（チッケム）'},
+{k:'flag',f:'b23fan'},
+N('グループバトルの後、彼女の個人ファンカム（チッケム）の再生数が、静かに伸び始めていた。実力の順位とは無関係に、「顔」で名前が売れていく現象だった。'),
+N('2019年から、ずっとそうだった。初回から顔で覚えられ、ファンカムの数字は実力以上に伸びる。「顔は上位圏、実力は中位」――そのギャップ自体が、番組の内外で話題になっていた。'),
+M('（彼の「評価と人気が噛み合わない」の、ちょうど裏返しやな、私は）'),
+N('だが、人気には影もあった。中間発表で彼女の順位が思ったより上に来た時、彼女は一人で天井を見上げた。'),
+M('（上がりすぎたら、まずい。デビュー圏に近づいたら……私は、その前に降りなあかん）'),
+N('その夜、練習生宛のファンレターの中に、彼女宛の一通があった。拙い韓国語と日本語が混ざった、温かい手紙だった。'),
+{k:'c',opts:[
+ {t:'手紙を、折って胸ポケットにしまう',fx:{todoita:1},res:[N('応援する側だった彼女が、応援される側の重さを知った。――この手紙も、彼女の「届いた数」に数えられる。'),{k:'ledger',t:'彼女宛のファンレター：ファンだった彼女が「応援される側」を経験した。届いた数は、彼女宛の応援も含む。'}]},
+ {t:'返事の下書きを、何度も書き直す',fx:{todoita:1},res:[N('韓国語の辞書を引きながら、一晩かけて返事を書いた。ファンの気持ちが分かるからこそ、雑にはできなかった。'),{k:'ledger',t:'彼女宛のファンレターへの返事：応援される側の彼女が、ファンの頃の自分に重ねて書いた。'}]},
+ {t:'順位のことを考えて、手紙から目を逸らす',fx:{ishi:0},res:[N('人気は嬉しい。でも彼女には、デビューできない理由と、デビューしてはいけない理由の両方があった。手紙は、そっと引き出しにしまった。')]}
+]},
+{k:'chap',title:'寮の夜 ― 三度目の秘密',sub:'距離と、声と、既視感と',era:'CYCLE A ― 2023 / BOYS PLANET',wdate:'2023年・合宿中盤',lock:'2023年 ― 合宿中盤'},
+{k:'bg',img:'assets/nao/2023/daily.jpg',cap:'ボイプラ ― 寮の日常'},
+N('寮の廊下。夜、彼と二人になった時、彼は不意に言った。'),
+D('hiroto','なあ、ナオ。……変なこと聞くけど'),
+D('hiroto','お前の声、たまに……いや、なんでもない'),
+M('（声。男装の声の作り方が、疲れで緩んでたかも。……それにしても、彼の勘は時代ごとに鋭くなってる）'),
+{k:'c',opts:[
+ {t:'「風邪気味で」と咳払いして逃げる',fx:{bare:4},res:[N('彼女は咳払いをして「風邪、かな」と笑った。彼は「……無理すんなよ」とだけ言った。疑いは、完全には消えなかった。')]},
+ {t:'「緊張すると声が高くなる」と先に説明する',fx:{bare:2},res:[D('nao','緊張すると、声裏返るんよ。……笑うなよ'),D('hiroto','……笑わん。……そっか'),N('説明は半分だけ嘘だった。彼はそれ以上、踏み込まなかった。')]},
+ {t:'話題を彼の評価の話に変える',fx:{},res:[D('nao','それより、次の発表やろ。……大翔は見つけてもらえてる方やと思う'),D('hiroto','……ほんまか'),N('彼の表情が、少しだけ和らいだ。秘密は守られた。でも、伝えたかった言葉も本物だった。')]}
+]},
+{k:'chap',title:'第3回順位発表 ― ボイプラ',sub:'Canon Lock ― 21位という史実',era:'CYCLE A ― 2023 / BOYS PLANET',wdate:'2023年・第3回順位発表',lock:'2023年 ― 順位発表'},
+SYS('― 第3回順位発表式。ここから先は、ふざけられない時間です ―'),
+N('ファイナルへ進めるのは、18人。発表は進み、彼女の挑戦はこの時代でもデビューの枠の手前で終わった。史実の誰の椅子も、奪っていない。'),
+N('残りわずか。19位、20位――そして。'),
+D('mc','――21位。イクミ ヒロト。'),
+N('彼は立ち上がり、静かに頭を下げた。36位、15位、そして21位。3度の挑戦は、ここで一度、幕を閉じた。'),
+{k:'rank23'},
+N('会場を出る通路。彼は空を見上げて、長く息を吐いた。'),
+D('hiroto','……三回、やったんやけどな'),
+{k:'c',opts:[
+ {t:'「三回とも、見つけてもらえてた」と言う',fx:{ishi:8,todoita:1},res:[D('nao','順位だけが全部ちゃう。大翔は三回とも、誰かの記憶に残るステージをした'),D('hiroto','……っ。……ありがとう'),N('彼は泣かなかった。代わりに、小さく何度も頷いた。'),{k:'ledger',t:'ボイプラ第3回発表の夜：「三回とも、見つけてもらえてた」。彼の3度の挑戦の意味を、彼女の言葉が支えた。'}]},
+ {t:'何も言わず、隣を歩く',fx:{ishi:4},res:[N('言葉はなかった。ただ、同じ歩幅で通路を歩いた。それが今の彼女にできる、最大の寄り添いだった。')]},
+ {t:'「まだ終わってない」とだけ言う',fx:{ishi:6},res:[D('nao','……まだ、終わってない'),D('hiroto','……なんで、そんなこと分かるん？'),M('（未来の知識じゃない。これは、私の本音や）'),N('彼は少し驚いて、それから笑った。「……そっか」と。')]}
+]},
+{k:'his',lines:[
+ M('（……あの子）'),
+ M('（ナオ。三つの言葉の番組で、三回ともおった子）'),
+ M('（夢の中の子と、同じ顔、同じ助け方、同じ「顔に書いてる」）'),
+ M('（……偶然、で片付けるには、多すぎる）'),
+ M('（次に会ったら、絶対に――）'),
+ D('hiroto','……次って、なんやろな')
+]},
+{k:'diff',t:'2023年の差分：三度目の隣にも、彼女がいた。彼の確信は「偶然では片付かない」領域に入った。'},
+{k:'end23A'}
 ];
 </script>
 <script>
@@ -849,9 +983,9 @@ setInterval(tick,20000);
 /* ============ consent / lock ============ */
 $("#consent-btn").onclick=()=>{S.consented=true;S.started=true;save();enterLock();};
 function enterLock(){tick();const cur=SCRIPT[Math.min(S.idx,SCRIPT.length-1)];
- $("#lk-date").textContent=S.flags.chuang?"2021年":(S.flags&&S.flags.leaped)?"2019年":"2026年";
- $("#lk-era").textContent=S.finished21B?"2021編 ― 完":S.finished21A?"2021年 ― 周Bへ":S.flags.chuang?"2021年 ― 周A":S.finishedB?"幕間 ― 岐路":S.finishedA?"2019年 ― 周B":(S.flags&&S.flags.leaped?"2019年 ― 周A":"0周目 ― 現在");
- $("#lk-notif-t").textContent=S.finished21B?"2021編が終わりました。記録は各アプリから見返せます。":S.finished21A?"彼は巻き戻りました。2021編・周Bが始まります。":S.flags.chuang?"創造営2021の学員証が届いています。中国での合宿が始まります。":S.finishedB?"彼は岐路に立っています。幕間が始まります。":S.finishedA?"彼は巻き戻りました。周Bが始まります。":(S.flags&&S.flags.leaped?"番組アプリが届いています。合宿が始まります。":"PRODUCE 101 JAPAN の思い出が、通知で届きました。");
+ $("#lk-date").textContent=S.flags.boys?"2023年":S.flags.chuang?"2021年":(S.flags&&S.flags.leaped)?"2019年":"2026年";
+ $("#lk-era").textContent=S.finished23A?"2023年 ― 周Bへ":S.flags.boys?"2023年 ― 周A":S.finished21B?"幕間 ― 岐路":S.finished21A?"2021年 ― 周Bへ":S.flags.chuang?"2021年 ― 周A":S.finishedB?"幕間 ― 岐路":S.finishedA?"2019年 ― 周B":(S.flags&&S.flags.leaped?"2019年 ― 周A":"0周目 ― 現在");
+ $("#lk-notif-t").textContent=S.finished23A?"彼は巻き戻りました。2023編・周Bが始まります。":S.flags.boys?"BOYS PLANETの練習生証が届いています。韓国での合宿が始まります。":S.finished21B?"彼は三度目の岐路に立っています。幕間が始まります。":S.finished21A?"彼は巻き戻りました。2021編・周Bが始まります。":S.flags.chuang?"創造営2021の学員証が届いています。中国での合宿が始まります。":S.finishedB?"彼は岐路に立っています。幕間が始まります。":S.finishedA?"彼は巻き戻りました。周Bが始まります。":(S.flags&&S.flags.leaped?"番組アプリが届いています。合宿が始まります。":"PRODUCE 101 JAPAN の思い出が、通知で届きました。");
  show("lock");}
 $("#lock").onclick=()=>{renderHome();show("home");};
 /* ============ home ============ */
@@ -870,15 +1004,16 @@ function renderHome(){
  const c=chapNow();
  if(c.era)$("#w-era").textContent=c.era;
  if(c.wdate)$("#w-date").textContent=c.wdate;
- $("#w-cycle").textContent=S.finished21B?"周回：2021編 完":S.finished21A?"周回：2021編 周Bへ":S.flags.chuang?"周回：2021編（周A）":S.finishedB?"周回：幕間":S.finishedA?"周回：周B（2周目）":"周回："+(S.flags.leaped?"1周目（周A）":"0周目");
- $("#w-sub").textContent=S.finished21B?"2つの時代に、彼女のいた証拠が残った。":S.finished21A?"2つ目の時代でも、彼女は彼の隣にいた。":S.flags.chuang?"言葉のアウェーでも、応援は届く。":S.finishedB?"彼の歴史に、彼女のいた証拠が残った。":(S.flags.leaped?"結末は変えられない。でも順位も毎日も、努力で動く。":"1周目（史実）には、彼女は彼の歴史のどこにもいない。");
- $("#sb-title").textContent=S.finished21B?"2021 創造営編 ― 完":S.finished21A?"2021 創造営編 ― 周A 完":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"2019 日プ編 ― 完":c.title;
- $("#sb-desc").textContent=S.finished21B?"おつかれさまでした。次は幕間2と2023年編です（次版）。記録は「設定・記録」で見返せます。":S.finished21A?"2021編・周Bへ進みます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub;
+ $("#w-cycle").textContent=S.finished23A?"周回：2023編 周A 完":S.flags.boys?"周回：2023編（周A）":S.finished21B?"周回：幕間":S.finished21A?"周回：2021編 周Bへ":S.flags.chuang?"周回：2021編（周A）":S.finishedB?"周回：幕間":S.finishedA?"周回：周B（2周目）":"周回："+(S.flags.leaped?"1周目（周A）":"0周目");
+ $("#w-sub").textContent=S.finished23A?"三度目の隣にも、彼女がいた。":S.flags.boys?"評価と人気が噛み合わない彼と、人気が先行する彼女。":S.finished21B?"2つの時代に、彼女のいた証拠が残った。":S.finished21A?"2つ目の時代でも、彼女は彼の隣にいた。":S.flags.chuang?"言葉のアウェーでも、応援は届く。":S.finishedB?"彼の歴史に、彼女のいた証拠が残った。":(S.flags.leaped?"結末は変えられない。でも順位も毎日も、努力で動く。":"1周目（史実）には、彼女は彼の歴史のどこにもいない。");
+ $("#sb-title").textContent=S.finished23A?"2023 ボイプラ編 ― 周A 完":S.finished21B?"2021 創造営編 ― 完":S.finished21A?"2021 創造営編 ― 周A 完":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"2019 日プ編 ― 完":c.title;
+ $("#sb-desc").textContent=S.finished23A?"おつかれさまでした。次は2023編・周Bです（次版）。記録は「設定・記録」で見返せます。":S.finished21B?"幕間2 ― 三度目の誘いへ進みます。":S.finished21A?"2021編・周Bへ進みます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub;
  $("#apps").innerHTML=APPS.map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span><span>${a.lb}</span></button>`).join("");
  document.querySelectorAll("#apps .appicon").forEach(b=>b.onclick=()=>{const a=APPS.find(x=>x.id===b.dataset.app);if(a.lock&&a.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}openApp(a.id);});
  const w3t=$("#w3-title"),w3d=$("#w3-desc");
  if(w3t&&w3d){const ml=(typeof missionsNow==="function")?missionsNow():MISSIONS;const ci=Math.min(chapIndexNow(),ml.length-1);
-  if(S.finishedB&&!S.flags.chuang){w3t.textContent="幕間 ― 彼の岐路";w3d.textContent="脱落後の彼が、次へ行くかどうかを選ぶ時間です。";}
+  if(S.finished21B&&!S.flags.boys){w3t.textContent="幕間 ― 三度目の誘い";w3d.textContent="2度の挑戦を終えた彼が、3度目を選ぶかどうかを決める時間です。";}
+  else if(S.finishedB&&!S.flags.chuang){w3t.textContent="幕間 ― 彼の岐路";w3d.textContent="脱落後の彼が、次へ行くかどうかを選ぶ時間です。";}
   else if(!S.flags.leaped){w3t.textContent="まだ始まっていない";w3d.textContent="0周目の彼女は、テレビの向こうで見ているだけです。";}
   else{w3t.textContent=ml[ci].t;w3d.textContent=ml[ci].d;}}
  const w2t=$("#w2-todoita");if(w2t)w2t.textContent=S.g.todoita+"件";
@@ -932,7 +1067,10 @@ function processItem(it){
   case 'endM1':S.finishedM1=true;pushLog(`<div class="canon"><h3>幕間1 ― 完</h3><div style="font-size:13px;line-height:1.8">彼は「もう一度」を選んだ。行く先は中国、大規模サバイバル番組『創造営2021』。<br>――第2部・2021 創造営編へ続く。</div></div>`);S.idx++;break;
   case 'end21A':S.finished21A=true;pushLog(`<div class="canon"><h3>2021 創造営編 ― 周A 終了</h3><div style="font-size:13px;line-height:1.8">15位は、周Aの結果（最低ライン）。デビューできない結末は、この時代でも変わらなかった。<br>そして彼の脱落の瞬間――記憶は再び巻き戻り、彼女の「既視感」は彼の確信へ近づいていく。――周Bへ続く。</div></div>`);S.idx++;break;
   case 'rank21B':{let r=15;r-=(S.flags.effort21>=4?2:S.flags.effort21>=2?1:0);r-=(S.g.todoita>=8?1:0);if(r<12)r=12;S.rank21B=r;S.flags.ranked21B=true;pushLog(canon21BHTML(r));S.idx++;break;}
-  case 'end21B':S.finished21B=true;pushLog(`<div class="canon"><h3>2021 創造営編 ― 完</h3><div style="font-size:13px;line-height:1.8">デビューできない結末は変わらなかった。でも彼の歴史に「隣にいてくれた子」が、2つの時代に残った。<br>――次は幕間2（NXDへの流れ）と、2023年・ボイプラ編へ。（次版で公開）</div></div>`);S.idx++;break;
+  case 'end21B':S.finished21B=true;pushLog(`<div class="canon"><h3>2021 創造営編 ― 完</h3><div style="font-size:13px;line-height:1.8">デビューできない結末は変わらなかった。でも彼の歴史に「隣にいてくれた子」が、2つの時代に残った。<br>――幕間2へ続く。</div></div>`);S.idx++;break;
+  case 'rank23':S.flags.ranked23=true;pushLog(canon23HTML());S.idx++;break;
+  case 'endM2':S.finishedM2=true;pushLog(`<div class="canon"><h3>幕間2 ― 完</h3><div style="font-size:13px;line-height:1.8">彼は三度目を選んだ。行く先は韓国『BOYS PLANET』。<br>――第3部・2023 ボイプラ編へ続く。</div></div>`);S.idx++;break;
+  case 'end23A':S.finished23A=true;pushLog(`<div class="canon"><h3>2023 ボイプラ編 ― 周A 終了</h3><div style="font-size:13px;line-height:1.8">21位は、周Aの結果（最低ライン）。デビューできない結末は、三度目も変わらなかった。<br>そして彼の脱落の瞬間――三つの時代の記憶が、彼の中で重なり始める。――周Bへ続く（次版）。</div></div>`);S.idx++;break;
   case 'his':S.idx++;save();openHis(it.lines);break;
   case 'c':renderChoices(it);break;
   case 'endA':S.finishedA=true;pushLog(`<div class="canon"><h3>2019 日プ編 ― 周A 終了</h3><div style="font-size:13px;line-height:1.8">36位は、周Aの結果（最低ライン）。でも、0周目にはなかったものが、この周には残った。<br>そして脱落の瞬間――彼は初めて、2019年4月へ巻き戻る。――周Bへ続く。</div></div>`);S.idx++;break;
@@ -941,6 +1079,11 @@ function processItem(it){
  save();renderGauges();updProg();
 }
 function updProg(){const i=$("#st-prog-i");if(i)i.style.width=Math.min(100,Math.round((S?S.idx:0)/SCRIPT.length*100))+"%";}
+function naoPopHTML(era){const t={y2019:`個人ファンカムの再生は上位圏。実力クラスはCまでで、「顔は上位圏、実力は中位」のギャップが番組内外で話題に。中間発表の人気は高かったが、最終結果は生存枠の手前だった。`,y2021:`中国でもビジュアル先行で名前が売れた。人気は上位圏、実力は中位のまま――ギャップはこの時代でも話題になり、結果はデビューの枠の手前で止まった。`,y2023:`個人ファンカム（チッケム）の再生が実力以上に伸び、中間発表の順位はそこそこ上まで来た。ただしデビュー圏には入れない。人気が上がるほど「近づいてしまう」緊張が、彼女を離脱（辞退）へ向かわせる伏線になる。`};return `<div class="rankrow"><div class="rk" style="font-size:12px;color:var(--gold)">人気</div><img src="assets/nao/${era==="y2019"?"2019":era==="y2021"?"2021":"2023"}/profile.jpg"><div><div class="rnm">ナオ ― ビジュアル人気</div><div class="rmeta" style="white-space:normal">${t[era]}</div></div></div>`;}
+function canon23HTML(){const g=S.g;return `<div class="canon"><h3>CANON LOCK ― BOYS PLANET・第3回順位発表の内訳</h3>
+ <div class="crow"><span class="fixed">絶対不変</span><div>デビューできない結末（彼はZEROBASEONEのメンバーに入らない）／第3回発表で脱落する回は変更なし</div></div>
+ <div class="crow"><span class="changed">周Aの結果</span><div>井汲大翔：<b>21位</b>（史実どおり＝最低ライン）／届いた応援：<b>${g.todoita}件</b>／評価と人気が噛み合わない中でも、キリングパートは届いた</div></div>
+ <div style="font-size:11.5px;color:#a9a9c4;margin-top:6px">順位は周Bの共同作戦で上へ動かせる（デビュー圏＝9位以内の手前まで）。</div></div>`;}
 function canon21BHTML(r){const g=S.g;return `<div class="canon"><h3>CANON LOCK ― 創造営2021・周Bの内訳</h3>
  <div class="crow"><span class="fixed">絶対不変</span><div>デビューできない結末（INTO1には入らない）／脱落した発表回は史実と同じ／大きな節目：変更なし</div></div>
  <div class="crow"><span class="changed">努力で動いた</span><div>井汲大翔の最終順位：15位 → <b>${r}位</b>（デビュー圏＝11位以内の手前まで上昇）／中国語のアピールが届いた／届いた応援：<b>${g.todoita}件</b></div></div>
@@ -1002,15 +1145,17 @@ $("#his-next").onclick=hisNext;$("#his-body").onclick=hisNext;
 /* ============ program app ============ */
 let progTab="roster";
 document.querySelectorAll("#prog-tabs button").forEach(b=>b.onclick=()=>renderProg(b.dataset.tab));
-function renderProg(tab){progTab=tab;document.querySelectorAll("#prog-tabs button").forEach(b=>b.classList.toggle("on",b.dataset.tab===tab));const body=$("#prog-body");const ps=$("#prog-sub");if(ps)ps.textContent=S.flags.chuang?"CHUANG 2021 ― 学員用":"PRODUCE 101 JAPAN ― 練習生用";
- if(tab==="roster"){body.innerHTML=`<div class="roster">${rosterNow().map(r=>`<div class="rcard ${r.me?"me":""} ${r.hiroto?"hiroto":""}"><img src="${r.img}" alt=""><div class="rn">${r.nm}${r.me?"（自分）":""}</div><div class="rm">${r.meta}</div></div>`).join("")}</div><p class="small" style="padding:0 16px 16px">名簿は一部を表示しています。金枠＝自分、ピンク枠＝井汲大翔。${S.flags.chuang?"（創造営2021の名簿）":""}</p>`;}
+function renderProg(tab){progTab=tab;document.querySelectorAll("#prog-tabs button").forEach(b=>b.classList.toggle("on",b.dataset.tab===tab));const body=$("#prog-body");const ps=$("#prog-sub");if(ps)ps.textContent=S.flags.boys?"BOYS PLANET ― 練習生用":S.flags.chuang?"CHUANG 2021 ― 学員用":"PRODUCE 101 JAPAN ― 練習生用";
+ if(tab==="roster"){body.innerHTML=`<div class="roster">${rosterNow().map(r=>`<div class="rcard ${r.me?"me":""} ${r.hiroto?"hiroto":""}"><img src="${r.img}" alt=""><div class="rn">${r.nm}${r.me?"（自分）":""}</div><div class="rm">${r.meta}</div></div>`).join("")}</div><p class="small" style="padding:0 16px 16px">名簿は一部を表示しています。金枠＝自分、ピンク枠＝井汲大翔。${S.flags.boys?"（BOYS PLANETの名簿）":S.flags.chuang?"（創造営2021の名簿）":""}</p>`;}
  if(tab==="rank"){
-   if(!S.flags.ranked&&!S.flags.ranked21){body.innerHTML=`<div class="empty">順位発表はまだ行われていません。<br>発表の夜に、ここへ結果が刻まれます。</div>`;}
-   else{body.innerHTML=(S.flags.ranked21B?canon21BHTML(S.rank21B)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rank21B}</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">井汲大翔（創造営・周B）</div><div class="rmeta">デビュー圏外 ― 周Aの15位から上昇</div></div></div>`:"")+(S.flags.ranked21?canon21HTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">1位〜14位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
+   if(!S.flags.ranked&&!S.flags.ranked21&&!S.flags.ranked23){body.innerHTML=`<div class="empty">順位発表はまだ行われていません。<br>発表の夜に、ここへ結果が刻まれます。</div>`;}
+   else{body.innerHTML=(S.flags.ranked23?canon23HTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto23/hiroto.jpg"><div><div class="rnm">1位〜20位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
+   <div class="rankrow"><div class="rk" style="color:var(--pink)">21</div><img src="assets/hiroto23/hiroto.jpg"><div><div class="rnm">井汲大翔（ボイプラ）</div><div class="rmeta">デビュー圏外 ― 周Aの結果（最低ライン）</div></div></div>
+   <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2023/profile.jpg"><div><div class="rnm">ナオ</div><div class="rmeta">脱落（デビューの枠の手前）</div></div></div>`+naoPopHTML("y2023"):"")+(S.flags.ranked21B?canon21BHTML(S.rank21B)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rank21B}</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">井汲大翔（創造営・周B）</div><div class="rmeta">デビュー圏外 ― 周Aの15位から上昇</div></div></div>`:"")+(S.flags.ranked21?canon21HTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">1位〜14位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
    <div class="rankrow"><div class="rk" style="color:var(--pink)">15</div><img src="assets/hiroto21/hiroto.jpg"><div><div class="rnm">井汲大翔（創造営）</div><div class="rmeta">デビュー圏外 ― 周Aの結果（最低ライン）</div></div></div>
-   <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2021/profile.jpg"><div><div class="rnm">ナオ</div><div class="rmeta">脱落（デビューの枠の手前）</div></div></div>`:"")+(S.flags.rankedB?canonBHTML(S.rankB)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rankB}</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">井汲大翔（周B）</div><div class="rmeta">脱落 ― 周Aの36位から上昇（デビュー圏外）</div></div></div>`:"")+(S.flags.ranked?canonHTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">1位〜35位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
+   <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2021/profile.jpg"><div><div class="rnm">ナオ</div><div class="rmeta">脱落（デビューの枠の手前）</div></div></div>`+naoPopHTML("y2021"):"")+(S.flags.rankedB?canonBHTML(S.rankB)+`<div class="rankrow"><div class="rk" style="color:var(--pink)">${S.rankB}</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">井汲大翔（周B）</div><div class="rmeta">脱落 ― 周Aの36位から上昇（デビュー圏外）</div></div></div>`:"")+(S.flags.ranked?canonHTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">1位〜35位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
    <div class="rankrow"><div class="rk" style="color:var(--pink)">36</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">井汲大翔</div><div class="rmeta">脱落 ― 周Aの結果（最低ライン）</div></div></div>
-   <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2019/profile.jpg"><div><div class="rnm">ナオ</div><div class="rmeta">脱落（生存枠の手前）</div></div></div>`:"");}
+   <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2019/profile.jpg"><div><div class="rnm">ナオ</div><div class="rmeta">脱落（生存枠の手前）</div></div></div>`+naoPopHTML("y2019"):"");}
  }
  if(tab==="vote"){
    if(!S.flags.leaped){body.innerHTML=`<div class="pad"><div class="card"><h3>国民プロデューサー投票</h3><p>0周目の彼女は、ファンとして毎日投票していました。公式ルール内の投票のみです。</p><button class="btn gold" id="vote-btn" ${S.votedDay===0?"disabled":""}>${S.votedDay===0?"本日分は投票済み":"井汲大翔に投票する"}</button><p class="small" style="margin-top:8px">投票済み回数：${S.voteCount||0}回</p></div></div>`;const vb=$("#vote-btn");if(vb)vb.onclick=()=>{S.votedDay=0;S.voteCount=(S.voteCount||0)+1;save();renderProg("vote");};}
@@ -1018,7 +1163,7 @@ function renderProg(tab){progTab=tab;document.querySelectorAll("#prog-tabs butto
  }
  if(tab==="mission"){const ci=chapIndexNow();body.innerHTML=`<div style="padding:6px 0 14px">${missionsNow().map((m,i)=>`<div class="ledrow"><div class="lt">${i<ci?"完了":i===ci?"現在のミッション":"今後"}</div>${m.t}<div class="small">${m.d}</div></div>`).join("")}</div>`;}
 }
-function chapIndexNow(){if(S.flags.chuang){let start=0;for(let i=0;i<SCRIPT.length;i++){if(SCRIPT[i].k==="flag"&&SCRIPT[i].f==="chuang"){start=i;break;}}let n=0;for(let i=start;i<Math.min(S.idx,SCRIPT.length);i++)if(SCRIPT[i].k==="chap")n++;return Math.max(0,n-1);}let n=0;for(let i=0;i<Math.min(S.idx,SCRIPT.length);i++)if(SCRIPT[i].k==="chap")n++;return Math.max(0,n-1);}
+function chapIndexNow(){const era=S.flags.boys?"boys":S.flags.chuang?"chuang":null;if(era){let start=0;for(let i=0;i<SCRIPT.length;i++){if(SCRIPT[i].k==="flag"&&SCRIPT[i].f===era){start=i;break;}}let n=0;for(let i=start;i<Math.min(S.idx,SCRIPT.length);i++)if(SCRIPT[i].k==="chap")n++;return Math.max(0,n-1);}let n=0;for(let i=0;i<Math.min(S.idx,SCRIPT.length);i++)if(SCRIPT[i].k==="chap")n++;return Math.max(0,n-1);}
 /* ============ gallery ============ */
 function renderGallery(){
  const items=[
@@ -1032,7 +1177,12 @@ function renderGallery(){
   {img:"assets/nao/2021/profile.jpg",cap:"2021年：学員「ナオ」として、再び彼の隣の時代へ",cmp:"差分 ― 2つ目の時代にも、いなかったはずの顔",gate:!S.flags.chuang},
   {img:"assets/nao/2021/practice.jpg",cap:"2021年：言葉の壁の手前で、一緒に練習した時間",cmp:"差分 ― アウェーで届いた応援",gate:!S.flags.c21practice},
   {img:"assets/nao/2021/stage.jpg",cap:"2021年：初回のステージに立つ彼女",cmp:"差分 ― スキルは周を跨いで残る",gate:!S.flags.c21stage},
-  {img:"assets/nao/2021/daily.jpg",cap:"2021年：寮の日常、近づく距離と秘密",cmp:"差分 ― 同じ屋根の下、2度目",gate:!S.flags.c21stage}
+  {img:"assets/nao/2021/daily.jpg",cap:"2021年：寮の日常、近づく距離と秘密",cmp:"差分 ― 同じ屋根の下、2度目",gate:!S.flags.c21stage},
+  {img:"assets/nao/2023/profile.jpg",cap:"2023年：練習生「ナオ」として、3度目の隣へ",cmp:"差分 ― 3つ目の時代にも、いなかったはずの顔",gate:!S.flags.boys},
+  {img:"assets/nao/2023/practice.jpg",cap:"2023年：キリングパートを磨く練習室",cmp:"差分 ― カメラの前で届いた応援",gate:!S.flags.b23battle},
+  {img:"assets/nao/2023/stage.jpg",cap:"2023年：スターレベルテストのステージ",cmp:"差分 ― 3スターの彼女、2スターの彼",gate:!S.flags.b23stage},
+  {img:"assets/nao/2023/fancam-close.jpg",cap:"2023年：伸びていく彼女の個人ファンカム",cmp:"差分 ― 人気は上位圏、実力は中位",gate:!S.flags.b23fan},
+  {img:"assets/nao/2023/daily.jpg",cap:"2023年：寮の日常、三度目の秘密",cmp:"差分 ― 同じ屋根の下、3度目",gate:!S.flags.b23fan}
  ];
  $("#gal-body").innerHTML=items.filter(x=>!x.gate).map(x=>`<figure><img src="${x.img}" onerror="this.parentNode.style.display='none'"><figcaption>${x.cap}<br><span class="cmp">${x.cmp}</span></figcaption></figure>`).join("")||`<div class="empty">まだ写真がありません。</div>`;
 }
@@ -1045,7 +1195,10 @@ function renderTalk(){
   {flag:"chuang",who:"創造営・学員連絡（全体）",img:"assets/hiroto21/hiroto.jpg",p:"欢迎来到创造营2021（ようこそ創造営2021へ）。初回評価のリハーサルは明日9時からです。",t:"2021年"},
   {flag:"c21practice",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"今日の練習、ありがとうございました。中国語、もっと頑張ります",t:"2021年・合宿中"},
   {flag:"ranked21",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"15位でした。……見ててくれて、ありがとう",t:"ファイナルの夜"},
-  {flag:"known21",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"ノート、最後のページ見た？　……名前、練習した",t:"2021年・周B"}
+  {flag:"known21",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"ノート、最後のページ見た？　……名前、練習した",t:"2021年・周B"},
+  {flag:"boys",who:"BOYS PLANET 連絡（全体）",img:"assets/hiroto23/hiroto.jpg",p:"スターレベルテストのリハーサルは明日です。Gグループは第2練習室に集合してください。",t:"2023年"},
+  {flag:"b23battle",who:"井汲大翔",img:"assets/hiroto23/hiroto.jpg",p:"今日の練習、撮ってくれてありがとう。……キリング、決める",t:"2023年・合宿中"},
+  {flag:"ranked23",who:"井汲大翔",img:"assets/hiroto23/hiroto.jpg",p:"21位でした。三回も挑戦させてもらえて、感謝しかないです",t:"第3回発表の夜"}
  ];
  const vis=msgs.filter(m=>m.flag?!!S.flags[m.flag]:(S.idx>=m.at));
  $("#talk-body").innerHTML=(vis.length?vis.map(m=>`<div class="trow"><img src="${m.img}"><div><div class="tn">${m.who}</div><div class="tp">${m.p}</div></div><div class="tt">${m.t}</div></div>`).join(""):`<div class="empty">まだトークはありません。<br>物語を進めると、合宿中の連絡が届きます。</div>`)+`<p class="small" style="padding:12px 16px">※ 彼のメッセージは短く、少ない。人見知りの彼のペースそのままです。</p>`;
@@ -1061,13 +1214,13 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
   ["彼の継続意志",g.ishi,100,"幕間の岐路で効く。尽きると「彼が挑戦を辞めた現在」へ"],
   ["スキル・歌",g.uta,100,"周回で継承される"],
   ["スキル・ダンス",g.dance,100,"周回で継承される"]
- ].map(x=>`<div class="gitem"><div class="gn"><span>${x[0]}</span><span>${x[1]}</span></div><div class="gbar"><i style="width:${bar(x[1],x[2])}%"></i></div><div class="gd">${x[3]}</div></div>`).join("")+`<div class="gitem"><div class="gn"><span>届いた数</span><span>${g.todoita}件</span></div><div class="gd">順位には一切影響しません。現在編で、彼が彼女を特定する手がかりになります。</div></div>`;}
+ ].map(x=>`<div class="gitem"><div class="gn"><span>${x[0]}</span><span>${x[1]}</span></div><div class="gbar"><i style="width:${bar(x[1],x[2])}%"></i></div><div class="gd">${x[3]}</div></div>`).join("")+`<div class="gitem"><div class="gn"><span>届いた数</span><span>${g.todoita}件</span></div><div class="gd">順位には一切影響しません。彼宛の応援に、彼女宛のファンレターも含まれます。現在編で、彼が彼女を特定する手がかりになります。</div></div>`;}
  if(tab==="ledger"){body.innerHTML=S.ledger.length?S.ledger.map((t,i)=>`<div class="ledrow"><div class="lt">応援 ${i+1}件目</div>${esc(t)}</div>`).join("")+`<p class="small" style="padding:12px 16px">前の周で届いた応援は、次の周で「維持」する義務になります。</p>`:`<div class="empty">まだ記録がありません。<br>彼に届いた応援が、ここに残ります。</div>`;}
  if(tab==="keep"){body.innerHTML=S.keeps.length?S.keeps.map(t=>`<div class="ledrow"><div class="lt">Keepsake</div>${esc(t)}</div>`).join(""):`<div class="empty">まだ何も残っていません。<br>周を跨いで残るのは「彼が残すと決めたもの」だけです。</div>`;}
  if(tab==="diff"){body.innerHTML=S.diffs.length?S.diffs.map(t=>`<div class="ledrow"><div class="lt">Diff Log</div>${esc(t)}</div>`).join(""):`<div class="empty">まだ差分がありません。<br>0周目と変わったことが、ここに集まります。</div>`;}
  if(tab==="about"){body.innerHTML=`<div class="srow"><span>タイトル</span><span class="sv">1周目にはいなかったファンの件</span></div>
- <div class="srow"><span>バージョン</span><span class="sv">${VER}（0周目＋2019編＋幕間1＋2021編・周A/周B）</span></div>
- <div class="srow"><span>進行</span><span class="sv">${S.finished21B?"2021編 完":S.finished21A?"2021編 周B 進行中":S.flags.chuang?"2021編 周A 進行中":S.finishedB?"幕間／2021編へ":S.finishedA?"周B 進行中":chapNow().title}</span></div>
+ <div class="srow"><span>バージョン</span><span class="sv">${VER}（0周目＋2019編＋幕間1/2＋2021編＋2023編・周A）</span></div>
+ <div class="srow"><span>進行</span><span class="sv">${S.finished23A?"2023編 周A 完":S.flags.boys?"2023編 周A 進行中":S.finished21B?"幕間／2023編へ":S.finished21A?"2021編 周B 進行中":S.flags.chuang?"2021編 周A 進行中":S.finishedB?"幕間／2021編へ":S.finishedA?"周B 進行中":chapNow().title}</span></div>
  <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
  <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
  const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV1");location.reload();}};}
