@@ -458,7 +458,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v22";
+const VER="v23";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -679,7 +679,7 @@ N('ぽつりと落ちた言葉は、誰に向けたものでもなかった。')
 {k:'endA'},
 {k:'sys',t:'― その夜、彼女は夢を見た。2026年の、自分の部屋の夢を ―'},
 {k:'chap',title:'現在インタールード 1',sub:'2026年、小さく変わった現在',era:'2026 / 現在インタールード',wdate:'2026年・少しだけ違う現在',lock:'2026年 ― 現在'},
-{k:'bg',img:'assets/nao/common/audience-back.jpg',cap:'現在 ― 変わったのは、一言だけ'},
+{k:'bg',img:'assets/nao/common/room.jpg',cap:'現在 ― 変わったのは、一言だけ'},
 N('――2026年。なおの部屋。'),
 N('彼のソロ活動は、史実どおり続いている。骨格は、何も変わっていない。'),
 N('ただ、古いインタビュー記事を読み返した時、一文だけ、記憶と違っていた。'),
@@ -790,7 +790,7 @@ D('hiroto','……あと、もうちょっとやったな'),
 {k:'end21A'},
 {k:'sys',t:'― その夜も、彼女は夢を見た。2026年の、少しだけ違う現在を ―'},
 {k:'chap',title:'現在インタールード 2',sub:'2026年、小さく変わった現在（2）',era:'2026 / 現在インタールード',wdate:'2026年・少しだけ違う現在',lock:'2026年 ― 現在'},
-{k:'bg',img:'assets/nao/common/audience-back.jpg',cap:'現在 ― 変わったのは、また一文'},
+{k:'bg',img:'assets/nao/common/room.jpg',cap:'現在 ― 変わったのは、また一文'},
 N('――2026年。なおの部屋。'),
 N('彼の経歴の骨格は、変わっていない。創造営2021、15位前後の記録。デビューはしていない。それでも。'),
 N('中国のファンが訳した古いインタビューを読み返した時、記憶と違う一文があった。'),
@@ -1218,7 +1218,7 @@ D('hiroto','……約束、やな'),
 {k:'end23B'},
 /* ================= 現在インタールード3 ================= */
 {k:'chap',title:'現在インタールード 3',sub:'2026年、小さく変わった現在（3）',era:'2026 / 現在インタールード',wdate:'2026年・少しだけ違う現在',lock:'2026年 ― 現在'},
-{k:'bg',img:'assets/nao/common/audience-back.jpg',cap:'現在 ― 変わったのは、三つ目の時代の一文'},
+{k:'bg',img:'assets/nao/common/room.jpg',cap:'現在 ― 変わったのは、三つ目の時代の一文'},
 N('――2026年。なおの部屋。'),
 N('彼の経歴の骨格は、変わっていない。BOYS PLANET、21位前後の記録。デビューはしていない。それでも。'),
 N('ファンがまとめた古いインタビュー集を読み返した時、ボイプラを振り返る一文が、記憶と違っていた。'),
@@ -1307,7 +1307,7 @@ N('今日は彼のファンミーティングの日。彼女は「ただのフ�
  M('（あの子は、今、どこにおるんやろな）'),
  M('（……客席。ファンの中に、おる気がする）')
 ]},
-{k:'bg',img:'assets/nao/common/audience-back.jpg',cap:'現在 ― 客席の後ろ姿'},
+{k:'bg',img:'assets/nao/common/livehouse.jpg',cap:'現在 ― 小さなライブハウス、客席の後ろ姿'},
 N('ファンミーティング。彼は客席に何度も目をやった。何かを――誰かを、探すように。'),
 N('ライブの終盤、客席から聞こえた声援のチャント。それは2019年、彼女が合宿所の外で始めた掛け声の形をしていた。'),
 M('（……彼は、気づき始めてる）'),
@@ -1589,6 +1589,8 @@ function renderGallery(){
  const items=[
   {img:"assets/hiroto/hiroto-big.jpg",cap:"井汲大翔・2019年公式プロフィール（公開済みの写真）",cmp:"0周目から変わらない"},
   {img:"assets/nao/common/audience-back.jpg",cap:"0周目：彼女は客席とテレビの向こうにいた",cmp:"0周目の記録",gate:true},
+  {img:"assets/nao/common/room.jpg",cap:"現在：配信を見上げる、彼女の部屋",cmp:"変わる現在を見つめる場所",gate:!S.finishedA},
+  {img:"assets/nao/common/livehouse.jpg",cap:"現在：小さなライブハウスの客席",cmp:"最後の現在 ― 彼が待つ場所",gate:!S.finishedNXDA},
   {img:"assets/nao/2019/profile.jpg",cap:"この周：練習生「ナオ」のプロフィール",cmp:"差分 ― 1周目にはいなかった顔",gate:!S.flags.leaped},
   {img:"assets/nao/2019/practice.jpg",cap:"この周：練習室の夜、隣で踊った時間",cmp:"差分 ― 同じ練習室にいる",gate:S.idx<68},
   {img:"assets/nao/2019/dorm.jpg",cap:"この周：合宿所の日常",cmp:"差分 ― 同じ屋根の下",gate:S.idx<35},
