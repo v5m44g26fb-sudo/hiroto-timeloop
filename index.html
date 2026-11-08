@@ -202,6 +202,15 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 .vote-done{background:linear-gradient(120deg,#fff8e1,#ffecb3);border:1px solid #e8c96a;border-radius:14px;padding:12px 14px;margin:10px 0;display:flex;flex-direction:column;gap:2px}
 .vote-done b{color:#8a6d1a;font-size:14px}
 .vote-done span{font-size:12px;color:#6b5a20}
+.mis-head{margin:12px 12px 2px;background:#fff;border-radius:14px;padding:13px 15px;box-shadow:0 2px 10px rgba(20,20,40,.07)}
+.mis-head .mis-t{font-size:13px;font-weight:800;margin-bottom:8px}
+.mis-bar{height:8px;border-radius:99px;background:#ececf2;overflow:hidden}
+.mis-bar i{display:block;height:100%;background:linear-gradient(90deg,#ffd60a,#f59e0b);border-radius:99px;transition:width .6s ease}
+.mis-head .mis-c{font-size:11.5px;color:#8a8aa0;margin-top:7px}
+.ledrow.done{opacity:.6}
+.ledrow.cur{border:2px solid #e8c96a;background:#fffdf4}
+.mis-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#f59e0b;margin-right:5px;animation:mpulse 1.6s infinite;vertical-align:1px}
+@keyframes mpulse{0%,100%{opacity:1}50%{opacity:.3}}
 #lock .lk-notif.sub{padding:10px 13px;border-radius:16px}
 #lock .lk-notif.sub .lk-nic{width:26px;height:26px;border-radius:7px}
 #lock .lk-notif .lk-when{margin-left:auto;font-size:10.5px;color:rgba(255,255,255,.55);flex:none;padding-top:2px}
@@ -493,7 +502,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v34";
+const VER="v35";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1638,7 +1647,7 @@ function renderProg(tab){progTab=tab;document.querySelectorAll("#prog-tabs butto
    if(!S.flags.leaped){body.innerHTML=`<div class="pad"><div class="card"><h3>国民プロデューサー投票</h3><p>0周目の彼女は、ファンとして毎日投票していました。公式ルール内の投票のみです。</p><div class="vote-prof"><img src="assets/hiroto/hiroto.jpg"><div><div class="vp-n">井汲大翔</div><div class="vp-m">PRODUCE 101 JAPAN ― 練習生</div></div></div>${S.votedDay===0?`<div class="vote-done"><b>投票を受け付けました</b><span>井汲大翔 ― 1票${S.voteTime?`（${S.voteTime} 受付）`:""}</span></div>`:`<button class="btn gold" id="vote-btn">井汲大翔に投票する</button>`}<p class="small" style="margin-top:8px">投票済み回数：${S.voteCount||0}回 ― 彼女の毎日は、こうして積み重なっていました。</p></div></div>`;const vb=$("#vote-btn");if(vb)vb.onclick=()=>{seNotif();S.votedDay=0;S.voteCount=(S.voteCount||0)+1;const _d=new Date();S.voteTime=_d.getHours()+":"+String(_d.getMinutes()).padStart(2,"0");save();renderProg("vote");};}
    else{body.innerHTML=`<div class="empty">練習生は投票できません。<br>――いま彼女が届けられる応援は、<br>画面の向こうではなく、同じ時代の中にあります。</div>`;}
  }
- if(tab==="mission"){const ci=chapIndexNow();body.innerHTML=`<div style="padding:6px 0 14px">${missionsNow().map((m,i)=>`<div class="ledrow"><div class="lt">${i<ci?"完了":i===ci?"現在のミッション":"今後"}</div>${m.t}<div class="small">${m.d}</div></div>`).join("")}</div>`;}
+ if(tab==="mission"){const ci=chapIndexNow();const ms=missionsNow();const doneN=Math.max(0,Math.min(ci,ms.length));body.innerHTML=`<div class="mis-head"><div class="mis-t">ミッション進行</div><div class="mis-bar"><i style="width:${ms.length?Math.round(doneN/ms.length*100):0}%"></i></div><div class="mis-c">${doneN} / ${ms.length} 完了</div></div><div style="padding:2px 0 14px">${ms.map((m,i)=>`<div class="ledrow ${i<ci?"done":i===ci?"cur":""}"><div class="lt">${i<ci?"完了":i===ci?'<span class="mis-dot"></span>現在のミッション':"今後"}</div>${m.t}<div class="small">${m.d}</div></div>`).join("")}</div>`;}
 }
 function chapIndexNow(){const era=S.flags.boys?"boys":S.flags.chuang?"chuang":null;if(era){let start=0;for(let i=0;i<SCRIPT.length;i++){if(SCRIPT[i].k==="flag"&&SCRIPT[i].f===era){start=i;break;}}let n=0;for(let i=start;i<Math.min(S.idx,SCRIPT.length);i++)if(SCRIPT[i].k==="chap")n++;return Math.max(0,n-1);}let n=0;for(let i=0;i<Math.min(S.idx,SCRIPT.length);i++)if(SCRIPT[i].k==="chap")n++;return Math.max(0,n-1);}
 /* ============ gallery ============ */
