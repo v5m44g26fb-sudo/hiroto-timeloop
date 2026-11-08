@@ -486,7 +486,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v32";
+const VER="v33";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1716,8 +1716,14 @@ const THD_RULES=[
 const THD_DEF=["……うん","……ありがとう","……また明日な","……練習、戻るわ","……そっか"];
 function thdBub(me,t,img){return me?`<div class="thd-row me"><div class="thd-bub">${esc(t)}</div></div>`:`<div class="thd-row"><img src="${img||thdImg}"><div class="thd-bub">${esc(t)}</div></div>`;}
 function openThread(hist){if(hist.length)thdImg=hist[hist.length-1].img;const b=$("#thd-body");b.innerHTML=`<div class="thd-note">― これまでのトーク ―</div>`+hist.map(m=>thdBub(false,m.p,m.img)).join("")+`<div class="thd-note">― フリートーク（ここから自由に送れます）―</div>`;$("#thd-chips").innerHTML=["おつかれさま","応援してる","飴あげる","明日もがんばろ"].map(c=>`<button>${c}</button>`).join("");document.querySelectorAll("#thd-chips button").forEach(x=>x.onclick=()=>sendThd(x.textContent));b.scrollTop=b.scrollHeight;show("thread");}
-function hirotoReply(t){for(const rule of THD_RULES){if(rule.k.some(k=>t.includes(k)))return rule.r[Math.floor(Math.random()*rule.r.length)];}const d=THD_DEF[thdDef%THD_DEF.length];thdDef++;return d;}
-function sendThd(txt){txt=(txt||"").trim();if(!txt||thdBusy)return;const b=$("#thd-body");b.insertAdjacentHTML("beforeend",thdBub(true,txt));$("#thd-in").value="";b.scrollTop=b.scrollHeight;thdBusy=true;setTimeout(()=>{b.insertAdjacentHTML("beforeend",`<div class="thd-row" id="thd-typing"><img src="${thdImg}"><div class="thd-bub">……</div></div>`);b.scrollTop=b.scrollHeight;},450);setTimeout(()=>{const ty=$("#thd-typing");if(ty)ty.outerHTML=thdBub(false,hirotoReply(txt));b.scrollTop=b.scrollHeight;thdBusy=false;seTap(0.7);},1250);}
+const THD_ERA={
+ "2021":["……中国語、まだ勉強中やねん","……今日、寮で練習した","……こっちは暑い。……そっちは？"],
+ "2023":["……韓国語、ちょっとだけ分かるようになった","……今日も評価の日やった","……こっちは寒い。……風邪ひくなよ"],
+ "nxd":["……今日も練習室やった","……デビューの話は、まだ何も","……歌は、続けてる"],
+ "now":["……今日は配信ある","……この前は、来てくれてありがとう","……歌、聴いてくれた？"]
+};
+function hirotoReply(t){for(const rule of THD_RULES){if(rule.k.some(k=>t.includes(k)))return rule.r[Math.floor(Math.random()*rule.r.length)];}const era=(S.trueEnd||S.finishedNXDB)?"now":(S.eraNow||"2019");const pool=(THD_ERA[era]||[]).concat(THD_DEF);const d=pool[thdDef%pool.length];thdDef++;return d;}
+function sendThd(txt){txt=(txt||"").trim();if(!txt||thdBusy)return;const b=$("#thd-body");b.insertAdjacentHTML("beforeend",thdBub(true,txt));$("#thd-in").value="";b.scrollTop=b.scrollHeight;thdBusy=true;const _lag=600+Math.random()*1400;setTimeout(()=>{if(!document.querySelector("#thread").classList.contains("on")){thdBusy=false;return;}b.insertAdjacentHTML("beforeend",`<div class="thd-row" id="thd-typing"><img src="${thdImg}"><div class="thd-bub">……</div></div>`);b.scrollTop=b.scrollHeight;},_lag);setTimeout(()=>{const ty=$("#thd-typing");if(ty)ty.outerHTML=thdBub(false,hirotoReply(txt));b.scrollTop=b.scrollHeight;thdBusy=false;seTap(0.7);},_lag+900);}
 $("#thd-send").onclick=()=>sendThd($("#thd-in").value);
 $("#thd-in").addEventListener("keydown",e=>{if(e.key==="Enter")sendThd($("#thd-in").value);});
 $("#thd-back").onclick=()=>{renderTalk();show("talk");};
