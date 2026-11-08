@@ -519,7 +519,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v61";
+const VER="v62";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1532,15 +1532,15 @@ function processItem(it){
    else if(score>=2){out='nodrop';lines=[N('再評価の日。やはり中盤で、歌詞が飛んだ。クラスはDへ降格。――でも、彼は泣かなかった。'),N('「……止まらんかったら、歌は続く」。彼は自分にそう言い聞かせるように、最後まで踊り切った。'),SYS('ツカメ再評価（周B）― 井汲大翔：D降格（ただし号泣なし）')];}
    else{out='same';lines=[N('再評価の日。対策は、届かなかった。彼は歌詞を飛ばし、その場で号泣した。周Aと寸分違わない光景だった。'),SYS('ツカメ再評価（周B）― 井汲大翔：D降格（史実どおり）')];}
    S.flags.tsukameB=out;lines.forEach(l=>pushLog(lineHTML(l)));S.idx++;break;}
-  case 'rankB':{let r=36;r-=(S.flags.tsukameB==='keep'?8:S.flags.tsukameB==='nodrop'?4:0);r-=(S.g.todoita>=5?4:S.g.todoita>=3?2:0);r-=(S.g.ishi>=65?3:0);if(r<12)r=12;S.rankB=r;S.flags.rankedB=true;seRank();pushLog(canonBHTML(r));pushLog(naoRankRow("y2019","B"));S.idx++;break;}
+  case 'rankB':{let r=36;r-=(S.flags.tsukameB==='keep'?8:S.flags.tsukameB==='nodrop'?4:0);r-=(S.g.todoita>=5?4:S.g.todoita>=3?2:0);r-=(S.g.ishi>=65?3:0);if(r<12)r=12;S.rankB=r;S.flags.rankedB=true;seRank();pushLog(canonBHTML(r));pushLog(naoRankRow("y2019","B"));pushLog(hisinCard('読み上げられる順位の中に、36位があった。さっきまで自分がいたはずの場所に、彼女の名前があった。','偶然だと思った。……思いたかった、という方が近い。'));S.idx++;break;}
   case 'endB':S.finishedB=true;pushLog(`<div class="canon"><h3>2019 日プ編 ― 完</h3><div style="font-size:13px;line-height:1.8">デビューできない結末は変わらなかった。でも、彼の歴史に「隣で踊ってくれた子」が残り、順位は最低ラインから上へ動いた。<br>――大周回Bは、2020年へ続く。</div></div>`);S.idx++;break;
   case 'ishiGate':{const hi=S.g.ishi>=(it.th||60);(hi?it.hi:it.lo).forEach(l=>{if(l.k==='ledger'||l.k==='keep'||l.k==='diff'||l.k==='fx')processResItem(l);else pushLog(lineHTML(l));});S.idx++;break;}
   case 'rank21':S.flags.ranked21=true;seRank();pushLog(canon21HTML());pushLog(naoRankRow("y2021","A"));S.idx++;break;
   case 'endM1':S.finishedM1=true;pushLog(`<div class="canon"><h3>幕間1 ― 完</h3><div style="font-size:13px;line-height:1.8">彼はRBW JAPANの練習生になり、「もう一度」を選んだ。2021年、事務所の派遣として創造営へ。<br>――第2部・2021 創造営編へ続く。</div></div>`);S.idx++;break;
   case 'end21A':S.finished21A=true;pushLog(`<div class="canon"><h3>2021 創造営編 ― 大周回A・終了</h3><div style="font-size:13px;line-height:1.8">15位は、大周回Aの結果（最低ライン）。デビューできない結末は、この時代でも変わらなかった。<br>彼は巻き戻らない。時間は流れ、彼女だけが「この先」を知っている。――現在インタールードへ続く。</div></div>`);S.idx++;break;
-  case 'rank21B':{let r=15;r-=(S.flags.effort21>=4?2:S.flags.effort21>=2?1:0);r-=(S.g.todoita>=8?1:0);if(r<12)r=12;S.rank21B=r;S.flags.ranked21B=true;seRank();pushLog(canon21BHTML(r));pushLog(naoRankRow("y2021","B"));S.idx++;break;}
+  case 'rank21B':{let r=15;r-=(S.flags.effort21>=4?2:S.flags.effort21>=2?1:0);r-=(S.g.todoita>=8?1:0);if(r<12)r=12;S.rank21B=r;S.flags.ranked21B=true;seRank();pushLog(canon21BHTML(r));pushLog(naoRankRow("y2021","B"));pushLog(hisinCard('16位。自分の名前の、すぐ後ろに彼女がいた。','中国でも、隣にいた気がする。――いや、隣に、いた。'));S.idx++;break;}
   case 'end21B':S.finished21B=true;pushLog(`<div class="canon"><h3>2021 創造営編 ― 完</h3><div style="font-size:13px;line-height:1.8">デビューできない結末は変わらなかった。でも彼の歴史に「隣にいてくれた子」が、2つの時代に残った。<br>――大周回B、次は2023年へ続く。</div></div>`);S.idx++;break;
-  case 'rank23B':{let r=21;r-=(S.flags.effort23>=4?4:S.flags.effort23>=3?3:S.flags.effort23>=2?2:S.flags.effort23>=1?1:0);r-=(S.g.todoita>=12?2:S.g.todoita>=9?1:0);r-=(S.g.ishi>=85?1:0);if(r<12)r=12;if(r>21)r=21;S.rank23B=r;S.flags.ranked23B=true;seRank();pushLog(canon23BHTML(r));pushLog(naoRankRow("y2023","B"));
+  case 'rank23B':{let r=21;r-=(S.flags.effort23>=4?4:S.flags.effort23>=3?3:S.flags.effort23>=2?2:S.flags.effort23>=1?1:0);r-=(S.g.todoita>=12?2:S.g.todoita>=9?1:0);r-=(S.g.ishi>=85?1:0);if(r<12)r=12;if(r>21)r=21;S.rank23B=r;S.flags.ranked23B=true;seRank();pushLog(canon23BHTML(r));pushLog(naoRankRow("y2023","B"));pushLog(hisinCard('19位。ファイナルの扉の手前で、彼女の名前が止まった。','三度目だ。三度とも、彼女は「あと少し」の場所にいた。'));
    if(r<=18){pushLog(lineHTML(N('第3回順位発表。17位、18位――生存の枠の中に、彼の名前が残った。')));pushLog(lineHTML(N('大周回Aでは閉ざされた扉が、開いた。彼はファイナルへ進んだ。')));pushLog(lineHTML(N('ファイナルの夜。最後のステージを終え、静寂の中で順位が読み上げられた。デビューの9人には届かなかった。――でも彼の名前は、ずっと後の順番まで、呼ばれなかった。')));}
    else{pushLog(lineHTML(N('第3回順位発表。19位、20位が過ぎ――彼の名前は、'+r+'位で呼ばれた。')));pushLog(lineHTML(N('脱落する回は、大周回Aと同じだった。でも順位は、確かに上へ動いていた。')));}
    S.idx++;break;}
@@ -1593,6 +1593,7 @@ function processItem(it){
  save();renderGauges();updProg();
 }
 function updProg(){const i=$("#st-prog-i");if(i)i.style.width=Math.min(100,Math.round((S?S.idx:0)/SCRIPT.length*100))+"%";}
+function hisinCard(a,b){return `<div class="hisin"><div class="hisin-tag">彼の画面 ― 大翔の視点</div>${lineHTML(N(a))}${lineHTML(N(b))}</div>`;}
 function naoRankRow(era,loop){const D={
 "y2019A":[38,"第1回 19位 → 第2回 38位で脱落（生存枠の手前）"],
 "y2019B":[36,"第1回 13位 → 第2回 36位で脱落 ― 周Aの38位から上昇（デビュー圏外）"],
