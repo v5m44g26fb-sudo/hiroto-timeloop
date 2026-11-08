@@ -509,7 +509,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <section class="screen" id="settings">
   <div class="apphead"><button class="back" data-home>‹</button><div><div class="ah-t">設定・記録</div><div class="ah-s">ゲージ／応援台帳／Keepsake／Diff Log</div></div></div>
   <div class="tabs" id="set-tabs">
-    <button data-stab="gauge" class="on">ゲージ</button><button data-stab="ledger">応援台帳</button><button data-stab="keep">Keepsake</button><button data-stab="diff">Diff</button><button data-stab="about">情報</button>
+    <button data-stab="gauge" class="on">ゲージ</button><button data-stab="ledger">応援台帳</button><button data-stab="keep">Keepsake</button><button data-stab="diff">Diff</button><button data-stab="chaps">章</button><button data-stab="about">情報</button>
   </div>
   <div class="appbody" id="set-body"></div>
 </section>
@@ -518,11 +518,11 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v47";
+const VER="v48";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
- flags:{},ledger:[],keeps:[],diffs:[],votedDay:-1,voteTime:"",day:1,finishedA:false,hisSeen:false};
+ flags:{},ledger:[],keeps:[],diffs:[],snaps:{},votedDay:-1,voteTime:"",day:1,finishedA:false,hisSeen:false};
 let S; try{S=Object.assign(JSON.parse(JSON.stringify(DEF)),JSON.parse(localStorage.getItem("tlSaveV2")||"{}"));}catch(e){S=JSON.parse(JSON.stringify(DEF));}
 if(!S.g)S.g=JSON.parse(JSON.stringify(DEF.g));
 function save(){try{localStorage.setItem("tlSaveV2",JSON.stringify(S));}catch(e){}}
@@ -1493,7 +1493,7 @@ function processItem(it){
   S.idx=SCRIPT.length;save();renderGauges();return;
  }
  switch(it.k){
-  case 'chap':{const c=chapTitleOf(it);$("#st-chap").textContent=it.title;$("#st-loc").textContent=it.sub||"";pushLog(`<div class="narr sys">―― ${esc(it.title)} ――</div>`);if(S.flags.leaped&&(S.diffs.length||S.g.todoita||S.keeps.length))pushLog(`<div class="recap">前章までの記録 ― 差分 ${S.diffs.length}件 ／ 届いた応援 ${S.g.todoita}件 ／ Keepsake ${S.keeps.length}点</div>`);S.idx++;break;}
+  case 'chap':{const c=chapTitleOf(it);$("#st-chap").textContent=it.title;$("#st-loc").textContent=it.sub||"";if(!S.snaps)S.snaps={};{const _sn={};Object.keys(S).forEach(k=>{if(k!=="log"&&k!=="snaps")_sn[k]=S[k];});S.snaps[S.idx]={snap:JSON.stringify(_sn),logLen:S.log.length};}pushLog(`<div class="narr sys">―― ${esc(it.title)} ――</div>`);if(S.flags.leaped&&(S.diffs.length||S.g.todoita||S.keeps.length))pushLog(`<div class="recap">前章までの記録 ― 差分 ${S.diffs.length}件 ／ 届いた応援 ${S.g.todoita}件 ／ Keepsake ${S.keeps.length}点</div>`);S.idx++;break;}
   case 'bg':setStage(it.img,it.cap);S.idx++;processNext();break;
   case 'flag':S.flags[it.f]=true;S.idx++;processNext();break;
   case 'era':S.eraNow=it.e;if(it.e==='2021')S.flags.chuang=true;if(it.e==='2023'){S.flags.chuang=true;S.flags.boys=true;}if(it.e==='2019'){S.flags.chuang=false;S.flags.boys=false;}S.idx++;processNext();break;
@@ -1771,6 +1771,7 @@ $("#thd-back").onclick=()=>{renderTalk();show("talk");};
 let setTab="gauge";
 document.querySelectorAll("#set-tabs button").forEach(b=>b.onclick=()=>renderSettings(b.dataset.stab));
 function bar(v,max){return Math.max(0,Math.min(100,Math.round(v/max*100)));}
+function jumpToChapter(ci){const rec=S.snaps&&S.snaps[ci];if(!rec)return;const snap=JSON.parse(rec.snap);const keepLog=S.log.slice(0,rec.logLen);const keepSnaps={};Object.keys(S.snaps).forEach(k=>{if(+k<=ci)keepSnaps[k]=S.snaps[k];});Object.keys(S).forEach(k=>delete S[k]);Object.assign(S,snap);S.snaps=keepSnaps;S.log=keepLog;S.pendingChoice=false;S.idx=ci;save();openStory();}
 function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs button").forEach(b=>b.classList.toggle("on",b.dataset.stab===tab));const body=$("#set-body");const g=S.g;
  if(tab==="gauge"){body.innerHTML=[
   ["違和感（彼視点）",g.iwakan,100,"彼の「試し」や発覚イベントの条件になる"],
@@ -1782,6 +1783,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  if(tab==="ledger"){const lg=t=>t.indexOf("（周Bで維持）")===0||t.indexOf("（周Bで再び）")===0?"大周回B ― 維持・再演":t.indexOf("（周B")===0?"大周回B":/創造営|布丁|中国/.test(t)?"2021 ― 創造営":/ボイプラ|韓国/.test(t)?"2023 ― ボイプラ":"2019 ― 日プ";const lo=["2019 ― 日プ","2021 ― 創造営","2023 ― ボイプラ","大周回B","大周回B ― 維持・再演"];const cnt={};body.innerHTML=S.ledger.length?`<p class="small" style="padding:10px 16px 0">届いた応援は全${S.ledger.length}件。時代ごとに並んでいます。</p>`+lo.map(o=>{const xs=S.ledger.filter(t=>lg(t)===o);return xs.length?`<div class="dgrp">${o}（${xs.length}件）</div>`+xs.map(t=>`<div class="ledrow"><div class="lt">応援 ${(cnt[o]=(cnt[o]||0)+1)}件目</div>${esc(t)}</div>`).join(""):"";}).join("")+`<p class="small" style="padding:12px 16px">前の周で届いた応援は、次の周で「維持」する義務になります。</p>`:`<div class="empty">まだ記録がありません。<br>彼に届いた応援が、ここに残ります。</div>`;}
  if(tab==="keep"){const kg=t=>/（彼の側/.test(t)?"彼の側":/中国語|ノート/.test(t)?"2021 ― 創造営":/韓国|合宿/.test(t)?"2023 ― ボイプラ":/飴|2019|脱落の夜/.test(t)?"2019 ― 日プ":"時代を跨ぐもの";body.innerHTML=S.keeps.length?`<p class="small" style="padding:10px 16px 0">Keepsakeは全${S.keeps.length}点。彼が「残す」と決めたものだけが、周を跨ぎます。</p>`+S.keeps.map(t=>`<div class="ledrow"><div class="lt">Keepsake ― ${kg(t)}</div>${esc(t)}</div>`).join(""):`<div class="empty">まだ何も残っていません。<br>周を跨いで残るのは「彼が残すと決めたもの」だけです。</div>`;}
  if(tab==="diff"){const grp=t=>/2023|ボイプラ|三つ|三度/.test(t)?"2023 ― BOYS PLANET":/2021|創造営|中国/.test(t)?"2021 ― CHUANG 2021":/現在|インタビュー/.test(t)?"現在 ― 少しだけ違う2026年":/幕間/.test(t)?"幕間 ― 岐路":/大周回/.test(t)?"大周回 ― 記録":"2019 ― PRODUCE 101 JAPAN";const order=["2019 ― PRODUCE 101 JAPAN","幕間 ― 岐路","2021 ― CHUANG 2021","2023 ― BOYS PLANET","現在 ― 少しだけ違う2026年","大周回 ― 記録"];body.innerHTML=S.diffs.length?`<p class="small" style="padding:10px 16px 0">差分は全${S.diffs.length}件。変わらなかった結末と、変わった景色の記録です。</p>`+order.map(o=>{const xs=S.diffs.filter(t=>grp(t)===o);return xs.length?`<div class="dgrp">${o}（${xs.length}件）</div>`+xs.map(t=>`<div class="ledrow"><div class="lt">Diff Log</div>${esc(t)}</div>`).join(""):"";}).join(""):`<div class="empty">まだ差分がありません。<br>0周目と変わったことが、ここに集まります。</div>`;}
+ if(tab==="chaps"){const chs=[];SCRIPT.forEach((it,i)=>{if(it.k==="chap")chs.push({i,t:it.title,s:it.sub||"",era:it.era||""});});const reached=chs.filter(c=>c.i<S.idx||(S.snaps&&S.snaps[c.i]));body.innerHTML=`<p class="small" style="padding:10px 16px 0">到達した章の頭から、状態ごと読み返せます（戻った先より後の記録は上書きされます）。</p>`+(reached.length?reached.map(c=>`<div class="ledrow"><div class="lt">${esc(c.era)}</div>${esc(c.t)}<div class="small">${esc(c.s)}</div>${S.snaps&&S.snaps[c.i]?`<button class="btn gold chap-jump" data-ci="${c.i}" style="margin-top:8px">この章から読み返す</button>`:`<div class="small" style="margin-top:6px;color:#b0b0c0">スナップショットなし（この章を通過すると記録されます）</div>`}</div>`).join(""):`<div class="empty">まだ章の記録がありません。</div>`);document.querySelectorAll(".chap-jump").forEach(b=>b.onclick=()=>{if(confirm("この章の頭に戻ります。その先の記録は上書きされます。よろしいですか？"))jumpToChapter(+b.dataset.ci);});}
  if(tab==="about"){body.innerHTML=`<div class="srow"><span>タイトル</span><span class="sv">1周目にはいなかったファンの件</span></div>
  <div class="srow"><span>バージョン</span><span class="sv">${VER}（大周回制 ― 0周目＋大周回A（2019・2021・2023・NXD期）＋大周回B（2019・2021・2023・NXD期）＋現在編））</span></div>
  <div class="srow"><span>進行</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":S.finishedNXDB?"大周回B ― 現在編へ":S.finished23B?"大周回B ― NXD期へ":S.finished21B?"大周回B ― 2023編へ":S.flags.known21?"大周回B ― 2021編 進行中":S.finishedB?"大周回B ― 2020年へ":S.flags.known?"大周回B ― 2019編 進行中":S.flags.bStarted?"大周回B ― 2019編へ":S.finishedNXDA?"大周回A 完":S.finished23A?"NXD期（大周回A）進行中":S.flags.boys?"2023編（大周回A）進行中":S.finished21A?"幕間2／2023編へ":S.flags.chuang?"2021編（大周回A）進行中":S.finishedA?"幕間1／2021編へ":chapNow().title}</span></div>
