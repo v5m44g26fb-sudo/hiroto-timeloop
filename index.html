@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>1周目にはいなかったファンの件</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--ink:#1c1c22;--sub:#8a8a96;--line:#e7e7ee;--acc:#5b5bd6;--gold:#e8a812;--pink:#e84e8a;--bg:#f4f4f8}
+html,body{height:100%}
+body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:#101016;color:var(--ink);display:flex;justify-content:center}
+#phone{width:100%;max-width:430px;height:100dvh;background:var(--bg);position:relative;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,.6)}
+.screen{position:absolute;inset:0;display:none;flex-direction:column;background:var(--bg)}
+.screen.on{display:flex}
+.sb{height:26px;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:600;color:#fff;position:relative;z-index:5}
+.sb.dark{color:var(--ink)}
+/* consent */
+#consent{background:linear-gradient(180deg,#171728,#23233d);color:#fff;align-items:center;justify-content:center;padding:32px 28px;text-align:center;z-index:50}
+#consent h1{font-size:21px;line-height:1.5;margin-bottom:14px}
+#consent .ttl-sub{font-size:12px;color:#b9b9d6;letter-spacing:.2em;margin-bottom:26px}
+#consent p{font-size:13px;line-height:2;color:#d8d8e8;text-align:left;margin-bottom:14px}
+#consent button{margin-top:16px;background:#fff;color:#23233d;border:none;font-size:15px;font-weight:700;padding:13px 42px;border-radius:999px;cursor:pointer}
+/* lock */
+#lock{background:linear-gradient(180deg,#2a2a4a,#14141f);color:#fff;align-items:center;padding-top:8vh;z-index:40;cursor:pointer}
+#lock .lk-date{font-size:15px;color:#c9c9e2}
+#lock .lk-time{font-size:64px;font-weight:200;line-height:1.1}
+#lock .lk-era{margin-top:8px;font-size:13px;background:rgba(255,255,255,.14);padding:5px 14px;border-radius:999px}
+#lock .lk-notif{margin-top:34px;width:86%;background:rgba(255,255,255,.12);backdrop-filter:blur(6px);border-radius:16px;padding:12px 14px;font-size:12.5px;line-height:1.6;color:#eee}
+#lock .lk-notif b{display:block;font-size:12px;color:#fff;margin-bottom:2px}
+#lock .lk-hint{position:absolute;bottom:36px;font-size:12px;color:#a9a9c4;animation:blk 2s infinite}
+@keyframes blk{0%,100%{opacity:.4}50%{opacity:1}}
+/* home */
+#home{background:linear-gradient(180deg,#3b3b63,#23233a 60%,#1b1b2c);color:#fff}
+#home .sb{color:#fff}
+.widget{margin:10px 16px 4px;background:rgba(255,255,255,.13);border-radius:20px;padding:14px 16px;backdrop-filter:blur(8px)}
+.widget .w-era{font-size:12px;color:#cfcfff;letter-spacing:.12em}
+.widget .w-date{font-size:19px;font-weight:700;margin:2px 0}
+.widget .w-sub{font-size:12px;color:#d9d9ec;line-height:1.6}
+.widget .w-cycle{display:inline-block;margin-top:6px;background:var(--gold);color:#231a00;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px}
+#story-banner{margin:12px 16px 4px;background:linear-gradient(120deg,#ffd60a,#ffb340);color:#241a00;border-radius:18px;padding:14px 16px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+#story-banner .sb-badge{font-size:11px;font-weight:800;letter-spacing:.08em}
+#story-banner .sb-title{font-size:16.5px;font-weight:800;margin:3px 0}
+#story-banner .sb-desc{font-size:12px;line-height:1.55;opacity:.85}
+#apps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 8px;padding:18px 18px 8px}
+.appicon{background:none;border:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;font-size:11px;position:relative}
+.appicon .ic{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:25px;box-shadow:0 3px 8px rgba(0,0,0,.3)}
+.appicon .bdg{position:absolute;top:-4px;right:8px;background:#ff3b30;color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.appicon.locked{opacity:.38}
+/* generic app frame */
+.apphead{background:#fff;border-bottom:1px solid var(--line);padding:12px 14px;display:flex;align-items:center;gap:10px;position:relative;z-index:4}
+.apphead .back{font-size:20px;background:none;border:none;cursor:pointer;color:var(--acc);padding:2px 6px}
+.apphead .ah-t{font-size:16px;font-weight:700}
+.apphead .ah-s{font-size:11px;color:var(--sub)}
+.appbody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+/* story player */
+#story{background:#0d0d14;color:#fff}
+#story .st-top{padding:10px 14px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05)}
+#story .st-top .back{background:none;border:none;color:#fff;font-size:19px;cursor:pointer}
+#story .st-chap{font-size:13px;font-weight:700}
+#story .st-loc{font-size:11px;color:#a9a9c4}
+#st-stage{height:34%;min-height:180px;position:relative;background:#1a1a28;overflow:hidden}
+#st-stage img{width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.92}
+#st-stage .st-imgcap{position:absolute;left:10px;bottom:8px;background:rgba(0,0,0,.55);font-size:11px;padding:3px 9px;border-radius:999px}
+#st-body{flex:1;overflow-y:auto;padding:16px 18px 8px;line-height:1.95;font-size:14.5px}
+#st-body .narr{color:#d5d5e6;margin-bottom:13px}
+#st-body .narr.sys{color:#ffd60a;font-size:13px;text-align:center}
+#st-body .narr.diff{background:rgba(232,168,18,.13);border-left:3px solid var(--gold);padding:7px 10px;border-radius:0 8px 8px 0;font-size:13px;color:#ffe9a8}
+#st-body .dlg{margin-bottom:13px}
+#st-body .dlg .who{font-size:11.5px;font-weight:800;letter-spacing:.06em;margin-bottom:1px}
+#st-body .dlg.nao .who{color:#7dd3fc}
+#st-body .dlg.hiroto .who{color:#fda4af}
+#st-body .dlg.other .who{color:#a7f3d0}
+#st-body .mono{color:#9d9db5;font-size:13.5px;font-style:italic;margin-bottom:13px}
+#st-choices{padding:8px 14px 18px;display:none;flex-direction:column;gap:9px}
+#st-choices button{background:#262640;color:#fff;border:1px solid #45456e;border-radius:13px;padding:12px 14px;font-size:14px;text-align:left;cursor:pointer;line-height:1.55}
+#st-choices button:active{background:#34345a}
+#st-next{padding:12px;text-align:center;font-size:12px;color:#8f8fb0;cursor:pointer;user-select:none}
+#st-gauges{display:flex;gap:6px;flex-wrap:wrap;padding:8px 14px 0}
+.gchip{font-size:10.5px;background:rgba(255,255,255,.1);border-radius:999px;padding:3px 9px;color:#d9d9f2}
+.gchip b{color:#ffd60a}
+.gpop{position:absolute;left:50%;top:44%;transform:translateX(-50%);background:rgba(20,20,32,.92);border:1px solid var(--gold);color:#ffe9a8;font-size:13px;padding:10px 18px;border-radius:12px;z-index:9;opacity:0;pointer-events:none;transition:opacity .3s;text-align:center;line-height:1.7}
+.gpop.on{opacity:1}
+/* his screen */
+#his{background:#05050a;color:#e8e8f2}
+#his .his-tag{display:inline-block;background:#3b0764;color:#e9d5ff;font-size:11px;font-weight:800;padding:4px 11px;border-radius:999px;margin:14px 16px 0}
+#his-body{flex:1;overflow-y:auto;padding:16px 18px;line-height:1.95;font-size:14.5px}
+#his-body .mono{color:#b8a8d8;font-style:italic;margin-bottom:13px}
+#his-body .dlg .who{font-size:11.5px;font-weight:800;color:#e9d5ff;margin-bottom:1px}
+#his-body .dlg{margin-bottom:13px}
+/* program app */
+.tabs{display:flex;background:#fff;border-bottom:1px solid var(--line)}
+.tabs button{flex:1;background:none;border:none;padding:11px 0;font-size:13.5px;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2.5px solid transparent}
+.tabs button.on{color:var(--acc);border-bottom-color:var(--acc)}
+.roster{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:14px}
+.rcard{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.07);text-align:center}
+.rcard img{width:100%;aspect-ratio:3/3.6;object-fit:cover;object-position:top}
+.rcard .rn{font-size:12.5px;font-weight:700;padding:6px 2px 1px}
+.rcard .rm{font-size:10.5px;color:var(--sub);padding-bottom:7px}
+.rcard.me{outline:2.5px solid var(--gold)}
+.rcard.hiroto{outline:2.5px solid var(--pink)}
+.rankrow{display:flex;align-items:center;gap:12px;background:#fff;margin:9px 12px 0;border-radius:13px;padding:10px 13px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.rankrow img{width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:top}
+.rankrow .rk{font-size:17px;font-weight:800;width:38px;text-align:center}
+.rankrow .rnm{font-size:14px;font-weight:700}
+.rankrow .rmeta{font-size:11px;color:var(--sub)}
+.rankrow.lock{opacity:.55}
+.canon{margin:14px 12px;background:#17172a;color:#fff;border-radius:16px;padding:16px}
+.canon h3{font-size:14px;color:#ffd60a;margin-bottom:9px;letter-spacing:.05em}
+.canon .crow{display:flex;gap:8px;font-size:12.5px;line-height:1.65;margin-bottom:6px}
+.canon .crow span{flex-shrink:0;font-weight:800}
+.canon .fixed{color:#fda4af}.canon .changed{color:#7dd3fc}
+.pad{padding:16px}
+.card{background:#fff;border-radius:15px;padding:15px 16px;box-shadow:0 1px 5px rgba(0,0,0,.06);margin-bottom:12px}
+.card h3{font-size:14.5px;margin-bottom:7px}
+.card p{font-size:13px;line-height:1.8;color:#33333d}
+.btn{display:block;width:100%;background:var(--acc);color:#fff;border:none;border-radius:12px;padding:12px;font-size:14.5px;font-weight:700;cursor:pointer;margin-top:10px}
+.btn:disabled{background:#c6c6d4}
+.btn.gold{background:var(--gold);color:#241a00}
+.small{font-size:11.5px;color:var(--sub);line-height:1.7}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:14px}
+.gal figure{background:#fff;border-radius:13px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.07)}
+.gal img{width:100%;aspect-ratio:4/4.4;object-fit:cover;object-position:top;display:block}
+.gal figcaption{font-size:11.5px;padding:7px 9px;line-height:1.55;color:#33333d}
+.gal .cmp{font-size:10.5px;color:var(--acc);font-weight:700}
+/* settings lists */
+.srow{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:13px 16px;border-bottom:1px solid var(--line);font-size:14px}
+.srow .sv{color:var(--sub);font-size:13px}
+.gbar{height:7px;background:#e8e8f0;border-radius:4px;overflow:hidden;margin-top:5px}
+.gbar i{display:block;height:100%;background:var(--acc);border-radius:4px}
+.gitem{background:#fff;padding:12px 16px;border-bottom:1px solid var(--line)}
+.gitem .gn{font-size:13.5px;font-weight:700;display:flex;justify-content:space-between}
+.gitem .gd{font-size:11.5px;color:var(--sub);margin-top:2px;line-height:1.6}
+.ledrow{background:#fff;margin:9px 12px 0;border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.7;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.ledrow .lt{font-weight:800;font-size:12px;color:var(--acc)}
+.empty{padding:34px 20px;text-align:center;color:var(--sub);font-size:13px;line-height:1.9}
+/* talk */
+.trow{display:flex;gap:11px;background:#fff;padding:12px 14px;border-bottom:1px solid var(--line);align-items:center;cursor:pointer}
+.trow img{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:top}
+.trow .tn{font-size:14.5px;font-weight:700}
+.trow .tp{font-size:12px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
+.trow .tt{margin-left:auto;font-size:11px;color:var(--sub)}
+</style>
+</head>
+<body>
+<div id="phone">
+
+<!-- consent -->
+<section class="screen" id="consent">
+  <div class="ttl-sub">TIMELEAP / SURVIVAL / FICTION</div>
+  <h1>1周目にはいなかった<br>ファンの件</h1>
+  <p>本作はフィクションです。実在の人物・番組の記録をもとにした創作であり、登場人物の言動はすべて作中のものです。</p>
+  <p>主人公は、井汲大翔のファン。2026年から2019年へ跳び、彼と同じサバイバル番組に「男装練習生」として参加します。史実の順位は変わりません。変わるのは、その周りにあるものだけです。</p>
+  <button id="consent-btn">同意してはじめる</button>
+</section>
+
+<!-- lock -->
+<section class="screen" id="lock">
+  <div class="lk-date" id="lk-date">2026年</div>
+  <div class="lk-time" id="lk-time">0:00</div>
+  <div class="lk-era" id="lk-era">0周目 ― 現在</div>
+  <div class="lk-notif" id="lk-notif"><b>通知</b><span id="lk-notif-t">物語を進めると、ここに通知が届きます。</span></div>
+  <div class="lk-hint">タップで開く</div>
+</section>
+
+<!-- home -->
+<section class="screen" id="home">
+  <div class="sb"><span id="home-clock">0:00</span><span>📶 🔋</span></div>
+  <div class="widget">
+    <div class="w-era" id="w-era">CYCLE 0 ― 2026 / 現在</div>
+    <div class="w-date" id="w-date">2026年・彼のソロ活動を見ている日々</div>
+    <div class="w-sub" id="w-sub">1周目（史実）には、彼女は彼の歴史のどこにもいない。</div>
+    <span class="w-cycle" id="w-cycle">周回：0周目</span>
+  </div>
+  <div id="story-banner">
+    <div class="sb-badge" id="sb-badge">▶ ストーリー</div>
+    <div class="sb-title" id="sb-title">0周目プロローグ</div>
+    <div class="sb-desc" id="sb-desc">放送の向こう側にいた、ただのファンの時間。</div>
+  </div>
+  <div id="apps"></div>
+</section>
+
+<!-- story -->
+<section class="screen" id="story">
+  <div class="st-top"><button class="back" id="st-back">‹</button><div><div class="st-chap" id="st-chap">0周目プロローグ</div><div class="st-loc" id="st-loc"></div></div></div>
+  <div id="st-stage"><img id="st-img" alt="" style="display:none" onerror="this.style.display='none'"><span class="st-imgcap" id="st-cap" style="display:none"></span></div>
+  <div id="st-gauges"></div>
+  <div id="st-body"></div>
+  <div id="st-choices"></div>
+  <div id="st-next">▼ タップで進む</div>
+  <div class="gpop" id="gpop"></div>
+</section>
+
+<!-- his screen -->
+<section class="screen" id="his">
+  <span class="his-tag">彼の画面 ― 大翔の視点</span>
+  <div id="his-body"></div>
+  <div id="his-next" style="padding:12px;text-align:center;font-size:12px;color:#8f7fb8;cursor:pointer">▼ タップで戻る</div>
+</section>
+
+<!-- program app -->
+<section class="screen" id="prog">
+  <div class="apphead"><button class="back" data-home>‹</button><div><div class="ah-t">番組アプリ</div><div class="ah-s">PRODUCE 101 JAPAN ― 練習生用</div></div></div>
+  <div class="tabs" id="prog-tabs">
+    <button data-tab="roster" class="on">名簿</button><button data-tab="rank">順位</button><button data-tab="vote">投票</button><button data-tab="mission">ミッション</button>
+  </div>
+  <div class="appbody" id="prog-body"></div>
+</section>
+
+<!-- gallery -->
+<section class="screen" id="gallery">
+  <div class="apphead"><button class="back" data-home>‹</button><div><div class="ah-t">写真</div><div class="ah-s">0周目との差分も、ここに残る</div></div></div>
+  <div class="appbody"><div class="gal" id="gal-body"></div></div>
+</section>
+
+<!-- talk -->
+<section class="screen" id="talk">
+  <div class="apphead"><button class="back" data-home>‹</button><div><div class="ah-t">トーク</div><div class="ah-s">合宿中の連絡</div></div></div>
+  <div class="appbody" id="talk-body"></div>
+</section>
+
+<!-- settings -->
+<section class="screen" id="settings">
+  <div class="apphead"><button class="back" data-home>‹</button><div><div class="ah-t">設定・記録</div><div class="ah-s">ゲージ／応援台帳／Keepsake／Diff Log</div></div></div>
+  <div class="tabs" id="set-tabs">
+    <button data-stab="gauge" class="on">ゲージ</button><button data-stab="ledger">応援台帳</button><button data-stab="keep">Keepsake</button><button data-stab="diff">Diff</button><button data-stab="about">情報</button>
+  </div>
+  <div class="appbody" id="set-body"></div>
+</section>
+
+</div>
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const VER="v1";
+/* ============ state ============ */
+const DEF={idx:0,started:false,consented:false,
+ g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
+ flags:{},ledger:[],keeps:[],diffs:[],votedDay:-1,day:1,finishedA:false,hisSeen:false};
+let S; try{S=Object.assign(JSON.parse(JSON.stringify(DEF)),JSON.parse(localStorage.getItem("tlSaveV1")||"{}"));}catch(e){S=JSON.parse(JSON.stringify(DEF));}
+if(!S.g)S.g=JSON.parse(JSON.stringify(DEF.g));
+function save(){try{localStorage.setItem("tlSaveV1",JSON.stringify(S));}catch(e){}}
+</script>
+<script>
+"use strict";
+/* ============ cast / program data (2019) ============ */
+const ROSTER=[
+ {nm:"ナオ",meta:"高3・ダンス未経験に近い",img:"assets/nao/2019/profile.jpg",me:true},
+ {nm:"井汲大翔",meta:"高2・ダンス未経験",img:"assets/hiroto/hiroto.jpg",hiroto:true},
+ {nm:"河野純喜",meta:"練習生",img:"assets/cast2019/junki.jpg"},
+ {nm:"川尻蓮",meta:"練習生",img:"assets/cast2019/ren.jpg"},
+ {nm:"白岩瑠姫",meta:"練習生",img:"assets/cast2019/ruki.jpg"},
+ {nm:"大平祥生",meta:"練習生",img:"assets/cast2019/sho.jpg"},
+ {nm:"鶴房汐恩",meta:"練習生",img:"assets/cast2019/shion.jpg"},
+ {nm:"佐藤景瑚",meta:"練習生",img:"assets/cast2019/keigo.jpg"},
+ {nm:"金城碧海",meta:"練習生",img:"assets/cast2019/sukai.jpg"}
+];
+const MISSIONS=[
+ {at:0,t:"レベル分け評価",d:"歌とダンスのパフォーマンスで、最初のクラスが決まる。"},
+ {at:1,t:"テーマ曲の練習",d:"番組のテーマ曲を全員で仕上げる。センターは評価で決まる。"},
+ {at:2,t:"グループバトル準備",d:"チームに分かれて課題曲を練習する。"},
+ {at:3,t:"順位発表式",d:"国民プロデューサーの投票結果が発表される。生存と脱落が決まる夜。"}
+];
+/* ============ story script ============ */
+const N=t=>({k:'n',t}), D=(who,t)=>({k:'d',who,t}), M=t=>({k:'m',t}), SYS=t=>({k:'sys',t});
+const SCRIPT=[
+{k:'chap',title:'0周目プロローグ',sub:'2026年 ― 放送の向こう側',era:'CYCLE 0 ― 2026 / 現在',wdate:'2026年・彼のソロ活動を見ている日々',lock:'0周目 ― 現在'},
+{k:'bg',img:'assets/hiroto/hiroto-big.jpg',cap:'井汲大翔（2019年・公式プロフィール）'},
+N('2026年。なおの部屋。'),
+N('スマホの中では、井汲大翔が小さなライブハウスで歌っている。ソロデビューから1年。ファンミーティングと小規模なライブと、配信。大きくはないけれど、確かに続いている彼の音楽。'),
+M('（……よかった。ほんまに、続けてくれてよかった）'),
+N('なおは彼のファンだ。始まりは2019年、あのサバイバル番組だった。'),
+SYS('― ここからは操作できません。0周目は「見ていただけの時間」です ―'),
+{k:'bg',img:'assets/nao/common/audience-back.jpg',cap:'0周目 ― 彼女は客席とテレビの向こうにいた'},
+N('2019年。高校3年生のなおは、テレビの前で毎週のように震えていた。'),
+N('ダンス未経験で、必死に食らいつく高校2年生の練習生。井汲大翔。気づけば、投票アプリを開く指が一番速くなっていた。'),
+M('（お願い。今週も、残って）'),
+N('そして、2回目の順位発表式。'),
+D('mc','――36位。井汲大翔。'),
+N('画面の中で、彼は唇を噛んで、それでも笑って頭を下げた。なおはテレビの前で声を殺して泣いた。彼の挑戦は、ここで終わったはずだった。'),
+M('（私の応援なんて、結局、画面の向こうにも届いてなかったんやな）'),
+{k:'diff',t:'0周目の記録：彼女の応援は「放送の向こう側」で完結していた。彼の歴史のどこにも、彼女はいない。'},
+N('――時は流れて2026年。その夜、なおは古い写真フォルダを開いた。'),
+N('番組の全体写真。101人の練習生たち。その中に、当然、彼女はいない。当たり前なのに、その「当たり前」が、妙に胸に引っかかった。'),
+M('（……もしも。もしも私が、あの場所にいたら）'),
+N('スマホを握ったまま、彼女は眠りに落ちた。'),
+{k:'flag',f:'leaped'},
+{k:'chap',title:'第1部 2019 日プ編 ― 周A',sub:'彼女だけが、結末を知っている',era:'CYCLE A ― 2019 / PRODUCE 101 JAPAN',wdate:'2019年・合宿初日',lock:'2019年 ― 周A'},
+SYS('― 巻き戻った先は、2019年。合宿所の朝でした ―'),
+{k:'bg',img:'assets/nao/2019/profile.jpg',cap:'練習生「ナオ」として登録された、彼女'},
+N('目が覚めたら、知らない天井だった。'),
+N('二段ベッド。並んだスーツケース。窓の外は、見たこともない合宿所のグラウンド。'),
+M('（……うそ。ここ、まさか）'),
+N('鏡の中には、短い髪の「男の子」がいた。自分の、はずの顔で。登録資料の名前は「ナオ」。男子練習生として、この番組に参加することになっている――らしい。'),
+M('（私も、なりたかったんよな。……男アイドルに。まさか、こんな形で叶うとは）'),
+N('そして何より。同じこの合宿所に、17歳の井汲大翔がいる。脱落する未来を、知っているのは私だけ。'),
+{k:'c',opts:[
+ {t:'「バレない。絶対に、バレないようにする」',fx:{},res:[M('（女だってことも、未来から来たファンだってことも。どっちも、墓場まで持っていく）')]},
+ {t:'「……会いたい。近くで、会いたい」',fx:{iwakan:2},res:[M('（ファンとしての本音が、先に漏れた。……いかん、落ち着け、私）')]},
+ {t:'「順位は変えられない。でも、周りは変えられるはず」',fx:{todoita:0},res:[M('（結果は知ってる。36位。……でも、彼がそこへ行くまでの毎日は、まだ誰のものでもない）')]}
+]},
+{k:'bg',img:'assets/nao/2019/dorm.jpg',cap:'合宿所 ― 入所初日'},
+N('入所の手続きを終えて、ロビーに練習生が集まっていく。その端に、彼はいた。'),
+N('井汲大翔。17歳。画面で何百回も見たはずの顔が、同じ空気を吸って、そこに立っている。'),
+D('hiroto','……あ、すみません。ここ、座ってもいいですか'),
+M('（心臓がうるさい。落ち着け。私は今「練習生のナオ」や）'),
+{k:'c',opts:[
+ {t:'「どうぞ」と短く返す',fx:{},res:[D('nao','どうぞ。……ナオです。よろしく'),D('hiroto','井汲大翔です。……よろしくお願いします')]},
+ {t:'思わず「知ってます」と言いかける',fx:{iwakan:6},res:[D('nao','あ、知ってま――……いや、名簿で見ました。井汲くん'),D('hiroto','……？　あ、はい。よろしくです'),M('（危なっ。初日から未来人のムーブかますとこやった）')]},
+ {t:'緊張で、無言で頷く',fx:{},res:[N('彼は少し困ったように笑って、それでも隣に座った。人見知り同士、沈黙は意外と居心地が悪くなかった。')]}
+]},
+N('彼は人見知りで、言葉は少ない。それでも、去り際に小さく言った。'),
+D('hiroto','……ダンス、未経験なんで。たぶん、足引っ張ります'),
+D('nao','俺も似たようなもん。……一緒に、なんとかしよ'),
+N('彼は少しだけ目を丸くして、それから、ほんの少し笑った。'),
+{k:'diff',t:'0周目：放送越しにしか見られなかった彼 → この周：同じロビーで、隣に座っている。'},
+{k:'chap',title:'レベル分け評価',sub:'最初のクラスが決まる日',era:'CYCLE A ― 2019 / PRODUCE 101 JAPAN',wdate:'2019年・合宿2日目',lock:'2019年 ― 周A'},
+{k:'bg',img:'assets/nao/2019/practice.jpg',cap:'練習室 ― レベル分け評価の前'},
+N('レベル分け評価。歌って、踊って、最初のクラスが決まる。'),
+N('なおの歌は、まあまあ。ダンスは――2026年の彼女の運動神経そのままに、お世辞にも上手くなかった。'),
+M('（ファンの知識はあっても、体はついてこない。当たり前やけど地味に悔しい）'),
+N('大翔の番が来た。未経験のダンスは正直、拙い。それでも彼は最後まで目を逸らさずに踊り切った。あの姿を、彼女はテレビでも見たことがある。'),
+D('hiroto','……っ、すみません。もう一回、いいですか'),
+N('審査の空気が少し動いた。「もう一回」と言える高校2年生は、そう多くない。'),
+{k:'c',opts:[
+ {t:'休憩時間、彼に振りの確認を頼む',fx:{dance:4,iwakan:0},res:[D('nao','なあ、さっきの振り、もう一回一緒にやらん？　俺も全然できてない'),D('hiroto','……いいんですか。……じゃあ、お願いします'),N('二人で鏡の前に立つ。下手同士の確認は、なぜか少し楽しかった。')]},
+ {t:'一人で黙々と練習する',fx:{uta:3},res:[N('彼女は一人、隅でイヤホンをして歌を繰り返した。……彼の方は、ちらりとこちらを見ていた気がする。') ]},
+ {t:'彼の評価の感想を、先回りして言ってしまう',fx:{iwakan:7},res:[D('nao','大翔は絶対、伸びるタイプやと思う。最初ダメでも――'),D('hiroto','……なんで、そんな分かるんですか'),M('（しまった。「未来で見た」は言えない。……ごまかせ、私）'),D('nao','か、勘。顔に書いてる'),D('hiroto','……顔に、ですか')]}
+]},
+{k:'chap',title:'練習室の夜',sub:'言葉より先に、行動が届く',era:'CYCLE A ― 2019 / PRODUCE 101 JAPAN',wdate:'2019年・合宿中盤',lock:'2019年 ― 周A'},
+{k:'bg',img:'assets/nao/2019/practice.jpg',cap:'夜の練習室'},
+N('夜。ほとんどの練習生が宿舎に戻っても、練習室の電気は消えなかった。'),
+N('なおが振りを間違えて三回目のため息をついた時、入口に人影があった。大翔だった。何も言わず、彼は自分の水筒を床に置いて、隣で同じ振りを始めた。'),
+D('hiroto','……俺も、そこ詰まるんです'),
+N('それだけ言って、あとは黙々と。二人分の足音と、鏡の中の二つの影。'),
+M('（この人は、こういう人やったんやな。言葉は少ないけど、置いていかない）'),
+{k:'c',opts:[
+ {t:'「ありがとう」と素直に言う',fx:{todoita:1},res:[D('nao','……ありがとな。助かった'),D('hiroto','……別に。俺の練習にもなるんで'),N('彼はそう言って、水筒を置いたまま先に帰った。――翌朝も、その水筒は彼女のロッカーの前にあった。温かさは、言葉より先に行動で届く人だった。'),{k:'ledger',t:'練習室の夜：彼は言葉ではなく「隣で踊ること」で彼女を支えた。彼女の「ありがとう」は、確かに届いた。'}]},
+ {t:'お礼に、歌の練習に付き合う',fx:{uta:4,todoita:1},res:[N('翌日、今度は彼女が彼の歌に付き合った。音の取り方を何度も確認する彼に、彼女は未来の知識ではなく「今の耳」で助言した。'),{k:'ledger',t:'歌の練習：未来の知識ではなく「今の耳」で寄り添った応援が、彼に届いた。'}]},
+ {t:'気づかないふりをして練習を続ける',fx:{bare:3},res:[N('彼女は気づかないふりをした。……近づきすぎるのが、少し怖かった。秘密が多すぎる自分の距離感を、彼はどう見たのだろう。')]}
+]},
+{k:'diff',t:'0周目：彼の努力は「放送の編集」でしか見られなかった → この周：同じ練習室で、隣で見ている。'},
+{k:'chap',title:'届くはずのなかった手紙',sub:'応援台帳、1件目',era:'CYCLE A ― 2019 / PRODUCE 101 JAPAN',wdate:'2019年・中盤',lock:'2019年 ― 周A'},
+N('番組の企画で、練習生にファンからの手紙が渡される日が来た。'),
+M('（0周目の私も、書いた。……あの手紙は、結局、彼の目に触れたんかな）'),
+N('なおは知っている。この時期の彼は、自分の順位の低さに静かに押しつぶされかけていることを。そして、たった一通の「見ているよ」が、人を夜の練習室に戻すことも。'),
+{k:'c',opts:[
+ {t:'練習生同士の交換ノートに、短い一言を残す',fx:{todoita:1},res:[D('nao','（ノート）「大翔のダンス、最初より全然いい。見てる人は見てる」'),N('翌日、ノートを見た彼は、しばらくそのページで手を止めていた。'),D('hiroto','……誰が書いたか、分かる気がする'),{k:'ledger',t:'交換ノートの一言：「見てる人は見てる」。0周目では届かなかった種類の応援が、同じ時代の中で届いた。'}]},
+ {t:'食堂で直接「昨日のステージ良かった」と言う',fx:{todoita:1,bare:2},res:[D('nao','昨日の、大翔のとこ良かったで。……目、離せんかった'),D('hiroto','……！　……ありがとう、ございます'),N('彼は耳を赤くして下を向いた。好意のアピールは苦手でも、受け取る方はもっと苦手らしい。') ]},
+ {t:'何もしない（歴史に干渉しない）',fx:{ishi:-6},res:[N('彼女は何もしなかった。その夜、練習室の電気は、いつもより早く消えた気がした。'),M('（……「変えない」って、こういうことの積み重ねなんかも）')]}
+]},
+{k:'chap',title:'順位発表式',sub:'Canon Lock ― 結果は、固定されている',era:'CYCLE A ― 2019 / PRODUCE 101 JAPAN',wdate:'2019年・順位発表の夜',lock:'2019年 ― 順位発表'},
+{k:'bg',img:'assets/nao/2019/ranking-close.jpg',cap:'順位発表式 ― 名前が呼ばれるのを待つ時間'},
+SYS('― 順位発表式。ここから先は、ふざけられない時間です ―'),
+N('ホールに、張り詰めた空気が満ちていく。一つずつ、名前と順位が読み上げられる。'),
+N('彼女の名前は、生存の枠の手前で呼ばれた。脱落。――分かっていた。彼女の実力では、ここが限界だった。デビューの枠は、史実の誰のものも奪っていない。'),
+M('（私の挑戦は、ここまで。……でも、彼の番は、これからや）'),
+N('発表は進む。35位。34位。……彼の名前は、まだ呼ばれない。生存ラインは、もう残り少ない。'),
+D('mc','――36位。井汲大翔。'),
+N('彼は立ち上がり、唇を噛んで、それでも笑って頭を下げた。0周目のテレビの中と、寸分違わない光景。'),
+M('（ほら。やっぱり、順位は変わらない。……でも）'),
+N('控室に戻る廊下で、彼は一人、壁に背を預けて天井を仰いだ。その肩が、0周目の映像よりほんの少しだけ、震えていなかった。'),
+{k:'rank'},
+{k:'chap',title:'脱落の夜',sub:'変わったのは、周りだけ',era:'CYCLE A ― 2019 / PRODUCE 101 JAPAN',wdate:'2019年・脱落の夜',lock:'2019年 ― 脱落の夜'},
+{k:'bg',img:'assets/nao/2019/dorm.jpg',cap:'合宿所 ― 最後の夜'},
+N('荷造りを終えた夜。ロビーの端で、彼が一人で座っていた。'),
+D('hiroto','……俺、向いてないんですかね'),
+N('ぽつりと落ちた言葉は、誰に向けたものでもなかった。'),
+{k:'c',opts:[
+ {t:'「向いてるかどうかは、続けた人しか分からん」',fx:{ishi:10,todoita:1},res:[D('nao','向いてるかどうかはな、続けた人しか分からんのよ。……大翔の歌、俺は好きやけどな'),D('hiroto','……っ'),N('彼は何も言い返さなかった。ただ、帰り際、彼女の荷物の上に小さな飴が一つ置いてあった。――彼の精一杯の「ありがとう」だった。'),{k:'keep',t:'脱落の夜に彼が置いていった、小さな飴の包み紙。'}]},
+ {t:'「またどこかで会おう」とだけ言う',fx:{ishi:4},res:[D('nao','……また、どこかで会おうな'),D('hiroto','……はい。……ありがとうございました'),N('彼は深く頭を下げた。それが、この時代での最後の会話になった。') ]},
+ {t:'何も言わず、その場を離れる',fx:{ishi:-12},res:[N('彼女は声をかけられなかった。その背中を、最後まで見送ることもできなかった。'),M('（……これでよかったんか、私）')]}
+]},
+{k:'his',lines:[
+ M('（……あの子）'),
+ M('（ナオ、って子。……なんでやろ）'),
+ M('（俺のこと、ずっと前から知ってるみたいな目を、たまにする）'),
+ M('（……気のせい、か。……たぶん）'),
+ D('hiroto','……また、どこかで')
+]},
+{k:'diff',t:'0周目：彼の脱落は「結果」だけで終わった → この周：彼の「続ける理由」の側に、彼女の言葉が残った。'},
+{k:'endA'}
+];
+</script>
+<script>
+"use strict";
+/* ============ navigation ============ */
+const SCREENS=["consent","lock","home","story","his","prog","gallery","talk","settings"];
+function show(id){SCREENS.forEach(s=>$("#"+s).classList.toggle("on",s===id));window.scrollTo(0,0);const b=$("#"+id+" .appbody");if(b)b.scrollTop=0;}
+document.querySelectorAll("[data-home]").forEach(b=>b.onclick=()=>{renderHome();show("home");});
+/* ============ clock ============ */
+function tick(){const d=new Date();const hh=d.getHours(),mm=String(d.getMinutes()).padStart(2,"0");const t=hh+":"+mm;const lc=$("#lk-time");if(lc)lc.textContent=t;const hc=$("#home-clock");if(hc)hc.textContent=t;}
+setInterval(tick,20000);
+/* ============ consent / lock ============ */
+$("#consent-btn").onclick=()=>{S.consented=true;S.started=true;save();enterLock();};
+function enterLock(){tick();const cur=SCRIPT[Math.min(S.idx,SCRIPT.length-1)];
+ $("#lk-date").textContent=(S.flags&&S.flags.leaped)?"2019年":"2026年";
+ $("#lk-era").textContent=S.finishedA?"2019年 ― 周A 終了":(S.flags&&S.flags.leaped?"2019年 ― 周A":"0周目 ― 現在");
+ $("#lk-notif-t").textContent=S.finishedA?"周Aが終わりました。記録は各アプリから見返せます。":(S.flags&&S.flags.leaped?"番組アプリが届いています。合宿が始まります。":"PRODUCE 101 JAPAN の思い出が、通知で届きました。");
+ show("lock");}
+$("#lock").onclick=()=>{renderHome();show("home");};
+/* ============ home ============ */
+const APPS=[
+ {id:"prog",lb:"番組アプリ",ic:"🏆",bg:"linear-gradient(180deg,#ffd60a,#f5b800)",lock:()=>!S.flags.leaped},
+ {id:"talk",lb:"トーク",ic:"💬",bg:"#00B900",lock:()=>!S.flags.leaped},
+ {id:"gallery",lb:"写真",ic:"🌸",bg:"#fff"},
+ {id:"settings",lb:"設定・記録",ic:"⚙️",bg:"linear-gradient(180deg,#f2f2f7,#c7c7cc)"}
+];
+function chapNow(){let c={title:"0周目プロローグ",sub:"放送の向こう側にいた、ただのファンの時間。"};for(let i=0;i<=Math.min(S.idx,SCRIPT.length-1);i++){if(SCRIPT[i].k==="chap")c=SCRIPT[i];}return c;}
+function renderHome(){
+ const c=chapNow();
+ if(c.era)$("#w-era").textContent=c.era;
+ if(c.wdate)$("#w-date").textContent=c.wdate;
+ $("#w-cycle").textContent=S.finishedA?"周回：2019 周A 終了":"周回："+(S.flags.leaped?"1周目（周A）":"0周目");
+ $("#w-sub").textContent=S.finishedA?"彼の歴史に、彼女のいた証拠が残った。":(S.flags.leaped?"史実の順位は変わらない。変わるのは、その周り。":"1周目（史実）には、彼女は彼の歴史のどこにもいない。");
+ $("#sb-title").textContent=S.finishedA?"周A ― 完（次周は次版で）":c.title;
+ $("#sb-desc").textContent=S.finishedA?"おつかれさまでした。ゲージと記録は「設定・記録」で見返せます。":c.sub;
+ $("#apps").innerHTML=APPS.map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span><span>${a.lb}</span></button>`).join("");
+ document.querySelectorAll("#apps .appicon").forEach(b=>b.onclick=()=>{const a=APPS.find(x=>x.id===b.dataset.app);if(a.lock&&a.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}openApp(a.id);});
+}
+$("#story-banner").onclick=()=>{openStory();};
+function openApp(id){if(id==="prog"){renderProg("roster");show("prog");}if(id==="gallery"){renderGallery();show("gallery");}if(id==="talk"){renderTalk();show("talk");}if(id==="settings"){renderSettings("gauge");show("settings");}}
+/* ============ story engine ============ */
+if(!S.log)S.log=[]; if(S.stageImg===undefined)S.stageImg=null; if(S.capTxt===undefined)S.capTxt=null; if(S.pendingChoice===undefined)S.pendingChoice=false;
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+function lineHTML(it){
+ if(it.k==='n')return `<div class="narr">${esc(it.t)}</div>`;
+ if(it.k==='sys')return `<div class="narr sys">${esc(it.t)}</div>`;
+ if(it.k==='m')return `<div class="mono">${esc(it.t)}</div>`;
+ if(it.k==='diff')return `<div class="narr diff">◆ 差分が記録されました<br>${esc(it.t)}</div>`;
+ if(it.k==='d'){const w=it.who==='nao'?["nao","ナオ"]:it.who==='hiroto'?["hiroto","井汲大翔"]:["other","MC"];return `<div class="dlg ${w[0]}"><div class="who">${w[1]}</div>${esc(it.t)}</div>`;}
+ return "";}
+function pushLog(html){S.log.push(html);const b=$("#st-body");const d=document.createElement("div");d.innerHTML=html;b.appendChild(d.firstChild||d);b.scrollTop=b.scrollHeight;}
+function gaugePop(fx){const names={iwakan:"違和感",bare:"男装バレ度",todoita:"届いた数",uta:"スキル・歌",dance:"スキル・ダンス",ishi:"彼の継続意志"};const parts=Object.keys(fx).filter(k=>fx[k]).map(k=>`${names[k]} ${fx[k]>0?"+":""}${fx[k]}`);if(!parts.length)return;const p=$("#gpop");p.innerHTML=parts.join("<br>");p.classList.add("on");setTimeout(()=>p.classList.remove("on"),1400);}
+function applyFx(fx){if(!fx)return;Object.keys(fx).forEach(k=>{S.g[k]=(S.g[k]||0)+fx[k];});if(S.g.ishi>100)S.g.ishi=100;if(S.g.ishi<0)S.g.ishi=0;if(S.g.bare>100)S.g.bare=100;gaugePop(fx);renderGauges();}
+function renderGauges(){const g=S.g;$("#st-gauges").innerHTML=[["違和感",g.iwakan],["バレ度",g.bare],["届いた数",g.todoita],["歌",g.uta],["ダンス",g.dance],["継続意志",g.ishi]].map(x=>`<span class="gchip">${x[0]} <b>${x[1]}</b></span>`).join("");}
+function setStage(img,cap){S.stageImg=img;S.capTxt=cap;const im=$("#st-img");if(img){im.src=img;im.style.display="";$("#st-cap").textContent=cap||"";$("#st-cap").style.display=cap?"":"none";}else{im.style.display="none";$("#st-cap").style.display="none";}}
+function canonHTML(){const g=S.g;return `<div class="canon"><h3>CANON LOCK ― 順位発表の内訳</h3>
+ <div class="crow"><span class="fixed">固定</span><div>井汲大翔の順位：<b>36位</b>（史実どおり）／デビューメンバー：変更なし／ナオの脱落：変更なし</div></div>
+ <div class="crow"><span class="changed">変化</span><div>届いた応援：<b>${g.todoita}件</b>（0周目では0件）／練習室で隣にいた夜があった／脱落の夜、彼の肩は震えていなかった</div></div>
+ <div style="font-size:11.5px;color:#a9a9c4;margin-top:6px">順位は変えられない。でも、彼がそこへ行くまでの毎日は、確かに変わった。</div></div>`;}
+function processItem(it){
+ switch(it.k){
+  case 'chap':{const c=chapTitleOf(it);$("#st-chap").textContent=it.title;$("#st-loc").textContent=it.sub||"";pushLog(`<div class="narr sys">―― ${esc(it.title)} ――</div>`);S.idx++;break;}
+  case 'bg':setStage(it.img,it.cap);S.idx++;processNext();break;
+  case 'flag':S.flags[it.f]=true;S.idx++;processNext();break;
+  case 'fx':applyFx(it.fx);S.idx++;processNext();break;
+  case 'ledger':if(!S.ledger.includes(it.t))S.ledger.push(it.t);pushLog(`<div class="narr sys">📖 応援台帳に記録されました</div>`);S.idx++;break;
+  case 'keep':if(!S.keeps.includes(it.t))S.keeps.push(it.t);pushLog(`<div class="narr sys">🎁 Keepsake Box に残りました</div>`);S.idx++;break;
+  case 'diff':if(!S.diffs.includes(it.t))S.diffs.push(it.t);pushLog(lineHTML(it));S.idx++;break;
+  case 'n': case 'd': case 'm': case 'sys':pushLog(lineHTML(it));S.idx++;break;
+  case 'rank':S.flags.ranked=true;pushLog(canonHTML());S.idx++;break;
+  case 'his':S.idx++;save();openHis(it.lines);break;
+  case 'c':renderChoices(it);break;
+  case 'endA':S.finishedA=true;pushLog(`<div class="canon"><h3>2019 日プ編 ― 周A 終了</h3><div style="font-size:13px;line-height:1.8">彼の36位は変わらなかった。でも、0周目にはなかったものが、この周には残った。<br>――次の周（周B）では、彼が「いなかったはずの子」に気づき始めます。（次版で公開）</div></div>`);S.idx++;break;
+  default:S.idx++;break;
+ }
+ save();renderGauges();
+}
+function chapTitleOf(it){return it;}
+function processNext(){if(S.idx<SCRIPT.length){const it=SCRIPT[S.idx];if(['bg','flag','fx'].includes(it.k))processItem(it);}}
+function renderChoices(it){
+ S.pendingChoice=true;const box=$("#st-choices");box.style.display="flex";$("#st-next").style.display="none";
+ box.innerHTML=it.opts.map((o,i)=>`<button data-ci="${i}">${esc(o.t)}</button>`).join("");
+ box.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+   if(!S.pendingChoice)return;
+   const o=it.opts[+b.dataset.ci];box.style.display="none";box.innerHTML="";$("#st-next").style.display="";S.pendingChoice=false;
+   pushLog(`<div class="dlg nao"><div class="who">ナオ ― 選んだこと</div>${esc(o.t)}</div>`);
+   if(o.fx)applyFx(o.fx);
+   (o.res||[]).forEach(r=>{if(r.k==='ledger'||r.k==='keep'||r.k==='diff'||r.k==='fx'){processResItem(r);}else pushLog(lineHTML(r));});
+   S.idx++;save();renderGauges();
+ });
+}
+function processResItem(r){
+ if(r.k==='ledger'){if(!S.ledger.includes(r.t))S.ledger.push(r.t);pushLog(`<div class="narr sys">📖 応援台帳に記録されました</div>`);}
+ if(r.k==='keep'){if(!S.keeps.includes(r.t))S.keeps.push(r.t);pushLog(`<div class="narr sys">🎁 Keepsake Box に残りました</div>`);}
+ if(r.k==='diff'){if(!S.diffs.includes(r.t))S.diffs.push(r.t);pushLog(lineHTML(r));}
+ if(r.k==='fx'){applyFx(r.fx);}
+}
+function advance(){if(S.pendingChoice)return;if(S.idx>=SCRIPT.length)return;processItem(SCRIPT[S.idx]);}
+$("#st-next").onclick=advance;
+$("#st-body").onclick=advance;
+$("#st-back").onclick=()=>{renderHome();show("home");};
+function openStory(){
+ const c=chapNow();$("#st-chap").textContent=c.title;$("#st-loc").textContent=c.sub||"";
+ $("#st-body").innerHTML=S.log.join("");
+ setStage(S.stageImg,S.capTxt);
+ if(S.idx<SCRIPT.length&&SCRIPT[S.idx].k==='c'){renderChoices(SCRIPT[S.idx]);}
+ renderGauges();show("story");
+ const b=$("#st-body");b.scrollTop=b.scrollHeight;
+}
+/* ============ his screen ============ */
+let hisQueue=[];
+function openHis(lines){S.hisSeen=true;hisQueue=lines.slice();$("#his-body").innerHTML="";show("his");hisNext();}
+function hisNext(){
+ if(!hisQueue.length){renderHome();show("home");return;}
+ const it=hisQueue.shift();const d=document.createElement("div");
+ if(it.k==='m')d.innerHTML=`<div class="mono">${esc(it.t)}</div>`;
+ else if(it.k==='d')d.innerHTML=`<div class="dlg"><div class="who">井汲大翔</div>${esc(it.t)}</div>`;
+ else d.innerHTML=`<div class="mono">${esc(it.t)}</div>`;
+ $("#his-body").appendChild(d.firstChild);save();
+}
+$("#his-next").onclick=hisNext;$("#his-body").onclick=hisNext;
+/* ============ program app ============ */
+let progTab="roster";
+document.querySelectorAll("#prog-tabs button").forEach(b=>b.onclick=()=>renderProg(b.dataset.tab));
+function renderProg(tab){progTab=tab;document.querySelectorAll("#prog-tabs button").forEach(b=>b.classList.toggle("on",b.dataset.tab===tab));const body=$("#prog-body");
+ if(tab==="roster"){body.innerHTML=`<div class="roster">${ROSTER.map(r=>`<div class="rcard ${r.me?"me":""} ${r.hiroto?"hiroto":""}"><img src="${r.img}" alt=""><div class="rn">${r.nm}${r.me?"（自分）":""}</div><div class="rm">${r.meta}</div></div>`).join("")}</div><p class="small" style="padding:0 16px 16px">名簿は一部を表示しています。金枠＝自分、ピンク枠＝井汲大翔。</p>`;}
+ if(tab==="rank"){
+   if(!S.flags.ranked){body.innerHTML=`<div class="empty">順位発表はまだ行われていません。<br>発表の夜に、ここへ結果が刻まれます。</div>`;}
+   else{body.innerHTML=canonHTML()+`<div class="rankrow"><div class="rk">―</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">1位〜35位</div><div class="rmeta">史実どおり（変更なし）</div></div></div>
+   <div class="rankrow"><div class="rk" style="color:var(--pink)">36</div><img src="assets/hiroto/hiroto.jpg"><div><div class="rnm">井汲大翔</div><div class="rmeta">脱落 ― Canon Lock（固定）</div></div></div>
+   <div class="rankrow"><div class="rk">―</div><img src="assets/nao/2019/profile.jpg"><div><div class="rnm">ナオ</div><div class="rmeta">脱落（生存枠の手前）</div></div></div>`;}
+ }
+ if(tab==="vote"){
+   if(!S.flags.leaped){body.innerHTML=`<div class="pad"><div class="card"><h3>国民プロデューサー投票</h3><p>0周目の彼女は、ファンとして毎日投票していました。公式ルール内の投票のみです。</p><button class="btn gold" id="vote-btn" ${S.votedDay===0?"disabled":""}>${S.votedDay===0?"本日分は投票済み ✓":"井汲大翔に投票する"}</button><p class="small" style="margin-top:8px">投票済み回数：${S.voteCount||0}回</p></div></div>`;const vb=$("#vote-btn");if(vb)vb.onclick=()=>{S.votedDay=0;S.voteCount=(S.voteCount||0)+1;save();renderProg("vote");};}
+   else{body.innerHTML=`<div class="empty">練習生は投票できません。<br>――いま彼女が届けられる応援は、<br>画面の向こうではなく、同じ時代の中にあります。</div>`;}
+ }
+ if(tab==="mission"){const ci=chapIndexNow();body.innerHTML=`<div style="padding:6px 0 14px">${MISSIONS.map((m,i)=>`<div class="ledrow"><div class="lt">${i<ci?"完了":i===ci?"現在のミッション":"今後"}</div>${m.t}<div class="small">${m.d}</div></div>`).join("")}</div>`;}
+}
+function chapIndexNow(){let n=0;for(let i=0;i<Math.min(S.idx,SCRIPT.length);i++)if(SCRIPT[i].k==="chap")n++;return Math.max(0,n-1);}
+/* ============ gallery ============ */
+function renderGallery(){
+ const items=[
+  {img:"assets/hiroto/hiroto-big.jpg",cap:"井汲大翔・2019年公式プロフィール（公開済みの写真）",cmp:"0周目から変わらない"},
+  {img:"assets/nao/common/audience-back.jpg",cap:"0周目：彼女は客席とテレビの向こうにいた",cmp:"0周目の記録",gate:true},
+  {img:"assets/nao/2019/profile.jpg",cap:"この周：練習生「ナオ」のプロフィール",cmp:"差分 ― 1周目にはいなかった顔",gate:!S.flags.leaped},
+  {img:"assets/nao/2019/practice.jpg",cap:"この周：練習室の夜、隣で踊った時間",cmp:"差分 ― 同じ練習室にいる",gate:S.idx<40},
+  {img:"assets/nao/2019/dorm.jpg",cap:"この周：合宿所の日常",cmp:"差分 ― 同じ屋根の下",gate:S.idx<20},
+  {img:"assets/nao/2019/stage.jpg",cap:"この周：ステージに立つ彼女",cmp:"差分 ― 見る側から、立つ側へ",gate:S.idx<30},
+  {img:"assets/nao/2019/ranking-close.jpg",cap:"順位発表の夜、呼ばれるのを待つ顔",cmp:"Canon Lock の夜",gate:!S.flags.ranked}
+ ];
+ $("#gal-body").innerHTML=items.filter(x=>!x.gate).map(x=>`<figure><img src="${x.img}" onerror="this.parentNode.style.display='none'"><figcaption>${x.cap}<br><span class="cmp">${x.cmp}</span></figcaption></figure>`).join("")||`<div class="empty">まだ写真がありません。</div>`;
+}
+/* ============ talk ============ */
+function renderTalk(){
+ const msgs=[
+  {at:20,who:"合宿連絡（全体）",img:"assets/hiroto/hiroto.jpg",p:"明日の集合は7時です。レベル分け評価の結果は掲示板で確認してください。",t:"合宿2日目"},
+  {at:45,who:"井汲大翔",img:"assets/hiroto/hiroto.jpg",p:"……今日の練習、ありがとうございました",t:"合宿中盤"},
+  {at:80,who:"井汲大翔",img:"assets/hiroto/hiroto.jpg",p:"飴、……ありがとう",t:"脱落の夜"}
+ ];
+ const vis=msgs.filter(m=>S.idx>=m.at);
+ $("#talk-body").innerHTML=(vis.length?vis.map(m=>`<div class="trow"><img src="${m.img}"><div><div class="tn">${m.who}</div><div class="tp">${m.p}</div></div><div class="tt">${m.t}</div></div>`).join(""):`<div class="empty">まだトークはありません。<br>物語を進めると、合宿中の連絡が届きます。</div>`)+`<p class="small" style="padding:12px 16px">※ 彼のメッセージは短く、少ない。人見知りの彼のペースそのままです。</p>`;
+}
+/* ============ settings ============ */
+let setTab="gauge";
+document.querySelectorAll("#set-tabs button").forEach(b=>b.onclick=()=>renderSettings(b.dataset.stab));
+function bar(v,max){return Math.max(0,Math.min(100,Math.round(v/max*100)));}
+function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs button").forEach(b=>b.classList.toggle("on",b.dataset.stab===tab));const body=$("#set-body");const g=S.g;
+ if(tab==="gauge"){body.innerHTML=[
+  ["違和感（彼視点）",g.iwakan,100,"彼の「試し」や発覚イベントの条件になる"],
+  ["男装バレ度",g.bare,100,"MAXで当該時代の秘密バレIFへ"],
+  ["彼の継続意志",g.ishi,100,"幕間の岐路で効く。尽きると「彼が挑戦を辞めた現在」へ"],
+  ["スキル・歌",g.uta,100,"周回で継承される"],
+  ["スキル・ダンス",g.dance,100,"周回で継承される"]
+ ].map(x=>`<div class="gitem"><div class="gn"><span>${x[0]}</span><span>${x[1]}</span></div><div class="gbar"><i style="width:${bar(x[1],x[2])}%"></i></div><div class="gd">${x[3]}</div></div>`).join("")+`<div class="gitem"><div class="gn"><span>届いた数</span><span>${g.todoita}件</span></div><div class="gd">順位には一切影響しません。現在編で、彼が彼女を特定する手がかりになります。</div></div>`;}
+ if(tab==="ledger"){body.innerHTML=S.ledger.length?S.ledger.map((t,i)=>`<div class="ledrow"><div class="lt">応援 ${i+1}件目</div>${esc(t)}</div>`).join("")+`<p class="small" style="padding:12px 16px">前の周で届いた応援は、次の周で「維持」する義務になります。</p>`:`<div class="empty">まだ記録がありません。<br>彼に届いた応援が、ここに残ります。</div>`;}
+ if(tab==="keep"){body.innerHTML=S.keeps.length?S.keeps.map(t=>`<div class="ledrow"><div class="lt">Keepsake</div>${esc(t)}</div>`).join(""):`<div class="empty">まだ何も残っていません。<br>周を跨いで残るのは「彼が残すと決めたもの」だけです。</div>`;}
+ if(tab==="diff"){body.innerHTML=S.diffs.length?S.diffs.map(t=>`<div class="ledrow"><div class="lt">Diff Log</div>${esc(t)}</div>`).join(""):`<div class="empty">まだ差分がありません。<br>0周目と変わったことが、ここに集まります。</div>`;}
+ if(tab==="about"){body.innerHTML=`<div class="srow"><span>タイトル</span><span class="sv">1周目にはいなかったファンの件</span></div>
+ <div class="srow"><span>バージョン</span><span class="sv">${VER}（0周目＋2019周Aまで）</span></div>
+ <div class="srow"><span>進行</span><span class="sv">${S.finishedA?"周A 終了":chapNow().title}</span></div>
+ <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
+ <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
+ const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV1");location.reload();}};}
+}
+/* ============ init ============ */
+tick();
+if(S.consented){enterLock();}else{show("consent");}
+</script>
+</body>
+</html>
