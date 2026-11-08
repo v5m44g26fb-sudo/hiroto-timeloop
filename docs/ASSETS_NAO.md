@@ -4,9 +4,12 @@
 
 ## 0. 同一性の基準（リファレンス）
 
-- **基準ビジュアル（本人提示・最新）**: `~/workspace/user/files/438CA2B6-C46E-4F5A-B3F6-16D1405B68DB-photo-82968D00-9B6A-4F0F-A184-C9ACBFE37FCC.jpg`（1122×1402、紺セーターで頭に手を添えた男版ビジュアル）
-  - 本人の評価は「2026ビジュすぎる」。**そのままゲームに使わず**、時代寄せ生成の同一性リファレンスとして使う位置づけ（本人がチャッピー／ChatGPT に時代寄せ生成を依頼）
-  - 時代別プロフィール3点（下記 §2）はこの基準から生成された
+- **現行の顔の基準＝ face2（2026-11-09 本人承認・正式決定）**: `assets/nao/2019/profile-face2-close.jpg`（名簿用アップ）／ `assets/nao/2019/profile-face2-full.jpg`（全身版）。制服＋青チェックの通常ネクタイ＋ガッツポーズは従来どおり
+  - 特徴：鼻翼が狭く鼻筋が細い顔立ち（本人が提示した参照写真2枚に寄せたもの）。目の下のほくろ・白い肌は維持
+  - 2021・2023のプロフィールと、ナオが写る場面カット類は全てこの face2 を同一性基準として生成し直す（旧フェイスとの混在禁止）
+- **旧基準は使用禁止（2026-11-09 差し替え）**: 下記の旧基準ビジュアル（438CA…）から生成した旧フェイスの画像は全て表示から外す。対象：2019リボン版（`profile.jpg` / `profile-close.jpg`）、2019ネクタイ版（`profile-tie.jpg` / `profile-close2.jpg`）、および旧フェイスで生成された 2021・2023 プロフィールと全場面カット
+- （旧）基準ビジュアル: `~/workspace/user/files/438CA2B6-C46E-4F5A-B3F6-16D1405B68DB-photo-82968D00-9B6A-4F0F-A184-C9ACBFE37FCC.jpg`（1122×1402、紺セーターで頭に手を添えた男版ビジュアル）
+  - 本人の評価は「2026ビジュすぎる」。face2 の土台になった参照だが、顔の基準としては上記の face2 に置き換え済み
 
 ## 1. 既存の男版なお画像と流用可否
 
@@ -23,12 +26,13 @@
 
 | 時代 | ファイル | 仕様 |
 |---|---|---|
-| 2019年版（日プ用）**確定・本人OK（2026-11-09）** | `~/workspace/imagine_media/media-generation-nao-male-2019-uniform-0-afdcabbf-adf2-4742-a185-3c858cec5133.webp` | 17歳・日プ制服（グレーブレザー＋白パイピング＋青チェック蝶ネクタイ＋名札）・立ちガッツポーズ・元の顔と白い肌を維持 |
+| 2019年版（日プ用）**現行の正＝ face2（2026-11-09 本人承認）** | `assets/nao/2019/profile-face2-full.jpg`（全身）／ `assets/nao/2019/profile-face2-close.jpg`（名簿用アップ） | 17歳・日プ制服（グレーブレザー＋白パイピング＋青チェックの**通常ネクタイ**＋名札）・立ちガッツポーズ・新フェイス（鼻翼が狭く鼻筋が細い）・ほくろと白い肌を維持。旧フェイスのリボン版・ネクタイ版は表示から撤去済み・使用禁止 |
 | 2021年版（創造営用） | `~/workspace/imagine_media/media-generation-nao-male-2021-0-7a3d7c55-bd9c-41c9-a8de-b3df560bc841.webp` | 19歳・訓練生ジャケット正面プロフィール |
 | 2023年版（ボイプラ用） | `~/workspace/imagine_media/media-generation-nao-male-2023-0-646fc911-55a8-45dd-a5d1-8e4b0f1fa204.webp` | 21歳・明るい茶髪レイヤー・韓国風練習生プロフィール |
 
 - 用途（想定）: 各時代のアバター、練習生名簿のプロフィール、番組公式プロフィール画面
 - 未確定事項: 本人のOKが出るまでゲームには組み込まない。差し替え生成が来たら本ファイルのパスを更新する
+- **2026-11-09 face2 全面差し替え（進行中）**: 2019は face2 へ差し替え完了。2021・2023のプロフィール（`2021/profile.jpg`、`2023/profile.jpg`、`2023/profile-close.jpg`）と、ナオが写る場面カット類（2019: dorm / practice / ranking-close / selfie / stage / stage2、2021: daily / practice / stage / study、2023: daily / fancam-close / fancam2 / practice / stage）は face2 基準で再生成する。再生成前の旧フェイス版は `hidden_files/nao-oldface-backup/` に保管。顔の写らないカット（`common/room.jpg`、`common/livehouse.jpg`、後ろ姿の `common/audience-back.jpg`）は差し替え対象外
 
 ## 3. まだ不足している画像リスト
 
