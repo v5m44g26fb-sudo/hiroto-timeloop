@@ -137,6 +137,11 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 .gbar.warn i{background:#f59e0b}
 .gbar.danger i{background:#ff3b30}
 .gitem .gn span:last-child{font-weight:800}
+#st-body .dlg.picked{background:rgba(125,211,252,.09);border-left:3px solid #7dd3fc;border-radius:0 10px 10px 0;padding:8px 11px}
+#st-choices button{animation:chin .32s ease both}
+#st-choices button:nth-child(2){animation-delay:.06s}
+#st-choices button:nth-child(3){animation-delay:.12s}
+@keyframes chin{from{opacity:0;transform:translateY(7px)}}
 .gitem{background:#fff;padding:12px 16px;border-bottom:1px solid var(--line)}
 .gitem .gn{font-size:13.5px;font-weight:700;display:flex;justify-content:space-between}
 .gitem .gd{font-size:11.5px;color:var(--sub);margin-top:2px;line-height:1.6}
@@ -505,7 +510,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v36";
+const VER="v37";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1586,7 +1591,7 @@ function renderChoices(it){
    if(!S.pendingChoice)return;
    seChoice();
    const o=it.opts[+b.dataset.ci];box.style.display="none";box.innerHTML="";$("#st-next").style.display="";S.pendingChoice=false;
-   pushLog(`<div class="dlg nao"><div class="who">ナオ ― 選んだこと</div>${esc(o.t)}</div>`);
+   pushLog(`<div class="dlg nao picked"><div class="who">ナオ ― 選んだこと</div>${esc(o.t)}</div>`);
    if(o.fx)applyFx(o.fx);
    if(o.setf)S.flags[o.setf]=true;
    if(o.effort)S.flags.effortB=(S.flags.effortB||0)+o.effort;
