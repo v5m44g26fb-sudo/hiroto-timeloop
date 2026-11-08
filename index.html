@@ -388,7 +388,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
     <div class="ttl-rule"></div>
     <p class="ttl-lead">井汲大翔のファンのなおが、2019年へ跳ぶ。<br>男装練習生として、彼の隣に立つために。</p>
     <div class="ttl-chips"><span>全編収録 ― 現在編まで</span><span>彼の視点あり</span><span>応援が残る物語</span></div>
-    <div id="ttl-notif"><span class="tn-ic"><svg viewBox="0 0 56 56" width="21" height="21"><g fill="#fff"><circle cx="7.5" cy="17.3" r="2.6"/><circle cx="28" cy="12.8" r="2.6"/><circle cx="48.5" cy="17.3" r="2.6"/><path d="M11 39L7.5 18.5L19 28l9-13.5L37 28l11.5-9.5L45 39z"/><rect x="11" y="42.5" width="34" height="4.5" rx="2.25"/></g></svg></span><span style="flex:1;min-width:0"><span class="tn-hd"><span><b>番組アプリ</b></span><span>2019年4月</span></span><span class="tn-bd">練習生名簿が更新されました ― <b>1周目にはいなかった名前</b>が、1件追加されています</span></span></div>
+    <div id="ttl-notif"><span class="tn-ic"><svg viewBox="0 0 56 56" width="21" height="21"><g fill="#fff"><circle cx="7.5" cy="17.3" r="2.6"/><circle cx="28" cy="12.8" r="2.6"/><circle cx="48.5" cy="17.3" r="2.6"/><path d="M11 39L7.5 18.5L19 28l9-13.5L37 28l11.5-9.5L45 39z"/><rect x="11" y="42.5" width="34" height="4.5" rx="2.25"/></g></svg></span><span style="flex:1;min-width:0"><span class="tn-hd"><span><b id="ttl-notif-app">番組アプリ</b></span><span id="ttl-notif-when">2019年4月</span></span><span class="tn-bd" id="ttl-notif-t">練習生名簿が更新されました ― <b>1周目にはいなかった名前</b>が、1件追加されています</span></span></div>
     <div class="ttl-notice">
       <p>本作はフィクションです。実在の人物・番組の記録をもとにした創作であり、登場人物の言動はすべて作中のものです。</p>
       <p>デビューできない結末は変わりません。でも、順位も、彼との毎日も、努力で動かせます。</p>
@@ -518,7 +518,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v52";
+const VER="v53";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1841,6 +1841,7 @@ function stopBGM(){if(bgmTimer){clearInterval(bgmTimer);bgmTimer=null;}}
 function sndStart(){acGet();startBGM();}
 /* ============ init ============ */
 {const tv=document.querySelector("#ttl-ver");if(tv)tv.textContent="ver. "+VER;}
+{if(S&&(S.idx>0||S.started)&&!S.trueEnd&&!S.normalEnd){const _tt=document.querySelector("#ttl-notif-t");const _tw=document.querySelector("#ttl-notif-when");const _ta=document.querySelector("#ttl-notif-app");try{const _c=chapNow();if(_tt)_tt.innerHTML="つづきがあります ― いまの章は<b>"+esc(_c.title)+"</b>です";if(_tw)_tw.textContent="セーブデータ";if(_ta)_ta.textContent="物語の通知";}catch(e){}}}
 document.addEventListener("pointerdown",function h16(){if(S.consented)sndStart();document.removeEventListener("pointerdown",h16);});
 setTimeout(()=>{const n=document.querySelector("#ttl-notif");if(n)n.classList.add("in");},1100);
 tick();
