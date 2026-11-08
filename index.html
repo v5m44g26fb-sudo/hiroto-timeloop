@@ -519,7 +519,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v82";
+const VER="v83";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1831,12 +1831,19 @@ const THD_RULES=[
  {k:["順位","発表","36位","15位","21位","デビュー"],r:["……36位、15位、21位。……数字は、覚えてる","……デビューは、できんかった。……でも歌は続いてる","……あの頃の順位より、今の歌を聴いてほしい"]},
  {k:["ファンカム","チッケム","人気"],r:["……ファンカム、見てくれてるんや","……ありがとう。……次は実力でも、見せたい"]},
  {k:["未来","知って","秘密","バレ"],r:["……それ以上は、聞かんとく","……なあ、その話は……また今度な"]},
- {k:["おはよう","こんにちは","こんばんは","やあ","よろ"],r:["……やあ","……こんばんは。……練習、終わったとこ"]}
+ {k:["おはよう","こんにちは","こんばんは","やあ","よろ"],r:["……やあ","……こんばんは。……練習、終わったとこ"]},
+ {k:["プリン"],r:["……！　……ほんまに？　……ありがとう","……プリンは、裏切らへん"]},
+ {k:["練習"],r:["……今日も、みっちりやった","……練習は、嘘つかへんから"]},
+ {k:["好き","推し"],r:["……っ。……ありがとう、ございます","……そういうの、慣れてなくて。……でも、嬉しい"]},
+ {k:["かっこいい","イケメン"],r:["……やめて。……耳、赤なってる","……そんなん言われたら、踊られへん"]},
+ {k:["会いたい","また会お","会おう"],r:["……うん。……また、な","……次の機会、絶対"]},
+ {k:["クラス","評価","再評価"],r:["……評価は、まだまだや","……次は、絶対上がる"]}
 ];
 const THD_DEF=["……うん","……ありがとう","……また明日な","……練習、戻るわ","……そっか"];
 function thdBub(me,t,img){return me?`<div class="thd-row me"><div class="thd-bub">${esc(t)}</div></div>`:`<div class="thd-row"><img src="${img||thdImg}"><div class="thd-bub">${esc(t)}</div></div>`;}
-function openThread(hist){if(hist.length)thdImg=hist[hist.length-1].img;const b=$("#thd-body");b.innerHTML=`<div class="thd-note">― これまでのトーク ―</div>`+hist.map(m=>thdBub(false,m.p,m.img)).join("")+`<div class="thd-note">― フリートーク（ここから自由に送れます）―</div>`;$("#thd-chips").innerHTML=["おつかれさま","応援してる","飴あげる","明日もがんばろ","順位どうだった？"].map(c=>`<button>${c}</button>`).join("");document.querySelectorAll("#thd-chips button").forEach(x=>x.onclick=()=>sendThd(x.textContent));b.scrollTop=b.scrollHeight;show("thread");}
+function openThread(hist){if(hist.length)thdImg=hist[hist.length-1].img;const b=$("#thd-body");b.innerHTML=`<div class="thd-note">― これまでのトーク ―</div>`+hist.map(m=>thdBub(false,m.p,m.img)).join("")+`<div class="thd-note">― フリートーク（ここから自由に送れます）―</div>`;$("#thd-chips").innerHTML=["おつかれさま","応援してる","飴あげる","プリン買ってきた","明日もがんばろ","順位どうだった？"].map(c=>`<button>${c}</button>`).join("");document.querySelectorAll("#thd-chips button").forEach(x=>x.onclick=()=>sendThd(x.textContent));b.scrollTop=b.scrollHeight;show("thread");}
 const THD_ERA={
+ "2019":["……今日も練習室やった","……合宿のごはん、意外とうまい","……ツカメ、あとちょっとやねん","……明日も早い。……寝な"],
  "2021":["……中国語、まだ勉強中やねん","……今日、寮で練習した","……こっちは暑い。……そっちは？"],
  "2023":["……韓国語、ちょっとだけ分かるようになった","……今日も評価の日やった","……こっちは寒い。……風邪ひくなよ"],
  "nxd":["……今日も練習室やった","……デビューの話は、まだ何も","……歌は、続けてる"],
@@ -1872,7 +1879,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  <div class="srow"><span>到達した結末</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":"（まだ到達していません）"}</span></div>
  <div class="srow"><span>サウンド</span><span class="sv"><button id="snd-btn" style="background:${S.soundOn!==false?"#17172a":"#c6c6d4"};color:#fff;border:none;border-radius:999px;padding:6px 18px;font-size:12.5px;font-weight:700;cursor:pointer">${S.soundOn!==false?"ON":"OFF"}</button></span></div>
  <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
- <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加</span></div>
+ <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加／v83 フリーチャットの話題拡充（2019専用プール＋新キーワード6種＋チップ追加）</span></div>
  <div class="pad"><p class="small">エンディングは5種（TRUE現在／通常現在／離脱した現在／秘密バレIF／ループ継続BAD）。結末は、彼の岐路での関わり・手がかり（Keepsakeと届いた数）・男装バレ度・最後の選択で分かれます。なお「デビューしてしまう現在」はIF候補として設計にのみ記録され、本編では採用していません（デビューメンバー構成は不変のため）。</p></div>
  <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
  const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV2");location.reload();}};
