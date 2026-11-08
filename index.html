@@ -284,6 +284,9 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 #st-stage img{transition:opacity .5s ease}
 @keyframes notifdrop{0%{transform:translateY(-16px);opacity:0}100%{transform:none;opacity:1}}
 #lock .lk-notif{animation:notifdrop .55s .25s cubic-bezier(.22,.8,.32,1) both}
+#st-body .narr.same{opacity:.52;color:#c6c6da;font-size:13.5px;border-left:3px solid #3a3a52;padding:6px 10px;background:rgba(255,255,255,.03);border-radius:0 8px 8px 0}
+.rec.samerec{background:#3a3a52;color:#cfcfe2}
+.dgrp{font-size:11px;font-weight:800;letter-spacing:.1em;color:#8a8aa0;padding:14px 16px 2px}
 @keyframes bannerpulse{0%,100%{box-shadow:0 10px 26px rgba(0,0,0,.4)}50%{box-shadow:0 10px 30px rgba(255,214,10,.28)}}
 #story-banner{animation:bannerpulse 3.2s ease-in-out infinite}
 .trow:active,.rcard:active,.rankrow:active{background:#f4f2ff}
@@ -417,7 +420,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v16";
+const VER="v17";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -931,6 +934,7 @@ M('（やっぱり。覚えてる――！）'),
 ]},
 N('チーム分けは、周Aと同じ Team DK。同じ『Love so sweet』。同じ顔ぶれに、彼女だけが「追加」されている構図も同じだった。'),
 {k:'diff',t:'周Aとの差分：再会の主導権が逆転した。先に名前を呼んだのは、彼のほうだった。'},
+{k:'same',t:'再演 ― 登録の列、クラス分けの掲示、Team DKの顔合わせ、ツカメの配布。場面も言葉も、周Aと寸分違わない。違ったのは、彼女を見る彼の視線の回数だけだった。'},
 N('そして、ツカメのレッスンの日。配られたばかりの振付を、彼女は今回も完璧に踊った。その夜、練習室に彼が一人で残っていた。'),
 D('hiroto','なあ。……聞いていい？'),
 D('hiroto','ツカメ、なんで最初から踊れたん？'),
@@ -1016,6 +1020,7 @@ D('hiroto','ルールは、前と同じでええ？　先のことは言うな�
 D('nao','15位が、この時代の最低ライン。デビュー圏の手前、12位までなら'),
 D('hiroto','……ほな、やろう。二人で。今度は中国のステージで'),
 {k:'diff',t:'発覚（2021編）：彼の薄れた記憶と今周の記憶が繋がった。秘密は再び「二人の作戦」になった。性別の秘密は、まだ彼も知らない。'},
+{k:'same',t:'再演 ― 初回ステージの並び順、テーマ曲のレッスン、寮の部屋割り。周Aと同じ場面が、同じ順番で流れていく。ただし今度は二人とも、それが「2回目」だと知っていた。'},
 {k:'chap',title:'共同作戦 ― 言葉の壁を越える',sub:'第2層は、努力で動く',era:'CYCLE B ― 2021 / CHUANG 2021',wdate:'2021年・合宿（2回目）',lock:'2021年 ― 周B'},
 N('作戦の柱は2つ。彼の中国語のアピールを底上げすること。そして、周Aで届けた応援を、もう一度届け直すこと（台帳の維持）。'),
 {k:'c',opts:[
@@ -1086,6 +1091,7 @@ SYS('スターレベルテスト（周B）― 井汲大翔：2スター'),
 D('hiroto','星は2つでもな、ファンカムは別の話やろ。……今は、知ってるんや'),
 N('シグナルソング『Here I Am』のレッスン。振付が配られた、その場で――彼女の体は、三度目も勝手に動いた。彼はそれを見て、小さく頷いた。'),
 D('hiroto','……ほらな。最初から踊れる。……なあ、今夜、練習室で話そう'),
+{k:'same',t:'再演 ― スターレベルテストの星の数も、自己評価と審査の食い違いも、周Aと寸分違わない。変わらない場面のほうが多い。それでも今回は、本番前に笑っていられる彼が「差分」だった。'},
 {k:'chap',title:'発覚 ― 三つの時代',sub:'「記録には、お前はおらん」',era:'CYCLE B ― 2023 / BOYS PLANET',wdate:'2023年・練習室の夜（2回目）',lock:'2023年 ― 周B'},
 {k:'bg',img:'assets/nao/2023/practice.jpg',cap:'夜の練習室 ― 三度目の発覚'},
 D('hiroto','……俺の中に、番組が全部、二つずつある。お前のいない方と、いる方と'),
@@ -1311,6 +1317,7 @@ function lineHTML(it){
  if(it.k==='n')return `<div class="narr">${esc(it.t)}</div>`;
  if(it.k==='sys')return `<div class="narr sys">${esc(it.t)}</div>`;
  if(it.k==='m')return `<div class="mono">${esc(it.t)}</div>`;
+ if(it.k==='same')return `<div class="narr same"><span class="rec samerec">REPLAY</span>${esc(it.t)}</div>`;
  if(it.k==='diff')return `<div class="narr diff"><span class="rec">DIFF</span>差分が記録されました<br>${esc(it.t)}</div>`;
  if(it.k==='d'){const w=it.who==='nao'?["nao","ナオ"]:it.who==='hiroto'?["hiroto","井汲大翔"]:["other","MC"];return `<div class="dlg ${w[0]}"><div class="who">${w[1]}</div>${esc(it.t)}</div>`;}
  return "";}
@@ -1340,7 +1347,7 @@ function processItem(it){
   case 'ledger':if(!S.ledger.includes(it.t))S.ledger.push(it.t);pushLog(`<div class="narr sys"><span class="rec">台帳</span>応援台帳に記録されました</div>`);S.idx++;break;
   case 'keep':if(!S.keeps.includes(it.t))S.keeps.push(it.t);pushLog(`<div class="narr sys"><span class="rec">KEEPSAKE</span>Keepsake Box に残りました</div>`);S.idx++;break;
   case 'diff':if(!S.diffs.includes(it.t))S.diffs.push(it.t);pushLog(lineHTML(it));S.idx++;break;
-  case 'n': case 'd': case 'm': case 'sys':pushLog(lineHTML(it));S.idx++;break;
+  case 'n': case 'd': case 'm': case 'sys': case 'same':pushLog(lineHTML(it));S.idx++;break;
   case 'rank':S.flags.ranked=true;pushLog(canonHTML());S.idx++;break;
   case 'hisin':{const inner=it.lines.map(l=>lineHTML(l)).join("");pushLog(`<div class="hisin"><div class="hisin-tag">彼の画面 ― 大翔の視点</div>${inner}</div>`);S.idx++;break;}
   case 'tsukame':{const score=(S.flags.effortB||0)+(S.g.todoita>=4?1:0)+(S.g.ishi>=60?1:0);let out,lines;
@@ -1564,7 +1571,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  ].map(x=>`<div class="gitem"><div class="gn"><span>${x[0]}</span><span>${x[1]}</span></div><div class="gbar"><i style="width:${bar(x[1],x[2])}%"></i></div><div class="gd">${x[3]}</div></div>`).join("")+`<div class="gitem"><div class="gn"><span>届いた数</span><span>${g.todoita}件</span></div><div class="gd">順位には一切影響しません。彼宛の応援に、彼女宛のファンレターも含まれます。現在編で、彼が彼女を特定する手がかりになります。</div></div>`;}
  if(tab==="ledger"){body.innerHTML=S.ledger.length?S.ledger.map((t,i)=>`<div class="ledrow"><div class="lt">応援 ${i+1}件目</div>${esc(t)}</div>`).join("")+`<p class="small" style="padding:12px 16px">前の周で届いた応援は、次の周で「維持」する義務になります。</p>`:`<div class="empty">まだ記録がありません。<br>彼に届いた応援が、ここに残ります。</div>`;}
  if(tab==="keep"){body.innerHTML=S.keeps.length?S.keeps.map(t=>`<div class="ledrow"><div class="lt">Keepsake</div>${esc(t)}</div>`).join(""):`<div class="empty">まだ何も残っていません。<br>周を跨いで残るのは「彼が残すと決めたもの」だけです。</div>`;}
- if(tab==="diff"){body.innerHTML=S.diffs.length?S.diffs.map(t=>`<div class="ledrow"><div class="lt">Diff Log</div>${esc(t)}</div>`).join(""):`<div class="empty">まだ差分がありません。<br>0周目と変わったことが、ここに集まります。</div>`;}
+ if(tab==="diff"){const grp=t=>/2023|ボイプラ|三つ|三度/.test(t)?"2023 ― BOYS PLANET":/2021|創造営|中国/.test(t)?"2021 ― CHUANG 2021":/現在|インタビュー/.test(t)?"現在 ― 少しだけ違う2026年":/幕間/.test(t)?"幕間 ― 岐路":/大周回/.test(t)?"大周回 ― 記録":"2019 ― PRODUCE 101 JAPAN";const order=["2019 ― PRODUCE 101 JAPAN","幕間 ― 岐路","2021 ― CHUANG 2021","2023 ― BOYS PLANET","現在 ― 少しだけ違う2026年","大周回 ― 記録"];body.innerHTML=S.diffs.length?`<p class="small" style="padding:10px 16px 0">差分は全${S.diffs.length}件。変わらなかった結末と、変わった景色の記録です。</p>`+order.map(o=>{const xs=S.diffs.filter(t=>grp(t)===o);return xs.length?`<div class="dgrp">${o}（${xs.length}件）</div>`+xs.map(t=>`<div class="ledrow"><div class="lt">Diff Log</div>${esc(t)}</div>`).join(""):"";}).join(""):`<div class="empty">まだ差分がありません。<br>0周目と変わったことが、ここに集まります。</div>`;}
  if(tab==="about"){body.innerHTML=`<div class="srow"><span>タイトル</span><span class="sv">1周目にはいなかったファンの件</span></div>
  <div class="srow"><span>バージョン</span><span class="sv">${VER}（大周回制 ― 0周目＋大周回A（2019・2021・2023・NXD期）＋大周回B（2019・2021・2023・NXD期）＋現在編））</span></div>
  <div class="srow"><span>進行</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":S.finishedNXDB?"大周回B ― 現在編へ":S.finished23B?"大周回B ― NXD期へ":S.finished21B?"大周回B ― 2023編へ":S.flags.known21?"大周回B ― 2021編 進行中":S.finishedB?"大周回B ― 2020年へ":S.flags.known?"大周回B ― 2019編 進行中":S.flags.bStarted?"大周回B ― 2019編へ":S.finishedNXDA?"大周回A 完":S.finished23A?"NXD期（大周回A）進行中":S.flags.boys?"2023編（大周回A）進行中":S.finished21A?"幕間2／2023編へ":S.flags.chuang?"2021編（大周回A）進行中":S.finishedA?"幕間1／2021編へ":chapNow().title}</span></div>
