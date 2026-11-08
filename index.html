@@ -519,7 +519,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v71";
+const VER="v72";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1797,7 +1797,7 @@ const THD_RULES=[
 ];
 const THD_DEF=["……うん","……ありがとう","……また明日な","……練習、戻るわ","……そっか"];
 function thdBub(me,t,img){return me?`<div class="thd-row me"><div class="thd-bub">${esc(t)}</div></div>`:`<div class="thd-row"><img src="${img||thdImg}"><div class="thd-bub">${esc(t)}</div></div>`;}
-function openThread(hist){if(hist.length)thdImg=hist[hist.length-1].img;const b=$("#thd-body");b.innerHTML=`<div class="thd-note">― これまでのトーク ―</div>`+hist.map(m=>thdBub(false,m.p,m.img)).join("")+`<div class="thd-note">― フリートーク（ここから自由に送れます）―</div>`;$("#thd-chips").innerHTML=["おつかれさま","応援してる","飴あげる","明日もがんばろ"].map(c=>`<button>${c}</button>`).join("");document.querySelectorAll("#thd-chips button").forEach(x=>x.onclick=()=>sendThd(x.textContent));b.scrollTop=b.scrollHeight;show("thread");}
+function openThread(hist){if(hist.length)thdImg=hist[hist.length-1].img;const b=$("#thd-body");b.innerHTML=`<div class="thd-note">― これまでのトーク ―</div>`+hist.map(m=>thdBub(false,m.p,m.img)).join("")+`<div class="thd-note">― フリートーク（ここから自由に送れます）―</div>`;$("#thd-chips").innerHTML=["おつかれさま","応援してる","飴あげる","明日もがんばろ","順位どうだった？"].map(c=>`<button>${c}</button>`).join("");document.querySelectorAll("#thd-chips button").forEach(x=>x.onclick=()=>sendThd(x.textContent));b.scrollTop=b.scrollHeight;show("thread");}
 const THD_ERA={
  "2021":["……中国語、まだ勉強中やねん","……今日、寮で練習した","……こっちは暑い。……そっちは？"],
  "2023":["……韓国語、ちょっとだけ分かるようになった","……今日も評価の日やった","……こっちは寒い。……風邪ひくなよ"],
