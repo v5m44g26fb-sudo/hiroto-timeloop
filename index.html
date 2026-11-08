@@ -166,6 +166,8 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 #consent .ttl-notice p{font-size:11px;line-height:1.75;color:#cfcde0;text-align:left;margin:0 0 5px}
 #consent .ttl-notice p:last-child{margin-bottom:0}
 #consent button{width:100%;background:#fff;color:#17172a;border:none;font-size:15.5px;font-weight:800;letter-spacing:.06em;padding:15px 0;border-radius:999px;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.45);margin:0}
+#consent .ttl-bg2{opacity:0;transition:opacity 1.8s ease}
+#consent .ttl-bg2.show{opacity:1}
 #consent button:active{transform:scale(.985)}
 #consent .ttl-ver{margin-top:11px;text-align:center;font-size:10.5px;color:rgba(255,255,255,.55);letter-spacing:.14em}
 /* lock */
@@ -329,6 +331,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <!-- consent / title -->
 <section class="screen" id="consent">
   <img class="ttl-bg" src="assets/nao/2019/stage.jpg" alt="">
+  <img class="ttl-bg ttl-bg2" src="assets/nao/2021/stage.jpg" alt="">
   <div class="ttl-shade"></div>
   <div class="ttl-inner">
     <div class="ttl-sub">TIMELEAP ― SURVIVAL ― FICTION</div>
@@ -458,7 +461,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v24";
+const VER="v25";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1340,6 +1343,8 @@ document.querySelectorAll("[data-home]").forEach(b=>b.onclick=()=>{renderHome();
 /* ============ clock ============ */
 function tick(){const d=new Date();const hh=d.getHours(),mm=String(d.getMinutes()).padStart(2,"0");const t=hh+":"+mm;const lc=$("#lk-time");if(lc)lc.textContent=t;const hc=$("#home-clock");if(hc)hc.textContent=t;}
 setInterval(tick,20000);
+/* title background slideshow (v25) */
+(function(){const list=["assets/nao/2019/stage.jpg","assets/nao/2021/stage.jpg","assets/nao/2023/stage.jpg","assets/nao/common/livehouse.jpg"];const a=document.querySelector("#consent .ttl-bg"),b=document.querySelector("#consent .ttl-bg2");if(!a||!b)return;list.forEach(s=>{const i=new Image();i.src=s;});let ti=0;setInterval(()=>{const cs=document.querySelector("#consent");if(!cs||!cs.classList.contains("on"))return;ti=(ti+1)%list.length;const nxt=list[ti];if(b.classList.contains("show")){a.src=nxt;b.classList.remove("show");}else{b.src=nxt;b.classList.add("show");}},6000);})();
 /* ============ consent / lock ============ */
 $("#consent-btn").onclick=()=>{S.consented=true;S.started=true;save();sndStart();seNotif();enterLock();};
 function enterLock(){tick();const cur=SCRIPT[Math.min(S.idx,SCRIPT.length-1)];
