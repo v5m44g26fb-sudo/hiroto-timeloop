@@ -519,7 +519,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v65";
+const VER="v66";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1823,10 +1823,12 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  if(tab==="about"){body.innerHTML=`<div class="srow"><span>タイトル</span><span class="sv">1周目にはいなかったファンの件</span></div>
  <div class="srow"><span>バージョン</span><span class="sv">${VER}（大周回制 ― 0周目＋大周回A（2019・2021・2023・NXD期）＋大周回B（2019・2021・2023・NXD期）＋現在編））</span></div>
  <div class="srow"><span>進行</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":S.finishedNXDB?"大周回B ― 現在編へ":S.finished23B?"大周回B ― NXD期へ":S.finished21B?"大周回B ― 2023編へ":S.flags.known21?"大周回B ― 2021編 進行中":S.finishedB?"大周回B ― 2020年へ":S.flags.known?"大周回B ― 2019編 進行中":S.flags.bStarted?"大周回B ― 2019編へ":S.finishedNXDA?"大周回A 完":S.finished23A?"NXD期（大周回A）進行中":S.flags.boys?"2023編（大周回A）進行中":S.finished21A?"幕間2／2023編へ":S.flags.chuang?"2021編（大周回A）進行中":S.finishedA?"幕間1／2021編へ":chapNow().title}</span></div>
+ <div class="srow"><span>主人公</span><span class="sv">三浦渚央 ― 男装練習生（ビジュアル人気型）</span></div>
+ <div class="srow"><span>渚央の順位</span><span class="sv">${(()=>{const p=[];if(S.flags.ranked)p.push("2019：38位");if(S.flags.rankedB)p.push("2019周B：36位");if(S.flags.ranked21)p.push("2021：18位");if(S.flags.ranked21B)p.push("2021周B：16位");if(S.flags.ranked23)p.push("2023：22位");if(S.flags.ranked23B)p.push("2023周B：19位");return p.length?p.join("／"):"（まだ発表されていません）";})()}</span></div>
  <div class="srow"><span>到達した結末</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":"（まだ到達していません）"}</span></div>
  <div class="srow"><span>サウンド</span><span class="sv"><button id="snd-btn" style="background:${S.soundOn!==false?"#17172a":"#c6c6d4"};color:#fff;border:none;border-radius:999px;padding:6px 18px;font-size:12.5px;font-weight:700;cursor:pointer">${S.soundOn!==false?"ON":"OFF"}</button></span></div>
  <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
- <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示</span></div>
+ <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録</span></div>
  <div class="pad"><p class="small">エンディングは5種（TRUE現在／通常現在／離脱した現在／秘密バレIF／ループ継続BAD）。結末は、彼の岐路での関わり・手がかり（Keepsakeと届いた数）・男装バレ度・最後の選択で分かれます。なお「デビューしてしまう現在」はIF候補として設計にのみ記録され、本編では採用していません（デビューメンバー構成は不変のため）。</p></div>
  <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
  const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV2");location.reload();}};
