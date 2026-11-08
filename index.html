@@ -458,7 +458,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v23";
+const VER="v24";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1362,12 +1362,13 @@ const APPS=[
 function chapNow(){let c={title:"0周目プロローグ",sub:"放送の向こう側にいた、ただのファンの時間。"};for(let i=0;i<=Math.min(S.idx,SCRIPT.length-1);i++){if(SCRIPT[i].k==="chap")c=SCRIPT[i];}return c;}
 function renderHome(){
  const c=chapNow();
+ const _hb=document.querySelector(".home-bg");if(_hb){const _src=(S.trueEnd||S.finishedNXDB)?"assets/nao/common/livehouse.jpg":!S.flags.leaped?"assets/nao/common/room.jpg":S.eraNow==="2021"?"assets/nao/2021/stage.jpg":S.eraNow==="2023"?"assets/nao/2023/stage.jpg":S.eraNow==="nxd"?"assets/nao/2023/practice.jpg":"assets/nao/2019/stage.jpg";if(_hb.getAttribute("src")!==_src)_hb.src=_src;}
  if(c.era)$("#w-era").textContent=c.era;
  if(c.wdate)$("#w-date").textContent=c.wdate;
  $("#w-cycle").textContent=S.trueEnd?"周回：TRUE END":S.normalEnd?"周回：END ― 通常現在":S.loopBad?"周回：BAD END ― ループ継続":S.bareEnd?"周回：END ― 秘密バレIF":S.ridatsuEnd?"周回：END ― 離脱した現在":S.finishedNXDB?"周回：大周回B ― 過去編 完":S.finished23B?"周回：2023編 周B 完":S.finished23A?"周回：2023編 周A 完":S.flags.boys?"周回：2023編（周A）":S.finished21B?"周回：幕間":S.finished21A?"周回：2021編 周Bへ":S.flags.chuang?"周回：2021編（周A）":S.finishedB?"周回：幕間":S.finishedA?"周回：周B（2周目）":"周回："+(S.flags.leaped?"1周目（周A）":"0周目");
  $("#w-sub").textContent=S.trueEnd?"過去の全部を共有した、二人の現在。":S.normalEnd?"デジャヴだけが残った、優しい現在。":S.loopBad?"約束は、守れなかった。":S.bareEnd?"秘密は、限界を迎えた。":S.ridatsuEnd?"歌っていた彼を、知っているのは彼女だけになった。":S.finishedNXDB?"約束の現在が、待っている。":S.finished23B?"3つの時代に、彼女のいた証拠が残った。":S.finished23A?"三度目の隣にも、彼女がいた。":S.flags.boys?"評価と人気が噛み合わない彼と、人気が先行する彼女。":S.finished21B?"2つの時代に、彼女のいた証拠が残った。":S.finished21A?"2つ目の時代でも、彼女は彼の隣にいた。":S.flags.chuang?"言葉のアウェーでも、応援は届く。":S.finishedB?"彼の歴史に、彼女のいた証拠が残った。":(S.flags.leaped?"結末は変えられない。でも順位も、彼との毎日も、努力で動く。":"1周目（史実）には、彼女は彼の歴史のどこにもいない。");
  $("#sb-title").textContent=S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":S.finishedNXDB?"大周回B ― 過去編・完":S.finished23B?"2023 ボイプラ編 ― 完":S.finished23A?"2023 ボイプラ編 ― 周A 完":S.finished21B?"2021 創造営編 ― 完":S.finished21A?"2021 創造営編 ― 周A 完":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"2019 日プ編 ― 完":c.title;
- $("#sb-desc").textContent=(S.trueEnd||S.normalEnd||S.loopBad||S.bareEnd)?"物語は結末に到達しました。記録は「設定・記録」で見返せます。":S.ridatsuEnd?"彼の岐路での関わりが、結末を分けました。記録は「設定・記録」で見返せます。":S.finishedNXDB?"おつかれさまでした。次は現在編（フィナーレ）です（次版）。記録は「設定・記録」で見返せます。":S.finished23B?"おつかれさまでした。次は大周回B・NXD期です（次版）。記録は「設定・記録」で見返せます。":S.finished23A?"おつかれさまでした。次は2023編・周Bです（次版）。記録は「設定・記録」で見返せます。":S.finished21B?"幕間2 ― 三度目の誘いへ進みます。":S.finished21A?"2021編・周Bへ進みます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub;
+ $("#sb-desc").textContent=(S.trueEnd||S.normalEnd||S.loopBad||S.bareEnd)?"物語は結末に到達しました。記録は「設定・記録」で見返せます。":S.ridatsuEnd?"彼の岐路での関わりが、結末を分けました。記録は「設定・記録」で見返せます。":S.finishedNXDB?"おつかれさまでした。次は現在編（フィナーレ）です。記録は「設定・記録」で見返せます。":S.finished23B?"おつかれさまでした。次は大周回B・NXD期です。記録は「設定・記録」で見返せます。":S.finished23A?"おつかれさまでした。次は2023編・周Bです。記録は「設定・記録」で見返せます。":S.finished21B?"幕間2 ― 三度目の誘いへ進みます。":S.finished21A?"2021編・周Bへ進みます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub;
  $("#apps").innerHTML=APPS.map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span><span>${a.lb}</span></button>`).join("");
  document.querySelectorAll("#apps .appicon").forEach(b=>b.onclick=()=>{const a=APPS.find(x=>x.id===b.dataset.app);if(a.lock&&a.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}openApp(a.id);});
  const w3t=$("#w3-title"),w3d=$("#w3-desc");
@@ -1378,6 +1379,7 @@ function renderHome(){
   else if(S.finishedB&&!S.flags.chuang){w3t.textContent="幕間 ― 彼の岐路";w3d.textContent="脱落後の彼が、次へ行くかどうかを選ぶ時間です。";}
   else if(!S.flags.leaped){w3t.textContent="まだ始まっていない";w3d.textContent="0周目の彼女は、テレビの向こうで見ているだけです。";}
   else{w3t.textContent=ml[ci].t;w3d.textContent=ml[ci].d;}}
+ const _wc=$("#w-cycle");if(_wc&&typeof SCRIPT!=="undefined")_wc.textContent+=" ・ 進行 "+Math.min(100,Math.floor(S.idx/SCRIPT.length*100))+"%";
  const w2t=$("#w2-todoita");if(w2t)w2t.textContent=S.g.todoita+"件";
  const w2i=$("#w2-iwakan");if(w2i)w2i.textContent=S.g.iwakan;
  const w2d=$("#w2-diff");if(w2d)w2d.textContent=(S.diffs?S.diffs.length:0)+"件";
