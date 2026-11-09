@@ -1237,7 +1237,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v286";
+const VER="v287";
 /* ============ state ============ */
 const DEF={idx:0,maxIdx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -2690,6 +2690,8 @@ const SNS_POSTS=[
 {seg:"zero",chap:"0周目プロローグ",who:"fan",name:"セウのひと",h:"@seu_hiroto",tm:"2019.11",col:"#8a5fd6",tx:"大翔くんの個人ファンカム、表情が毎回ちがう。歌詞が飛んだ日は、こっちまで泣いた",lk:967,rp:41,rt:150},
 {seg:"zero",chap:"0周目プロローグ",who:"fan",name:"ぷ民",h:"@pu101watch",tm:"2019.12",col:"#4aa564",tx:"第2回発表……大翔くん36位。うそやろ。まだまだ見ていたかった",lk:2310,rp:187,rt:402},
 {seg:"zero",chap:"0周目プロローグ",who:"fan",name:"家族で日プ",h:"@kazoku_pd",tm:"2019.12",col:"#c95d7a",tx:"白岩瑠姫くん、デビュー決定。家族で見てきた番組だったから、感慨深い夜だった",lk:1750,rp:66,rt:289},
+{seg:"zero",chap:"0周目プロローグ",who:"fan",name:"セウのひと",h:"@seu_hiroto",tm:"2021.4",col:"#8a5fd6",tx:"創造営ファイナル、大翔くん15位。デビューの椅子は遠かったけど、この2年で一番強い姿だった。待っててよかった",lk:2980,rp:154,rt:512},
+{seg:"zero",chap:"0周目プロローグ",who:"fan",name:"ひろと応援団",h:"@hiroto_oen",tm:"2023.4",col:"#e08a00",tx:"ボイプラ21位。三つの番組を、全部見届けた。次はどこで歌うんだろう。それでも、待つ側の景色は悪くない",lk:3240,rp:171,rt:598},
 {seg:"zero",chap:"0周目プロローグ",who:"off",name:"井汲大翔スタッフ",h:"@hiroto_staff",tm:"2025.6",tx:"井汲大翔、シングル『Tasty』でソロデビューが決定しました。長く応援してくださった皆さま、ありがとうございます",lk:12400,rp:312,rt:2870},
 {seg:"zero",chap:"0周目プロローグ",who:"fan",name:"配信待機組",h:"@haishin_machi",tm:"3時間",col:"#5b8c8a",tx:"大翔くんの配信アーカイブ、再生数がじわじわ伸びてる。見つかるべき人に、ちゃんと見つかれ",lk:356,rp:12,rt:44},
 {seg:"zero",chap:"0周目プロローグ",who:"hrt",name:"井汲大翔",h:"@193.hiroto_jixiang",tm:"2時間",tx:"……いつも、ありがとうございます。次の配信、楽しみにしててください",lk:8930,rp:204,rt:1105},
@@ -2711,10 +2713,14 @@ const SNS_POSTS=[
 {seg:"inter",chap:"現在インタールード 1",who:"hrt",name:"井汲大翔",h:"@193.hiroto_jixiang",tm:"2026",tx:"……今日の配信、来てくれてありがとうございました",lk:7400,rp:168,rt:864},
 {seg:"inter",chap:"現在インタールード 1",who:"fan",name:"記憶の検証班",h:"@kioku_kensho",tm:"2026",col:"#93765a",tx:"大翔くんの昔のインタビュー、言い回しが記憶と少し違う気がする。気のせいかな",lk:423,rp:19,rt:38},
 {seg:"inter",chap:"現在インタールード 1",who:"fan",name:"掘る夜",h:"@horu_yoru",tm:"2026",col:"#4f6f8f",tx:"2019年の全体写真を眺める夜。端っこに、知らない子が写っている気がする。……気のせいか",lk:512,rp:27,rt:51},
+{seg:"inter",chap:"現在インタールード 2",who:"fan",name:"掘る夜",h:"@horu_yoru",tm:"2026",col:"#4f6f8f",tx:"2019年のファンカムを全部見返した。大翔くんの隣にいる率、あの練習生だけ高すぎる。名前は三浦渚央。当時は気づかなかった",lk:687,rp:35,rt:74},
+{seg:"inter",chap:"現在インタールード 3",who:"fan",name:"記憶の検証班",h:"@kioku_kensho",tm:"2026",col:"#93765a",tx:"2021年でも、2023年でも、隣は同じ人だった。三浦渚央。その人は今、どこで何をしているんだろう",lk:894,rp:48,rt:96},
 /* ---- 幕間1 ---- */
 {seg:"m1",chap:"幕間1 ― 彼の岐路",who:"fan",name:"ひろと応援団",h:"@hiroto_oen",tm:"2020.4",col:"#e08a00",tx:"大翔くん、BXW加入って。新しい場所でも、変わらず応援する",lk:1130,rp:44,rt:167},
 {seg:"m1",chap:"幕間1 ― 彼の岐路",who:"fan",name:"本人の言葉待ち",h:"@honjin_machi",tm:"2020.5",col:"#7d8590",tx:"……BXW脱退の報せ。何があったんだろう。本人の言葉を待つしかできない",lk:1640,rp:71,rt:203},
 {seg:"m1",chap:"幕間1 ― 彼の岐路",who:"fan",name:"セウのひと",h:"@seu_hiroto",tm:"2020.9",col:"#8a5fd6",tx:"RBW JAPANの練習生になったって！JBOYZ。ここからだよ、大翔くん",lk:1980,rp:83,rt:296},
+{seg:"m1",chap:"幕間1 ― 彼の岐路",who:"fan",name:"本人の言葉待ち",h:"@honjin_machi",tm:"2020.6",col:"#7d8590",tx:"BXWを離れてから、静かな日々。本人の言葉がないなら、こっちも静かに待つ。それが推し方だと思ってる",lk:1210,rp:49,rt:148},
+{seg:"m1",chap:"幕間1 ― 彼の岐路",who:"fan",name:"顔の強い子bot",h:"@kao_tsuyoi",tm:"2020.9",col:"#d95763",tx:"RBW JAPANの練習生に、三浦渚央くんも入ったって。日プで落ちた二人が同じ場所にいるの、なんか泣ける",lk:2130,rp:91,rt:377},
 {seg:"m1b",chap:"幕間1 ― 大周回B",who:"fan",name:"顔の強い子bot",h:"@kao_tsuyoi",tm:"2020",col:"#d95763",tx:"RBWの練習生紹介、三浦渚央くんもいる…！日プのあの二人が同じ事務所、胸が熱い",lk:2340,rp:97,rt:411},
 {seg:"m1b",chap:"幕間1 ― 大周回B",who:"fan",name:"ひろと応援団",h:"@hiroto_oen",tm:"2020",col:"#e08a00",tx:"大翔くんの決断、今回は迷いがなかったように見えた。それが一番うれしい",lk:1510,rp:52,rt:219},
 {seg:"m1b",chap:"幕間1 ― 大周回B",who:"fan",name:"集合写真の端",h:"@shugo_hashi",tm:"2020",col:"#5b8c8a",tx:"渚央くん、個人の発信はなくて公式の集合写真にだけいる。その感じも含めて好き",lk:986,rp:31,rt:120},
@@ -2731,8 +2737,11 @@ const SNS_POSTS=[
 /* ---- 幕間2 ---- */
 {seg:"m2",chap:"幕間2 ― 三度目の誘い",who:"fan",name:"近況さがし",h:"@kinkyo_sagashi",tm:"2022",col:"#7d8590",tx:"大翔くんの近況、公式の集合写真でしか分からない時期。元気でいてくれればいい",lk:743,rp:18,rt:67},
 {seg:"m2",chap:"幕間2 ― 三度目の誘い",who:"fan",name:"三度目の正直",h:"@sando_shojiki",tm:"2022",col:"#b07d4f",tx:"ボイプラに出るって噂、本当かな。三度目の挑戦、見届けたい",lk:1290,rp:47,rt:158},
+{seg:"m2",chap:"幕間2 ― 三度目の誘い",who:"fan",name:"セウのひと",h:"@seu_hiroto",tm:"2022",col:"#8a5fd6",tx:"近況がなさすぎて、過去のファンカムを回す日々。それでも待てるのは、歌がここに残ってるから",lk:987,rp:36,rt:112},
+{seg:"m2",chap:"幕間2 ― 三度目の誘い",who:"fan",name:"ぷ民",h:"@pu101watch",tm:"2023.1",col:"#4aa564",tx:"ボイプラの参加者リストに、井汲大翔の名前があった。三度目。今度こそ、見つかれ",lk:2340,rp:104,rt:391},
 {seg:"m2b",chap:"幕間2 ― 大周回B",who:"fan",name:"三度目の正直",h:"@sando_shojiki",tm:"2022",col:"#b07d4f",tx:"ボイプラ参加が決まったって。三度目も、あの二人が並ぶんだな",lk:1540,rp:55,rt:201},
 {seg:"m2b",chap:"幕間2 ― 大周回B",who:"fan",name:"近況さがし",h:"@kinkyo_sagashi",tm:"2022",col:"#7d8590",tx:"渚央くんの近況カット、雰囲気が少し大人びた気がする。気のせい？",lk:890,rp:26,rt:93},
+{seg:"m2b",chap:"幕間2 ― 大周回B",who:"fan",name:"顔の強い子bot",h:"@kao_tsuyoi",tm:"2023.1",col:"#d95763",tx:"ボイプラの参加者リスト、渚央くんの名前もあった。三度目も二人が並ぶ。運命って言葉は軽いけど、楽しみなのは本当",lk:1870,rp:82,rt:314},
 /* ---- 2023 大周回A ---- */
 {seg:"a23",chap:"第3部 2023 ボイプラ編 ― 大周回A",who:"off",name:"BOYS PLANET",h:"@BOYSPLANET2023",tm:"2023.2",tx:"練習生のプロフィールとPR動画を公開しました。スタークリエイターの皆さま、応援よろしくお願いします",lk:21400,rp:980,rt:5600},
 {seg:"a23",chap:"第3部 2023 ボイプラ編 ― 大周回A",who:"fan",name:"ひろと応援団",h:"@hiroto_oen",tm:"2023.2",col:"#e08a00",tx:"大翔くん、3か国目。自己評価オールスターは伊達じゃない。今回は絶対に見つかる",lk:2130,rp:79,rt:342},
@@ -2745,8 +2754,10 @@ const SNS_POSTS=[
 {seg:"nxdA",chap:"NXD期 ― 番組のない日々",who:"off",name:"RBW JAPAN",h:"@RBW_JAPAN",tm:"2023",tx:"NXDはデビューに向けて準備を進めています。続報をお待ちください",lk:4200,rp:131,rt:690},
 {seg:"nxdA",chap:"NXD期 ― 番組のない日々",who:"fan",name:"近況さがし",h:"@kinkyo_sagashi",tm:"2024",col:"#7d8590",tx:"NXDの続報がない日々。大翔くんの声が恋しい。練習生の時間は、見えないところで進んでるはず",lk:1260,rp:39,rt:131},
 {seg:"nxdA",chap:"NXD期 ― 番組のない日々",who:"fan",name:"本人の言葉待ち",h:"@honjin_machi",tm:"2024.10",col:"#7d8590",tx:"契約終了の報せ……。大翔くんの歌は、ここで終わらないでほしい",lk:2870,rp:158,rt:402},
+{seg:"nxdA",chap:"NXD期 ― 番組のない日々",who:"fan",name:"TL観測所",h:"@tl_kansoku",tm:"2024",col:"#666f7d",tx:"NXDの情報が止まったまま、季節が二つ過ぎた。それでも検索をやめない人たちが、ここにちゃんといる",lk:1540,rp:57,rt:189},
 {seg:"nxdA",chap:"NXD期 ― 番組のない日々",who:"hrt",name:"井汲大翔",h:"@193.hiroto_jixiang",tm:"2025.6",tx:"……ソロデビューが決まりました。ここまで来られたのは、待っててくれた人たちのおかげです",lk:11200,rp:402,rt:1980},
 {seg:"nxdA",chap:"NXD期 ― 番組のない日々",who:"off",name:"井汲大翔スタッフ",h:"@hiroto_staff",tm:"2025.6",tx:"井汲大翔 1st Single『Tasty』リリース。本日より配信開始です",lk:9800,rp:287,rt:1740},
+{seg:"nxdA",chap:"NXD期 ― 番組のない日々",who:"off",name:"井汲大翔スタッフ",h:"@hiroto_staff",tm:"2025.7",tx:"井汲大翔 Fanmeeting in Shanghai の開催が決定しました。現地でお会いできるのを楽しみにしています",lk:8600,rp:264,rt:1520},
 /* ---- 2019 大周回B ---- */
 {seg:"b19",chap:"第1部 2019 日プ編 ― 大周回B",who:"fan",name:"顔の強い子bot",h:"@kao_tsuyoi",tm:"4月",col:"#d95763",tx:"三浦渚央って新人の顔、強すぎる。今年はこの子を追うと決めた",lk:1680,rp:79,rt:301},
 {seg:"b19",chap:"再会と、試し",who:"fan",name:"Team DK観測",h:"@teamdk_watch",tm:"合宿初日",col:"#e0a458",tx:"井汲大翔くんと三浦渚央くん、初日から距離が近い。Team DKの空気がいい",lk:1340,rp:51,rt:213},
@@ -2757,17 +2768,22 @@ const SNS_POSTS=[
 {seg:"b19",chap:"順位発表式 ― 大周回B",after:1,who:"fan",name:"顔の強い子bot",h:"@kao_tsuyoi",tm:"ファイナルの夜",col:"#d95763",tx:"渚央くん17位、ファイナル進出。あの顔と努力が、ちゃんと届いた結果だと思う",lk:3340,rp:152,rt:618},
 /* ---- 2021 大周回B ---- */
 {seg:"b21",chap:"第2部 2021 創造営編 ― 大周回B",who:"fan",name:"ひろと応援団",h:"@hiroto_oen",tm:"2021.2",col:"#e08a00",tx:"今度は中国。日プから追っている身には感慨深い。二人とも、最初から息が合ってる",lk:1890,rp:70,rt:318},
+{seg:"b21",chap:"再会 ― 二度目の中国も、隣に",who:"fan",name:"创造营追星",h:"@chuang_fan_cn",tm:"放送直後",col:"#d94f4f",tx:"渚央君と大翔君、入所初日から並んでる場面が多すぎる。中国のTLでも、二人の並びが話題になってる",lk:2410,rp:103,rt:428},
+{seg:"b21",chap:"共同作戦 ― 言葉の壁を越える",after:1,who:"fan",name:"セウのひと",h:"@seu_hiroto",tm:"放送直後",col:"#8a5fd6",tx:"大翔くんの中国語、前よりずっと自然になってる。隣で教えてた人の存在が、画面の外からでも分かる",lk:2760,rp:118,rt:476},
 {seg:"b21",chap:"順位発表 ― 大周回B",chapN:1,after:1,who:"fan",name:"ぷ民",h:"@pu101watch",tm:"ファイナルの夜",col:"#4aa564",tx:"大翔くん、創造営でもファイナル。順位も大きく上がった。二つの国で、景色が変わった",lk:4120,rp:203,rt:776},
 {seg:"b21",chap:"順位発表 ― 大周回B",chapN:1,after:1,who:"fan",name:"顔の強い子bot",h:"@kao_tsuyoi",tm:"ファイナルの夜",col:"#d95763",tx:"渚央くん16位。二つの国でファイナルに立った練習生、なかなかいない",lk:2960,rp:129,rt:533},
 /* ---- 2023 大周回B ---- */
 {seg:"b23",chap:"第3部 2023 ボイプラ編 ― 大周回B",who:"fan",name:"三度目の正直",h:"@sando_shojiki",tm:"2023.2",col:"#b07d4f",tx:"三度目のサバイバル。「今度こそ」の空気が、二人からする",lk:1760,rp:63,rt:274},
 {seg:"b23",chap:"自販機の夜",who:"fan",name:"ファンカム再生班",h:"@fancam_saisei",tm:"合宿中盤",col:"#4a90d9",tx:"渚央くんのチッケム、また伸びてる。今度は実力の伸びと数字が、並んで走ってる",lk:5430,rp:240,rt:1010},
+{seg:"b23",chap:"共同作戦 ― 評価と人気を、繋ぐ",after:1,who:"fan",name:"ギャップ収集家",h:"@gap_moe_jp",tm:"合宿中盤",col:"#7a6ff0",tx:"渚央くん、顔だけの子じゃなくなってる。大翔くんと作戦会議みたいに頭を寄せ合う場面が、映像の端々にあって好き",lk:3240,rp:139,rt:587},
 {seg:"b23",chap:"順位発表 ― 大周回B",chapN:2,after:1,who:"fan",name:"ぷ民",h:"@pu101watch",tm:"ファイナルの夜",col:"#4aa564",tx:"大翔くん、ボイプラでもファイナルのステージに立った。3番組全部で、最後まで",lk:5120,rp:276,rt:964},
 {seg:"b23",chap:"順位発表 ― 大周回B",chapN:2,after:1,who:"fan",name:"顔の強い子bot",h:"@kao_tsuyoi",tm:"ファイナルの夜",col:"#d95763",tx:"渚央くん14位。「あと少し」が一番似合う人。でもその少しは、確実に縮んでる",lk:3480,rp:158,rt:640},
 /* ---- NXD期 B ---- */
 {seg:"nxdB",chap:"NXD期 ― 大周回B",who:"fan",name:"近況さがし",h:"@kinkyo_sagashi",tm:"2024",col:"#7d8590",tx:"番組のない日々。大翔くんの名前を検索するのが日課になってる",lk:987,rp:24,rt:88},
+{seg:"nxdB",chap:"NXD期 ― 大周回B",who:"fan",name:"近況さがし",h:"@kinkyo_sagashi",tm:"2024",col:"#7d8590",tx:"大翔くんの近況を探すと、たまに渚央くんの名前も一緒に流れてくる。番組のない日々でも、二人は同じ場所にいるんだな",lk:1120,rp:38,rt:121},
 {seg:"nxdB",chap:"移籍の決断",who:"hrt",name:"井汲大翔",h:"@193.hiroto_jixiang",tm:"2025",tx:"……新しい場所で、ソロとして歌います。待っててくれて、ありがとうございました",lk:12400,rp:431,rt:2130},
 {seg:"nxdB",chap:"移籍の決断",who:"fan",name:"セウのひと",h:"@seu_hiroto",tm:"2025",col:"#8a5fd6",tx:"移籍とソロデビューの報せ。泣いた。歌い続けてくれて、ありがとう",lk:3250,rp:149,rt:587},
+{seg:"nxdB",chap:"移籍の決断",who:"fan",name:"ぷ民",h:"@pu101watch",tm:"2025",col:"#4aa564",tx:"ソロデビュー『Tasty』。日プで36位だった子が、6年かけてここに立った。見届けるって、こういうことだと思う",lk:3670,rp:162,rt:640},
 /* ---- 現在編 ---- */
 {seg:"now",chap:"現在編 ― 2026年、約束の現在",who:"off",name:"井汲大翔スタッフ",h:"@hiroto_staff",tm:"2026",tx:"次回配信のお知らせです。コメント欄でお会いしましょう",lk:6100,rp:158,rt:803,img:"assets/nao/common/stream.jpg"},
 {seg:"now",chap:"現在編 ― 2026年、約束の現在",who:"fan",name:"配信待機組",h:"@haishin_machi",tm:"2026",col:"#5b8c8a",tx:"大翔くんの配信、告知キタ。コメント欄で会おう",lk:764,rp:21,rt:79},
@@ -2899,6 +2915,8 @@ $("#x-q").addEventListener("keydown",e=>{if(e.key==="Enter")doSearchX($("#x-q").
 /* ============ Instagram + TikTok (v283): ported from hiroto-tinder (#v-hisig / #v-tiktok). Shells, profile layout, post cards and video cards are the source's; content is this work's -- his official account @193.hiroto_jixiang, era-gated posts, and Nagisa fancam context. Read-only against the save, like X. */
 const IG_POSTS=[
  {img:"assets/hiroto/hiroto.jpg",dt:"2026",lk:96500,segs:["now"],cap:"2019年、練習室。――この夜のことを、覚えている人へ。動画を投稿しました。",cmts:[["tl_kansoku","この写真と、このタイトル。そういうことだよね……","その夜"],["haishin_machi","届くといいな。あの夜の人に","その夜"]]},
+ {img:"assets/hiroto21/hiroto-alt.jpg",dt:"2025.12",lk:58700,segs:["nxdA","nxdB","inter","now","zero"],cap:"年末。昔の写真を整理していたら出てきた、創造営の頃のもの。――ここから、また始まってます。来年も、歌います。",cmts:[["seu_hiroto","その頃からずっと見てます。来年も、もちろん","2025"],["nagisa_tonari","この頃、隣にいた渚央くんも元気かな","2025"],["haishin_machi","年末の挨拶が聞ける幸せ","2025"]]},
+ {img:"assets/nao/common/live-venue.jpg",dt:"2025.7",lk:64300,segs:["nxdA","nxdB","inter","now","zero"],cap:"上海でファンミーティングをしました。遠くまで会いに来てくれて、ありがとうございました。歌える場所があることが、今は一番うれしいです。",cmts:[["hiroto_oen","日本から想いだけ飛ばしました。現地レポに感謝","2025"],["seu_hiroto","小さな会場で歌う大翔くん、絶対に似合う","2025"],["kazoku_pd","家族で写真を見ました。立派になったね、と母が言ってました","2025"]]},
  {img:"assets/nao/common/stream.jpg",dt:"2025.6",lk:71800,segs:["nxdA","nxdB","inter","now","zero"],cap:"1st Single『Tasty』、リリースしました。今夜の配信で、曲の話をします。やっと、自分の歌を届けられます。",cmts:[["kazoku_pd","家族で聴きました。感慨深いです","2025"],["nagisa_tonari","渚央くんの頃から二人を応援している身として、胸がいっぱい","2025"],["seu_hiroto","デビューおめでとう！！","2025"]]},
  {img:"assets/hiroto/hiroto-big.jpg",dt:"2025.5",lk:62400,segs:["nxdA","nxdB","inter","now","zero"],cap:"事務所を移籍しました。これからはソロで歌っていきます。長い時間がかかったけど、やっと自分の足で立てる気がします。",cmts:[["haishin_machi","待ってた。この報告を、ずっと待ってた","2025"],["seu_hiroto","どこへ行っても、ついていきます","2025"],["gap_moe_jp","ソロの大翔くん、楽しみしかない","2025"]]},
  {img:"assets/hiroto23/hiroto.jpg",dt:"2023",lk:48100,segs:["nxdA","nxdB","inter","now","zero"],cap:"韓国での日々。言葉はまだ下手でも、踊ることだけは嘘をつかない。――応援してくれるみなさん、いつもありがとうございます。",cmts:[["seu_hiroto","その言葉が好きで、ずっと応援しています","2023"],["yun_o0","ボイプラ、本当にお疲れさまでした","2023"],["pu101watch","日プの頃から見てる民、集合","2023"]]}
@@ -2928,7 +2946,9 @@ const TT_CARDS=[
  {who:"fan",acct:"@nagisa_tonari",img:"assets/nao/2023/fancam2.jpg",cap:"渚央くん『VERY NICE』ファンカム ― 実力が、顔に追いついてきた",lk:"112.6万",dur:"3:42",cmtn:"9,864",segs:["a23","nxdA","b23","nxdB","inter","now","zero"]},
  {who:"fan",acct:"@fancam_saisei",img:"assets/nao/2021/stage.jpg",cap:"三浦渚央 創造営ステージ ― ギャップの正体は、努力だった",lk:"88.3万",dur:"2:57",cmtn:"7,205",segs:["a21","m2","a23","nxdA","b21","m2b","b23","nxdB","inter","now","zero"]},
  {who:"fan",acct:"@fancam_saisei",img:"assets/nao/2019/stage.jpg",cap:"三浦渚央『ツカメ』ファンカム ― 顔の強さと、足元の必死さ",lk:"96.2万",dur:"3:15",cmtn:"8,441",segs:["a19","m1","a21","m2","a23","nxdA","b19","m1b","b21","m2b","b23","nxdB","inter","now","zero"]},
- {who:"fan",acct:"@nagisa_tonari",img:"assets/nao/2019/yancha-b.jpg",cap:"渚央くん『やんちゃBOY やんちゃGIRL』 ― 大翔くんと並んで踊る背中",lk:"74.9万",dur:"3:05",cmtn:"5,317",segs:["b19","m1b","b21","m2b","b23","nxdB","now"]}
+ {who:"fan",acct:"@nagisa_tonari",img:"assets/nao/2019/yancha-b.jpg",cap:"渚央くん『やんちゃBOY やんちゃGIRL』 ― 大翔くんと並んで踊る背中",lk:"74.9万",dur:"3:05",cmtn:"5,317",segs:["b19","m1b","b21","m2b","b23","nxdB","now"]},
+ {who:"hrt",acct:"@193hiroto",img:"assets/hiroto/hiroto-big.jpg",cap:"デビュー前に何度も歌った曲を、2026年の声でもう一度",lk:"22.6万",dur:"0:47",cmtn:"5,103",segs:["inter","now","zero"]},
+ {who:"fan",acct:"@fancam_saisei",img:"assets/nao/2019/stage2.jpg",cap:"三浦渚央 レベル分け評価ファンカム ― Dクラスに落ちた日の、目の強さ",lk:"71.5万",dur:"2:48",cmtn:"6,020",segs:["a19","m1","a21","m2","a23","nxdA","b19","m1b","b21","m2b","b23","nxdB","inter","now","zero"]}
 ];
 const TT_PLAY='<svg viewBox="0 0 24 24" width="26" height="26"><path fill="#fff" d="M8 5.5v13l11-6.5z"/></svg>';
 function renderTT(){const seg=snsSeg();
