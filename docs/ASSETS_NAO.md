@@ -98,3 +98,11 @@
 - 重要な方式変更：全時代の顔は、この「本人の写真由来の顔」から年齢だけを前後させて作る。一般的なイケメンの鋳型から作らない。2019は standard-final の顔を17歳に若返らせたもの、2021は19歳相当、が正
 - v146で公開中の2019（face3b系）も、この方式で作り直して差し替える
 - 顔が出る全箇所（ロック画面の壁紙、ホームの写真ウィジェット、トークのアバター、番組アプリのカード、写真アプリ、場面カット）を新基準で統一する（本人の指摘でロック画面も対象に追加）
+
+## 2026-11-09 全面差し替えの実施結果（v147〜v149）
+- v147（2023編）：`2023/profile-uniform.jpg` は standard-final.jpg そのもの。寄り2種（profile-uniform-close／profile-close）は standard-final からのクロップ（頭部約57%）。場面カット8点（stage／fancam-close／fancam2／practice／daily／ranking-close／konbini-night／nxd-night）は基準顔で再生成（stageは初回が鋳型寄りで却下→再生成）
+- v148（2021編）：プロフィールは基準顔の19歳相当を新規生成（創造営の紺制服＋白パイピング＋三角ロゴ、背景は屋外＝島・海）。寄り2種はそのクロップ。場面カット5点（daily／practice／ranking-close／study／shop-night）を19歳相当で再生成。**stage.jpg のみ生成側の内部エラーで未了（旧顔のまま）→ 要フォロー**
+- v149（2019編＋og）：プロフィール（profile-face3b-full）は face3b 方式を廃し、基準顔の17歳版で再生成。寄り2種はそのクロップ。場面カット7点（stage／stage2／dorm／practice／ranking-close／selfie／cafeteria）を17歳相当で再生成。リンクプレビュー用に `assets/og.jpg`（1200×630、新stageから作成）と og メタタグを新設（従来は og:image 自体が無く、クローラがページ内画像＝旧stageを拾っていた）
+- 生成方式（成功パターン）：キャンバス（既存カット）＋ standard-final.jpg ＋ 黒ニット原写真の3点を与え、「2枚目と同一人物の◯歳版に差し替え、パーツの形は同一に保ち年齢だけ変える、決定要素の列挙、鋳型禁止、耳は普通、髪色は暗めアッシュブラウン、構図・衣装・背景は1枚目のまま」と指示。生成マスターは ~/workspace/imagine_media/ に media-generation-std{19,21,23}-* として残存
+- ロック画面壁紙・ホーム写真ウィジェット・トークのアバター・番組アプリのカード類は、すべて上記ファイルの内容差し替えで自動追随（参照はファイル名ベース）。タイトル画面スライドショー8枚のうち nao の顔が出る7枚は新基準化（残り1枚 common/livehouse.jpg は大翔のみ）。**唯一の残件は 2021/stage.jpg**（タイトル3枚目・2021ロック壁紙に出る）
+- 旧カットは hidden_files/nao-std-replace-backup/{2019,2021,2023}/ に保管。候補ファイル群（cand-*、profile-grown／real／real2、profile-final＝standard-finalにsuperseded、2021/profile-uniform-outdoor.jpg）は v150 で hidden_files/nao-candidates-retired/ へ退避し、assets から除去（表示参照ゼロを確認済み）
