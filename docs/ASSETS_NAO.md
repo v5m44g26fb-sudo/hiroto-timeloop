@@ -202,3 +202,7 @@
 - 実装：周B専用カットは元ファイル名に `-b` を付けた別ファイルで追加し、表示時にだけ切り替える（BVIMG マップ＋bvImg()、判定は S.flags.bStarted。セーブ・お気に入り・選択キーは元パスのまま）。対象表示：ストーリー背景／写真グリッドとビューア／コラージュ素材／時代壁紙（ロック・ホーム・写真ウィジェット）／タイトルスライドショー
 - v248の対象9点：2019 yancha-b／ranking-close-b、2021 profile-uniform-b／stage-b／ranking-close-b、2023 profile-uniform-b／stage-b／ranking-close-b／verynice-b（いずれもAカットをキャンバス編集で生成し、並置の目視で同一性を確認。質感グレイン量はA側と同等で追加後処理なし）
 - v250で追加した7点：2019 practice-b／dorm-b、2021 daily-b／shop-night-b、2023 practice-b／daily-b／nxd-night-b（いずれも周Bの場面背景として実表示されることを参照箇所で確認済み。Aカットをキャンバス編集で生成し、並置の目視で同一性を確認。生成マスターは ~/workspace/imagine_media/ の media-generation-nao-*-b-*）。これで BVIMG は全16点。申し送りの未対象は解消
+
+## v252 追加：現在編の配信カット（2026-11-09）
+- `common/stream.jpg`（新規）：2026年の彼の自宅配信を描く共通カット。後ろ姿（顔の同一性は扱わない）＋コンデンサーマイク＋三脚のスマホ（配信UIとコメントの流れ）＋リングライト＋ギター、夜の部屋の暖かい光。生成マスターは ~/workspace/imagine_media/media-generation-hiroto-stream-2026-0-29fc7b25-47aa-49ce-8c77-25250801d297.jpg、1920×1280・q88で配置
+- 用途：現在編フィナーレの bg（特定の前段）、タイトル／ロック／ホームの到達後背景、写真アプリの現在編エントリ。2025年ソロデビュー側の `common/live-venue.jpg` は従来どおり（対象外）
