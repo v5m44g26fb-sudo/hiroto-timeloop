@@ -1204,7 +1204,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 
 <!-- ig -->
 <section class="screen" id="ig">
-<div class="appbar"><button class="back" data-back aria-label="戻る"><svg viewBox="0 0 24 24" width="21" height="21"><path fill="none" stroke="currentColor" stroke-width="2.4" d="M14.5 4.5 7 12l7.5 7.5"/></svg></button><span class="ttl">193.hiroto_jixiang <svg viewBox="0 0 24 24" width="15" height="15"><path fill="#0095f6" d="M12 1.8 14.5 4l3.3-.3 1 3.1 3 1.3-1.2 3 1.2 3-3 1.3-1 3.1-3.3-.3L12 21.4 9.5 19.2l-3.3.3-1-3.1-3-1.3L3.4 12 2.2 9l3-1.3 1-3.1 3.3.3z"/><path fill="#fff" d="m10.9 15.9-3-3 1.3-1.3 1.7 1.7 4-4 1.3 1.3z"/></svg></span><span class="note" id="ig-head-note"></span></div>
+<div class="appbar"><button class="back" data-home aria-label="戻る"><svg viewBox="0 0 24 24" width="21" height="21"><path fill="none" stroke="currentColor" stroke-width="2.4" d="M14.5 4.5 7 12l7.5 7.5"/></svg></button><span class="ttl">193.hiroto_jixiang <svg viewBox="0 0 24 24" width="15" height="15"><path fill="#0095f6" d="M12 1.8 14.5 4l3.3-.3 1 3.1 3 1.3-1.2 3 1.2 3-3 1.3-1 3.1-3.3-.3L12 21.4 9.5 19.2l-3.3.3-1-3.1-3-1.3L3.4 12 2.2 9l3-1.3 1-3.1 3.3.3z"/><path fill="#fff" d="m10.9 15.9-3-3 1.3-1.3 1.7 1.7 4-4 1.3 1.3z"/></svg></span><span class="note" id="ig-head-note"></span></div>
 <div class="scroll" id="ig-scroll">
 <div id="ig-head-block"></div>
 <div id="ig-posts"></div>
@@ -1212,7 +1212,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 </section>
 <!-- tiktok -->
 <section class="screen" id="tiktok">
-<div class="appbar"><button class="back" data-back aria-label="戻る"><svg viewBox="0 0 24 24" width="21" height="21"><path fill="none" stroke="currentColor" stroke-width="2.4" d="M14.5 4.5 7 12l7.5 7.5"/></svg></button><div class="ttl">TikTok<small>@193hiroto ― 彼の公式アカウント</small></div><span style="width:21px"></span></div>
+<div class="appbar"><button class="back" data-home aria-label="戻る"><svg viewBox="0 0 24 24" width="21" height="21"><path fill="none" stroke="currentColor" stroke-width="2.4" d="M14.5 4.5 7 12l7.5 7.5"/></svg></button><div class="ttl">TikTok<small>@193hiroto ― 彼の公式アカウント</small></div><span style="width:21px"></span></div>
 <div class="scroll" id="tt-scroll">
 <div class="tt-prof"><img id="tt-ava" alt=""><div class="nm">HIROTO</div><div class="hd">@193hiroto</div>
 <div class="tt-stats"><div><b>128</b><span>フォロー中</span></div><div><b>86.4万</b><span>フォロワー</span></div><div><b>2140万</b><span>いいね</span></div></div>
@@ -1237,7 +1237,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v287";
+const VER="v288";
 /* ============ state ============ */
 const DEF={idx:0,maxIdx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -2540,6 +2540,8 @@ const SCREENS=["consent","lock","home","story","backlog","his","prog","gallery",
 function show(id){SCREENS.forEach(s=>$("#"+s).classList.toggle("on",s===id));window.scrollTo(0,0);const b=$("#"+id+" .appbody");if(b)b.scrollTop=0;}
 function tabIn(el){if(!el)return;el.classList.remove("tabin");void el.offsetWidth;el.classList.add("tabin");}
 document.querySelectorAll("[data-home]").forEach(b=>b.onclick=()=>{renderHome();show("home");});
+/* v288: safety net -- any [data-back] control (ported markup) also returns home, via delegation so dynamically built screens are covered too. */
+document.addEventListener("click",e=>{const b=e.target&&e.target.closest?e.target.closest("[data-back]"):null;if(b){renderHome();show("home");}});
 /* ============ clock ============ */
 function tick(){const d=new Date();const hh=d.getHours(),mm=String(d.getMinutes()).padStart(2,"0");const t=hh+":"+mm;const lc=$("#lk-time");if(lc)lc.textContent=t;const lkc=$("#lk-clock");if(lkc)lkc.textContent=t;const hc=$("#home-clock");if(hc)hc.textContent=t;}
 setInterval(tick,20000);
