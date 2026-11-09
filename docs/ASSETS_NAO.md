@@ -201,4 +201,4 @@
 - 狙い：2周目のプレイヤーが「あれ、雰囲気が違う」と気づいて楽しい差分にすること（本人の言葉：「せっかくやし楽しませないと」）
 - 実装：周B専用カットは元ファイル名に `-b` を付けた別ファイルで追加し、表示時にだけ切り替える（BVIMG マップ＋bvImg()、判定は S.flags.bStarted。セーブ・お気に入り・選択キーは元パスのまま）。対象表示：ストーリー背景／写真グリッドとビューア／コラージュ素材／時代壁紙（ロック・ホーム・写真ウィジェット）／タイトルスライドショー
 - v248の対象9点：2019 yancha-b／ranking-close-b、2021 profile-uniform-b／stage-b／ranking-close-b、2023 profile-uniform-b／stage-b／ranking-close-b／verynice-b（いずれもAカットをキャンバス編集で生成し、並置の目視で同一性を確認。質感グレイン量はA側と同等で追加後処理なし）
-- 未対象（将来の追加候補）：2019 practice／dorm、2021 daily／shop-night、2023 practice／daily／nxd-night の周B使用分。追加する時も同じルール（顔不変・雰囲気のみ・別ファイル名 -b）で作り、BVIMG に1行足すだけ
+- v250で追加した7点：2019 practice-b／dorm-b、2021 daily-b／shop-night-b、2023 practice-b／daily-b／nxd-night-b（いずれも周Bの場面背景として実表示されることを参照箇所で確認済み。Aカットをキャンバス編集で生成し、並置の目視で同一性を確認。生成マスターは ~/workspace/imagine_media/ の media-generation-nao-*-b-*）。これで BVIMG は全16点。申し送りの未対象は解消
