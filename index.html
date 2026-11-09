@@ -537,7 +537,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v136";
+const VER="v137";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -567,7 +567,7 @@ const MISSIONS=[
  {at:3,t:"順位発表式",d:"国民プロデューサーの投票結果が発表される。生存と脱落が決まる夜。"}
 ];
 const ROSTER21=[
- {nm:"三浦渚央",meta:"19歳・日本",img:"assets/nao/2021/profile-close.jpg",me:true},
+ {nm:"三浦渚央",meta:"19歳・日本",img:"assets/nao/2021/profile-uniform-close.jpg",me:true},
  {nm:"井汲大翔",meta:"18歳・日本",img:"assets/hiroto21/hiroto.jpg",hiroto:true},
  {nm:"劉宇（リウユー）",meta:"中国・学員",img:"assets/cast2021/liuyu.jpg"},
  {nm:"赞多（サンタ）",meta:"日本・学員",img:"assets/cast2021/santa.jpg"},
@@ -585,7 +585,7 @@ const MISSIONS21=[
  {at:3,t:"ファイナル ― 順位発表",d:"最終順位が発表される夜。彼の15位は周Aの結果（最低ライン）。"}
 ];
 const ROSTER23=[
- {nm:"三浦渚央",meta:"20歳・Gグループ",img:"assets/nao/2023/profile-close.jpg",me:true},
+ {nm:"三浦渚央",meta:"20歳・Gグループ",img:"assets/nao/2023/profile-uniform-close.jpg",me:true},
  {nm:"井汲大翔",meta:"20歳・Gグループ",img:"assets/hiroto23/hiroto.jpg",hiroto:true},
  {nm:"ジャン・ハオ",meta:"Gグループ",img:"assets/cast2023/zhanghao.jpg"},
  {nm:"ソン・ハンビン",meta:"Kグループ",img:"assets/cast2023/hanbin.jpg"},
@@ -830,7 +830,7 @@ N('行き方は、彼と同じドアを通ることに決めていた。日プ�
  {t:'ダンスの精度をさらに上げる',fx:{dance:4},res:[N('2019年の自分とは違う。鏡の前の動きに、迷いが減っていた。1年以上の練習が、体に残っていた。')]},
  {t:'彼の中国での映像を思い出し、流れを復習する',fx:{},res:[M('（創造営の彼は、15位。言葉が分からなくても、笑顔と礼儀で人の輪に入っていく人やった）'),N('彼女は史実の流れを胸にしまった。先のことは、言わない。それが、彼との約束でもあった。')]}
 ]},
-{k:'bg',img:'assets/nao/2021/profile.jpg',cap:'創造営2021 ― 学員「三浦渚央」として登録された、彼女'},
+{k:'bg',img:'assets/nao/2021/profile-uniform.jpg',cap:'創造営2021 ― 学員「三浦渚央」として登録された、彼女'},
 N('中国・海南島。巨大な合宿施設に、各国から集まった学員たち。登録を済ませた彼女は、慣れない中国語の案内に囲まれて立っていた。'),
 N('隣では、同じRBWの派遣組である彼が、中国語だけの案内板とにらめっこしていた。'),
 D('hiroto','あの……登録の列、こっちで合ってます？'),
@@ -886,7 +886,7 @@ M('（近い。近すぎる。男装の弱点は、こういう何気ない観�
  M('（心配する資格とか、そういうのちゃうねんけど。……仲間やし）')
 ]},
 {k:'chap',title:'順位発表 ― 創造営',sub:'Canon Lock ― 15位という史実',era:'CYCLE A ― 2021 / CHUANG 2021',wdate:'2021年・ファイナルの夜',lock:'2021年 ― 順位発表'},
-{k:'bg',img:'assets/nao/2021/ranking-close.jpg',cap:'ファイナルの夜 ― 発表を待つ、祈るような時間'},
+{k:'bg',img:'assets/nao/2021/profile-uniform-close.jpg',cap:'ファイナルの夜 ― 発表を待つ、祈るような時間'},
 SYS('― ファイナルの夜。ここから先は、ふざけられない時間です ―'),
 N('発表は進み、脱落と生存の境目が近づいていく。彼女の挑戦は、この時代でもデビューの枠の手前で終わった。史実の誰の椅子も、奪っていない。'),
 N('そして、彼の名前が呼ばれる順番が来た。'),
@@ -962,7 +962,7 @@ N('準備は、もはや手慣れたものだった。この時代の彼女も�
  {t:'ダンスのキレをさらに磨く',fx:{dance:4},res:[N('3つの時代で積んだ練習量は、体に刻まれていた。2019年のDクラスだった彼女は、もういない。')]},
  {t:'ボイプラの流れを復習する（彼の見せ場と、落ちた場所を）',fx:{},res:[M('（彼は21位。第3回発表で落ちた。……評価と人気が、最後まで噛み合わなかった番組やった）'),N('彼女は史実を胸にしまった。先のことは言わない。約束は、時代を跨いでも約束だった。')]}
 ]},
-{k:'bg',img:'assets/nao/2023/profile.jpg',cap:'BOYS PLANET ― 練習生「三浦渚央」として登録された、彼女'},
+{k:'bg',img:'assets/nao/2023/profile-uniform.jpg',cap:'BOYS PLANET ― 練習生「三浦渚央」として登録された、彼女'},
 N('韓国。KとG、二つのグループに分かれた練習生たち。彼女は彼と同じGグループに登録された。'),
 N('合宿所のロビー。井汲大翔、20歳。2019年から数えて、4年目の隣だった。'),
 D('hiroto','……三度目やな。……今回も、よろしく'),
@@ -1056,7 +1056,7 @@ M('（声。男装の声の作り方が、疲れで緩んでたかも。……�
  M('（……やめとこ。言わんでもええことは、ある。今は、まだ）')
 ]},
 {k:'chap',title:'第3回順位発表 ― ボイプラ',sub:'Canon Lock ― 21位という史実',era:'CYCLE A ― 2023 / BOYS PLANET',wdate:'2023年・第3回順位発表',lock:'2023年 ― 順位発表'},
-{k:'bg',img:'assets/nao/2023/ranking-close.jpg',cap:'第3回順位発表式 ― 名前が呼ばれるのを待つ時間'},
+{k:'bg',img:'assets/nao/2023/profile-uniform-close.jpg',cap:'第3回順位発表式 ― 名前が呼ばれるのを待つ時間'},
 SYS('― 第3回順位発表式。ここから先は、ふざけられない時間です ―'),
 N('ファイナルへ進めるのは、18人。発表は進み、彼女の挑戦はこの時代でもデビューの枠の手前で終わった。史実の誰の椅子も、奪っていない。'),
 N('残りわずか。19位、20位――そして。'),
@@ -1236,7 +1236,7 @@ M('（彼は大周回Aの全部を覚えている。2019年で戻った記憶に
  M('（今度こそ、確かめる）')
 ]},
 {k:'chap',title:'再会 ― 時代を跨いだ確信',sub:'先に声をかけたのは、また彼だった',era:'CYCLE B ― 2021 / CHUANG 2021',wdate:'2021年・海南島、登録の日（2回目）',lock:'2021年 ― 周B'},
-{k:'bg',img:'assets/nao/2021/profile.jpg',cap:'創造営2021 ― 登録の日、2回目'},
+{k:'bg',img:'assets/nao/2021/profile-uniform.jpg',cap:'創造営2021 ― 登録の日、2回目'},
 N('登録の列。彼女が書類を整えていると、後ろから声がした。'),
 D('hiroto','……ナオ'),
 N('振り向くと彼がいた。まだ、この時代では名乗っていないのに。'),
@@ -1343,7 +1343,7 @@ M('（彼は覚えてるはず。2019年も、2021年も、記憶は戻った。
  M('（……今度は、ちゃんと聞く。逃がさん）')
 ]},
 {k:'chap',title:'再会 ― 三度目の確信',sub:'先に声をかけたのは、三度目も彼だった',era:'CYCLE B ― 2023 / BOYS PLANET',wdate:'2023年・韓国、登録の日（2回目）',lock:'2023年 ― 周B'},
-{k:'bg',img:'assets/nao/2023/profile.jpg',cap:'BOYS PLANET ― 登録の日、2回目'},
+{k:'bg',img:'assets/nao/2023/profile-uniform.jpg',cap:'BOYS PLANET ― 登録の日、2回目'},
 N('ロビー。彼女が登録を済ませると、後ろから声がした。'),
 D('hiroto','……やっぱり、お前や'),
 N('振り向くと彼がいた。三度目の時代で、まだ名乗っていないのに。'),
@@ -1600,7 +1600,7 @@ document.querySelectorAll("[data-home]").forEach(b=>b.onclick=()=>{renderHome();
 function tick(){const d=new Date();const hh=d.getHours(),mm=String(d.getMinutes()).padStart(2,"0");const t=hh+":"+mm;const lc=$("#lk-time");if(lc)lc.textContent=t;const hc=$("#home-clock");if(hc)hc.textContent=t;}
 setInterval(tick,20000);
 /* title background slideshow (v25) */
-(function(){const list=["assets/nao/2019/stage.jpg","assets/nao/2019/ranking-close.jpg","assets/nao/2021/stage.jpg","assets/nao/2021/ranking-close.jpg","assets/nao/2023/stage.jpg","assets/nao/2023/ranking-close.jpg","assets/nao/2023/nxd-night.jpg","assets/nao/common/livehouse.jpg"];const a=document.querySelector("#consent .ttl-bg"),b=document.querySelector("#consent .ttl-bg2");if(!a||!b)return;list.forEach(s=>{const i=new Image();i.src=s;});let ti=0;setInterval(()=>{const cs=document.querySelector("#consent");if(!cs||!cs.classList.contains("on"))return;ti=(ti+1)%list.length;const nxt=list[ti];if(b.classList.contains("show")){a.src=nxt;b.classList.remove("show");}else{b.src=nxt;b.classList.add("show");}},6000);})();
+(function(){const list=["assets/nao/2019/stage.jpg","assets/nao/2019/ranking-close.jpg","assets/nao/2021/stage.jpg","assets/nao/2021/profile-uniform-close.jpg","assets/nao/2023/stage.jpg","assets/nao/2023/profile-uniform-close.jpg","assets/nao/2023/nxd-night.jpg","assets/nao/common/livehouse.jpg"];const a=document.querySelector("#consent .ttl-bg"),b=document.querySelector("#consent .ttl-bg2");if(!a||!b)return;list.forEach(s=>{const i=new Image();i.src=s;});let ti=0;setInterval(()=>{const cs=document.querySelector("#consent");if(!cs||!cs.classList.contains("on"))return;ti=(ti+1)%list.length;const nxt=list[ti];if(b.classList.contains("show")){a.src=nxt;b.classList.remove("show");}else{b.src=nxt;b.classList.add("show");}},6000);})();
 /* ============ consent / lock ============ */
 $("#consent-btn").onclick=()=>{S.consented=true;S.started=true;save();sndStart();seNotif();enterLock();};
 function enterLock(){tick();const cur=SCRIPT[Math.min(S.idx,SCRIPT.length-1)];
@@ -1638,7 +1638,7 @@ function renderHome(){
  $("#w-cycle").textContent=S.trueEnd?"周回：TRUE END":S.normalEnd?"周回：END ― 通常現在":S.loopBad?"周回：BAD END ― ループ継続":S.bareEnd?"周回：END ― 秘密バレIF":S.ridatsuEnd?"周回：END ― 離脱した現在":S.finishedNXDB?"周回：大周回B ― 過去編 完":S.finished23B?"周回：2023編 周B 完":S.finished23A?"周回：2023編 周A 完":S.flags.boys?"周回：2023編（周A）":S.finished21B?"周回：幕間":S.finished21A?"周回：2021編 周Bへ":S.flags.chuang?"周回：2021編（周A）":S.finishedB?"周回：幕間":S.finishedA?"周回：周B（2周目）":"周回："+(S.flags.leaped?"1周目（周A）":"0周目");
  $("#w-sub").textContent=S.trueEnd?"過去の全部を共有した、二人の現在。":S.normalEnd?"デジャヴだけが残った、優しい現在。":S.loopBad?"約束は、守れなかった。":S.bareEnd?"秘密は、限界を迎えた。":S.ridatsuEnd?"歌っていた彼を、知っているのは彼女だけになった。":S.finishedNXDB?"約束の現在が、待っている。":S.finished23B?"3つの時代に、彼女のいた証拠が残った。":S.finished23A?"三度目の隣にも、彼女がいた。":S.flags.boys?"評価と人気が噛み合わない彼と、人気が先行する彼女。":S.finished21B?"2つの時代に、彼女のいた証拠が残った。":S.finished21A?"2つ目の時代でも、彼女は彼の隣にいた。":S.flags.chuang?"言葉のアウェーでも、応援は届く。":S.finishedB?"彼の歴史に、彼女のいた証拠が残った。":(S.flags.leaped?"結末は変えられない。でも順位も、彼との毎日も、努力で動く。":"1周目（史実）には、彼女は彼の歴史のどこにもいない。");
  $("#sb-title").textContent=S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":S.finishedNXDB?"大周回B ― 過去編・完":S.finished23B?"2023 ボイプラ編 ― 完":S.finished23A?"2023 ボイプラ編 ― 周A 完":S.finished21B?"2021 創造営編 ― 完":S.finished21A?"2021 創造営編 ― 周A 完":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"2019 日プ編 ― 完":c.title;
- $("#sb-desc").textContent=(S.trueEnd||S.normalEnd||S.loopBad||S.bareEnd)?"物語は結末に到達しました。記録は「設定・記録」で見返せます。":S.ridatsuEnd?"彼の岐路での関わりが、結末を分けました。記録は「設定・記録」で見返せます。":S.finishedNXDB?"おつかれさまでした。次は現在編（フィナーレ）です。記録は「設定・記録」で見返せます。":S.finished23B?"おつかれさまでした。次は大周回B・NXD期です。記録は「設定・記録」で見返せます。":S.finished23A?"おつかれさまでした。次は2023編・周Bです。記録は「設定・記録」で見返せます。":S.finished21B?"幕間2 ― 三度目の誘いへ進みます。":S.finished21A?"2021編・周Bへ進みます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub; const _th=$("#sb-thumb");if(_th){const _ts=S.eraNow==="2021"?"assets/nao/2021/profile-close.jpg":(S.eraNow==="2023"||S.eraNow==="nxd")?"assets/nao/2023/profile-close.jpg":"assets/nao/2019/profile-face2-close2.jpg";if(_th.getAttribute("src")!==_ts)_th.src=_ts;}
+ $("#sb-desc").textContent=(S.trueEnd||S.normalEnd||S.loopBad||S.bareEnd)?"物語は結末に到達しました。記録は「設定・記録」で見返せます。":S.ridatsuEnd?"彼の岐路での関わりが、結末を分けました。記録は「設定・記録」で見返せます。":S.finishedNXDB?"おつかれさまでした。次は現在編（フィナーレ）です。記録は「設定・記録」で見返せます。":S.finished23B?"おつかれさまでした。次は大周回B・NXD期です。記録は「設定・記録」で見返せます。":S.finished23A?"おつかれさまでした。次は2023編・周Bです。記録は「設定・記録」で見返せます。":S.finished21B?"幕間2 ― 三度目の誘いへ進みます。":S.finished21A?"2021編・周Bへ進みます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub; const _th=$("#sb-thumb");if(_th){const _ts=S.eraNow==="2021"?"assets/nao/2021/profile-uniform-close.jpg":(S.eraNow==="2023"||S.eraNow==="nxd")?"assets/nao/2023/profile-uniform-close.jpg":"assets/nao/2019/profile-face2-close2.jpg";if(_th.getAttribute("src")!==_ts)_th.src=_ts;}
  const _bdg={prog:([S.flags.ranked,S.flags.ranked21,S.flags.ranked23,S.flags.rankedB,S.flags.ranked21B,S.flags.ranked23B].filter(Boolean).length||""),talk:(talkUnreadTotal()||""),settings:(S.diffs&&S.diffs.length?S.diffs.length:"")};
  $("#apps").innerHTML=APPS.map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span>${_bdg[a.id]?`<span class="bdg">${_bdg[a.id]}</span>`:""}<span>${a.lb}</span></button>`).join("");
  document.querySelectorAll("#apps .appicon").forEach(b=>b.onclick=()=>{const a=APPS.find(x=>x.id===b.dataset.app);if(a.lock&&a.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}openApp(a.id);});
@@ -1773,7 +1773,7 @@ function naoRankRow(era,loop){const D={
 "y2021B":[16,"中間 17位 → 最終 16位 ― 周Aの18位から上昇（デビュー圏外）"],
 "y2023A":[22,"第1回 27位 → 第2回 23位 → 第3回 22位で脱落（枠の手前）"],
 "y2023B":[19,"第1回 20位 → 第2回 17位 → 第3回 19位で脱落 ― 周Aの22位から上昇（デビュー圏外）"]};
-const img=era==="y2019"?"assets/nao/2019/profile-face2-close2.jpg":era==="y2021"?"assets/nao/2021/profile-close.jpg":"assets/nao/2023/profile-close.jpg";
+const img=era==="y2019"?"assets/nao/2019/profile-face2-close2.jpg":era==="y2021"?"assets/nao/2021/profile-uniform-close.jpg":"assets/nao/2023/profile-uniform-close.jpg";
 const d=D[era+loop];return `<div class="rankrow me"><div class="rk" style="color:var(--gold)">${d[0]}</div><img src="${img}"><div><div class="rnm">三浦渚央${loop==="B"?"（周B）":""}</div><div class="rmeta">${d[1]}</div></div></div>`;}
 function naoPopHTML(era){const t={y2019:`個人ファンカムの再生は上位圏。実力クラスはCまでで、「顔は上位圏、実力は中位」のギャップが番組内外で話題に。中間発表の人気は高かったが、最終結果は生存枠の手前だった。`,y2021:`中国でもビジュアル先行で名前が売れた。人気は上位圏、実力は中位のまま――ギャップはこの時代でも話題になり、結果はデビューの枠の手前で止まった。`,y2023:`個人ファンカム（チッケム）の再生が実力以上に伸び、中間発表の順位はそこそこ上まで来た。ただしデビュー圏には入れない。人気が上がるほど「近づいてしまう」緊張が、彼女を離脱（辞退）へ向かわせる伏線になる。`};return `<div class="rankrow me"><div class="rk" style="font-size:12px;color:var(--gold)">人気</div><img src="assets/nao/${era==="y2019"?"2019/profile-face2-close2":era==="y2021"?"2021/profile-close":"2023/profile-close"}.jpg"><div><div class="rnm">三浦渚央 ― ビジュアル人気</div><div class="rmeta" style="white-space:normal">${t[era]}</div></div></div>`;}
 function canon23HTML(){const g=S.g;return `<div class="canon"><h3>CANON LOCK ― BOYS PLANET・第3回順位発表の内訳</h3>
@@ -1893,21 +1893,21 @@ function renderGallery(){
   {img:"assets/nao/2019/stage.jpg",cap:"この周：ステージに立つ彼女",cmp:"差分 ― 見る側から、立つ側へ",gate:S.idx<81},
   {img:"assets/nao/2019/stage2.jpg",cap:"この周：歌にすべてを懸けたステージ",cmp:"差分 ― 立つ側の景色",gate:S.idx<81},
   {img:"assets/nao/2019/ranking-close.jpg",cap:"順位発表の夜、呼ばれるのを待つ顔",cmp:"Canon Lock の夜 ― 彼は36位、彼女は38位で脱落",gate:!S.flags.ranked},
-  {img:"assets/nao/2021/profile.jpg",cap:"2021年：学員「三浦渚央」として、再び彼の隣の時代へ",cmp:"差分 ― 2つ目の時代にも、いなかったはずの顔",gate:!S.flags.chuang},
+  {img:"assets/nao/2021/profile-uniform.jpg",cap:"2021年：学員「三浦渚央」として、再び彼の隣の時代へ",cmp:"差分 ― 2つ目の時代にも、いなかったはずの顔",gate:!S.flags.chuang},
   {img:"assets/nao/2021/shop-night.jpg",cap:"2021年：売店の夜、通じた注文とプリン",cmp:"差分 ― 言葉が通じる夜",gate:!S.flags.known21},
   {img:"assets/nao/2021/practice.jpg",cap:"2021年：言葉の壁の手前で、一緒に練習した時間",cmp:"差分 ― アウェーで届いた応援",gate:!S.flags.c21practice},
   {img:"assets/nao/2021/stage.jpg",cap:"2021年：初回のステージに立つ彼女",cmp:"差分 ― スキルは周を跨いで残る",gate:!S.flags.c21stage},
   {img:"assets/nao/2021/daily.jpg",cap:"2021年：寮の日常、近づく距離と秘密",cmp:"差分 ― 同じ屋根の下、2度目",gate:!S.flags.c21stage},
   {img:"assets/nao/2021/study.jpg",cap:"2021年：中国語ノートと向き合う夜",cmp:"差分 ― 言葉の壁を、自分の側からも越える",gate:!S.flags.c21practice},
-  {img:"assets/nao/2021/ranking-close.jpg",cap:"2021年：ファイナルの夜、発表を待つ顔",cmp:"Canon Lock の夜 ― 彼は15位、彼女は18位",gate:!S.flags.ranked21},
-  {img:"assets/nao/2023/profile.jpg",cap:"2023年：練習生「三浦渚央」として、3度目の隣へ",cmp:"差分 ― 3つ目の時代にも、いなかったはずの顔",gate:!S.flags.boys},
+  {img:"assets/nao/2021/profile-uniform-close.jpg",cap:"2021年：ファイナルの夜、発表を待つ顔",cmp:"Canon Lock の夜 ― 彼は15位、彼女は18位",gate:!S.flags.ranked21},
+  {img:"assets/nao/2023/profile-uniform.jpg",cap:"2023年：練習生「三浦渚央」として、3度目の隣へ",cmp:"差分 ― 3つ目の時代にも、いなかったはずの顔",gate:!S.flags.boys},
   {img:"assets/nao/2023/konbini-night.jpg",cap:"2023年：コンビニの夜、三角キンパと窓の外",cmp:"差分 ― 覚えたての言葉の夜",gate:!S.flags.b23fan},
   {img:"assets/nao/2023/practice.jpg",cap:"2023年：キリングパートを磨く練習室",cmp:"差分 ― カメラの前で届いた応援",gate:!S.flags.b23battle},
   {img:"assets/nao/2023/stage.jpg",cap:"2023年：スターレベルテストのステージ",cmp:"差分 ― 3スターの彼女、2スターの彼",gate:!S.flags.b23stage},
   {img:"assets/nao/2023/fancam-close.jpg",cap:"2023年：伸びていく彼女の個人ファンカム",cmp:"差分 ― 人気は上位圏、実力は中位",gate:!S.flags.b23fan},
   {img:"assets/nao/2023/fancam2.jpg",cap:"2023年：エンディング妖精のワンシーン",cmp:"差分 ― 踊り切ったあとの笑顔",gate:!S.flags.b23fan},
   {img:"assets/nao/2023/daily.jpg",cap:"2023年：寮の日常、三度目の秘密",cmp:"差分 ― 同じ屋根の下、3度目",gate:!S.flags.b23fan},
-  {img:"assets/nao/2023/ranking-close.jpg",cap:"2023年：順位発表の夜、呼ばれるのを待つ顔",cmp:"Canon Lock の夜 ― 彼は21位、彼女は22位",gate:!S.flags.ranked23},
+  {img:"assets/nao/2023/profile-uniform-close.jpg",cap:"2023年：順位発表の夜、呼ばれるのを待つ顔",cmp:"Canon Lock の夜 ― 彼は21位、彼女は22位",gate:!S.flags.ranked23},
   {img:"assets/nao/2023/stage.jpg",cap:"2023年（周B）：二人で磨いたステージ",cmp:"差分 ― 評価と人気を、繋いだ周",gate:!S.flags.known23},
   {img:"assets/nao/2023/daily.jpg",cap:"NXD期（周B）：番組のない日々、二度目の隣",cmp:"差分 ― 最後の岐路を、一緒に越えた時間",gate:!S.flags.nxdDone},
   {img:"assets/nao/2023/nxd-night.jpg",cap:"NXD期：番組のない日々、夜の練習室",cmp:"差分 ― デビュー組の隣で、残る側の時間",gate:!S.finishedNXDA}
@@ -2123,7 +2123,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  <div class="srow"><span>到達した結末</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":"（まだ到達していません）"}</span></div>
  <div class="srow"><span>サウンド</span><span class="sv"><button id="snd-btn" style="background:${S.soundOn!==false?"#17172a":"#c6c6d4"};color:#fff;border:none;border-radius:999px;padding:6px 18px;font-size:12.5px;font-weight:700;cursor:pointer">${S.soundOn!==false?"ON":"OFF"}</button></span></div>
  <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
- <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加／v83 フリーチャットの話題拡充（2019専用プール＋新キーワード6種＋チップ追加）／v84 周Aの彼の記憶の線引きで全監査（2021・2023到着場面と彼の画面3件を連続した同僚の前提に書き換え）／v85 2019周A・練習室の夜に彼の視点（インライン）を追加／v86 2021周A・寮の一夜に彼の視点（インライン）を追加／v87 2023周A・コンビニの夜に彼の視点（インライン）を追加／v88 台帳・Keepsake・Diffの時代分類を修正（NXD期グループ新設、誤分類6件を是正）／v89 場面カット追加（2023順位発表の夜・face2基準で新規生成）／v90 場面カット追加（2021ファイナルの夜・face2基準で新規生成）／v91 節目 ― 全アプリ走査／v92 日常回「自販機の夜」（2023・周B）を追加／v93 2019周A・レベル分け評価に彼の視点（インライン）を追加／v94 写真アプリに時代別グルーピング（見出し＋枚数）を追加／v95 場面カット追加（NXD期・夜の練習室、face2基準で新規生成）／v96 フリーチャットの時代別プールを拡充（各時代＋2件）／v97 2019周B・発覚に彼の視点（インライン）を追加／v98 2021周B・再会に彼の視点（インライン）を追加／v99 2023周B・発覚に彼の視点（インライン）を追加／v100 節目 ― 全編通しプレイ検証／v101 効果音の配線追加（台帳・Keepsake・彼の視点）／v102 トークに彼のメッセージを3件追加／v103 タイトルのスライドショー拡充（8枚）とホーム背景のNXD期差し替え／v104 2023周B・再会に彼の視点（インライン）を追加／v105 2021周B・売店の夜に彼の視点（インライン）を追加／v106 NXD期・周B「移籍の決断」に彼の視点（インライン）を追加／v107 2023周B・共同作戦に彼の視点（インライン）を追加／v108 2019周B・共同作戦（ツカメ対策）に彼の視点（インライン）を追加／v109 2021周B・共同作戦に彼の視点（インライン）を追加／v110 NXD期・周B「延期の季節 ― 二度目」に彼の視点（インライン）を追加／v111 フリーチャット拡充（キーワード応答3種・チップ2件・現在編プール拡充）／v112 節目 ― 全アプリ走査／v113 2023周B・自販機の夜に彼の視点（インライン）を追加／v114 2019周A・食堂の夜に彼の視点（インライン）を追加／v115 2021周B・順位発表の締めに彼の視点（インライン）を追加／v116 設計ドキュメントの実装状況を更新／v117 場面カット追加（2019食堂の夜・face2基準で新規生成）／v118 場面カット追加（2021売店の夜・face2基準で新規生成）／v119 場面カット追加（2023コンビニの夜・face2基準で新規生成）／v120 背景の差し替え（現在編の冒頭とソロデビューの場面）／v121 節目 ― 全編通しプレイ検証（v101〜v120の追加後）／v122 画像出典メモ（IMAGE_SOURCES.md）に新規カット6点とface2基準を追記／v123 READMEの状態表記を現行（本編完結・公開中）に更新／v124 視覚QAで発見した順位タブの防御的修正（順位値の欠損時に最低ラインへフォールバック）／v125 節目 ― 全画面の視覚QA（撮影確認）／v126 節目 ― 別エンディング到達検証（秘密バレIF・離脱した現在）／v127 節目 ― 全5エンディング到達検証の完了（通常現在・ループ継続BADを追加確認）／v128 設計ドキュメントの実装状況に最終検証結果を追記／v129 READMEの現行版表記を更新／v130 生成メタファイルを .gitignore に追加して作業ツリーを整理／v131 「届くはずのなかった手紙」に背景を設定（食堂カットの引き継ぎを解消）／v132 フリーチャットの応答拡充（キーワード応答8種・時代別プール各+2件・チップ2件を追加）／v133 仕上げのUI調整（ホームのアプリアイコンのラベルの可読性を向上、ストーリー画面のゲージチップを均等な3+3配置に整形）／v134 フリーチャットに語学の話題を追加（中国語・韓国語・英語へのキーワード応答）／v135 節目 ― 朝まで改修の最終版（全アプリ走査・ドキュメント同期）／v136 トークを実物化（1相手=1スレッドに集約・未読バッジ・プレビュー・実物時刻・日付チップ・自分の送信への既読表示。仕組みは『現役アイドル、Tinderやってた件』のLINEと『キープ管理中！』の未読管理から移植）</span></div>
+ <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加／v83 フリーチャットの話題拡充（2019専用プール＋新キーワード6種＋チップ追加）／v84 周Aの彼の記憶の線引きで全監査（2021・2023到着場面と彼の画面3件を連続した同僚の前提に書き換え）／v85 2019周A・練習室の夜に彼の視点（インライン）を追加／v86 2021周A・寮の一夜に彼の視点（インライン）を追加／v87 2023周A・コンビニの夜に彼の視点（インライン）を追加／v88 台帳・Keepsake・Diffの時代分類を修正（NXD期グループ新設、誤分類6件を是正）／v89 場面カット追加（2023順位発表の夜・face2基準で新規生成）／v90 場面カット追加（2021ファイナルの夜・face2基準で新規生成）／v91 節目 ― 全アプリ走査／v92 日常回「自販機の夜」（2023・周B）を追加／v93 2019周A・レベル分け評価に彼の視点（インライン）を追加／v94 写真アプリに時代別グルーピング（見出し＋枚数）を追加／v95 場面カット追加（NXD期・夜の練習室、face2基準で新規生成）／v96 フリーチャットの時代別プールを拡充（各時代＋2件）／v97 2019周B・発覚に彼の視点（インライン）を追加／v98 2021周B・再会に彼の視点（インライン）を追加／v99 2023周B・発覚に彼の視点（インライン）を追加／v100 節目 ― 全編通しプレイ検証／v101 効果音の配線追加（台帳・Keepsake・彼の視点）／v102 トークに彼のメッセージを3件追加／v103 タイトルのスライドショー拡充（8枚）とホーム背景のNXD期差し替え／v104 2023周B・再会に彼の視点（インライン）を追加／v105 2021周B・売店の夜に彼の視点（インライン）を追加／v106 NXD期・周B「移籍の決断」に彼の視点（インライン）を追加／v107 2023周B・共同作戦に彼の視点（インライン）を追加／v108 2019周B・共同作戦（ツカメ対策）に彼の視点（インライン）を追加／v109 2021周B・共同作戦に彼の視点（インライン）を追加／v110 NXD期・周B「延期の季節 ― 二度目」に彼の視点（インライン）を追加／v111 フリーチャット拡充（キーワード応答3種・チップ2件・現在編プール拡充）／v112 節目 ― 全アプリ走査／v113 2023周B・自販機の夜に彼の視点（インライン）を追加／v114 2019周A・食堂の夜に彼の視点（インライン）を追加／v115 2021周B・順位発表の締めに彼の視点（インライン）を追加／v116 設計ドキュメントの実装状況を更新／v117 場面カット追加（2019食堂の夜・face2基準で新規生成）／v118 場面カット追加（2021売店の夜・face2基準で新規生成）／v119 場面カット追加（2023コンビニの夜・face2基準で新規生成）／v120 背景の差し替え（現在編の冒頭とソロデビューの場面）／v121 節目 ― 全編通しプレイ検証（v101〜v120の追加後）／v122 画像出典メモ（IMAGE_SOURCES.md）に新規カット6点とface2基準を追記／v123 READMEの状態表記を現行（本編完結・公開中）に更新／v124 視覚QAで発見した順位タブの防御的修正（順位値の欠損時に最低ラインへフォールバック）／v125 節目 ― 全画面の視覚QA（撮影確認）／v126 節目 ― 別エンディング到達検証（秘密バレIF・離脱した現在）／v127 節目 ― 全5エンディング到達検証の完了（通常現在・ループ継続BADを追加確認）／v128 設計ドキュメントの実装状況に最終検証結果を追記／v129 READMEの現行版表記を更新／v130 生成メタファイルを .gitignore に追加して作業ツリーを整理／v131 「届くはずのなかった手紙」に背景を設定（食堂カットの引き継ぎを解消）／v132 フリーチャットの応答拡充（キーワード応答8種・時代別プール各+2件・チップ2件を追加）／v133 仕上げのUI調整（ホームのアプリアイコンのラベルの可読性を向上、ストーリー画面のゲージチップを均等な3+3配置に整形）／v134 フリーチャットに語学の話題を追加（中国語・韓国語・英語へのキーワード応答）／v135 節目 ― 朝まで改修の最終版（全アプリ走査・ドキュメント同期）／v136 トークを実物化（1相手=1スレッドに集約・未読バッジ・プレビュー・実物時刻・日付チップ・自分の送信への既読表示。仕組みは『現役アイドル、Tinderやってた件』のLINEと『キープ管理中！』の未読管理から移植）／v137 2021・2023の渚央プロフィールを制服版に統一（創造営の紺制服／ボイプラの淡グレー制服。名簿・順位・パネル・背景・写真の参照を全て profile-uniform 系へ）</span></div>
  <div class="pad"><p class="small">エンディングは5種（TRUE現在／通常現在／離脱した現在／秘密バレIF／ループ継続BAD）。結末は、彼の岐路での関わり・手がかり（Keepsakeと届いた数）・男装バレ度・最後の選択で分かれます。なお「デビューしてしまう現在」はIF候補として設計にのみ記録され、本編では採用していません（デビューメンバー構成は不変のため）。</p></div>
  <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
  const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV2");location.reload();}};
