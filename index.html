@@ -617,7 +617,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
     <span class="w-cycle" id="w-cycle">周回：0周目</span>
   </div>
   <div id="story-banner">
-    <img class="sb-thumb" id="sb-thumb" src="assets/nao/2019/profile-face2-close2.jpg" alt="">
+    <img class="sb-thumb" id="sb-thumb" src="assets/nao/2019/profile-face3b-close2.jpg" alt="">
     <div class="sb-main">
       <div class="sb-badge" id="sb-badge">▶ ストーリーを進める</div>
       <div class="sb-title" id="sb-title">0周目プロローグ</div>
@@ -726,7 +726,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v145";
+const VER="v146";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -739,7 +739,7 @@ function save(){try{localStorage.setItem("tlSaveV2",JSON.stringify(S));}catch(e)
 "use strict";
 /* ============ cast / program data (2019) ============ */
 const ROSTER=[
- {nm:"三浦渚央",meta:"高3・ダンス未経験に近い",img:"assets/nao/2019/profile-face2-close2.jpg",me:true},
+ {nm:"三浦渚央",meta:"高3・ダンス未経験に近い",img:"assets/nao/2019/profile-face3b-close2.jpg",me:true},
  {nm:"井汲大翔",meta:"高2・ダンス未経験",img:"assets/hiroto/hiroto.jpg",hiroto:true},
  {nm:"河野純喜",meta:"練習生",img:"assets/cast2019/junki.jpg"},
  {nm:"川尻蓮",meta:"練習生",img:"assets/cast2019/ren.jpg"},
@@ -833,7 +833,7 @@ N('数か月の準備期間が始まった。髪を切り、声の出し方を�
 ]},
 N('書類が通り、一次を抜け、気づけば合宿の朝が来ていた。'),
 {k:'chap',title:'第1部 2019 日プ編 ― 周A',sub:'彼女だけが、結末を知っている',era:'CYCLE A ― 2019 / PRODUCE 101 JAPAN',wdate:'2019年・合宿初日',lock:'2019年 ― 周A'},
-{k:'bg',img:'assets/nao/2019/profile-face2-full.jpg',cap:'練習生「三浦渚央」として登録された、彼女'},
+{k:'bg',img:'assets/nao/2019/profile-face3b-full.jpg',cap:'練習生「三浦渚央」として登録された、彼女'},
 N('合宿所。登録を済ませ、制服のプロフィール写真を撮り終えた頃には、もう「練習生のナオ」として名簿に載っていた。'),
 N('そして何より。同じこの合宿所に、17歳の井汲大翔がいる。脱落する未来を、知っているのは私だけ。'),
 {k:'c',opts:[
@@ -1842,7 +1842,7 @@ function renderHome(){
  $("#w-cycle").textContent=S.trueEnd?"周回：TRUE END":S.normalEnd?"周回：END ― 通常現在":S.loopBad?"周回：BAD END ― ループ継続":S.bareEnd?"周回：END ― 秘密バレIF":S.ridatsuEnd?"周回：END ― 離脱した現在":S.finishedNXDB?"周回：大周回B ― 過去編 完":S.finished23B?"周回：2023編 周B 完":S.finished23A?"周回：2023編 周A 完":S.flags.boys?"周回：2023編（周A）":S.finished21B?"周回：幕間":S.finished21A?"周回：2021編 周Bへ":S.flags.chuang?"周回：2021編（周A）":S.finishedB?"周回：幕間":S.finishedA?"周回：周B（2周目）":"周回："+(S.flags.leaped?"1周目（周A）":"0周目");
  $("#w-sub").textContent=S.trueEnd?"過去の全部を共有した、二人の現在。":S.normalEnd?"デジャヴだけが残った、優しい現在。":S.loopBad?"約束は、守れなかった。":S.bareEnd?"秘密は、限界を迎えた。":S.ridatsuEnd?"歌っていた彼を、知っているのは彼女だけになった。":S.finishedNXDB?"約束の現在が、待っている。":S.finished23B?"3つの時代に、彼女のいた証拠が残った。":S.finished23A?"三度目の隣にも、彼女がいた。":S.flags.boys?"評価と人気が噛み合わない彼と、人気が先行する彼女。":S.finished21B?"2つの時代に、彼女のいた証拠が残った。":S.finished21A?"2つ目の時代でも、彼女は彼の隣にいた。":S.flags.chuang?"言葉のアウェーでも、応援は届く。":S.finishedB?"彼の歴史に、彼女のいた証拠が残った。":(S.flags.leaped?"結末は変えられない。でも順位も、彼との毎日も、努力で動く。":"1周目（史実）には、彼女は彼の歴史のどこにもいない。");
  $("#sb-title").textContent=S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":S.finishedNXDB?"大周回B ― 過去編・完":S.finished23B?"2023 ボイプラ編 ― 完":S.finished23A?"2023 ボイプラ編 ― 周A 完":S.finished21B?"2021 創造営編 ― 完":S.finished21A?"2021 創造営編 ― 周A 完":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"2019 日プ編 ― 完":c.title;
- $("#sb-desc").textContent=(S.trueEnd||S.normalEnd||S.loopBad||S.bareEnd)?"物語は結末に到達しました。記録は「設定・記録」で見返せます。":S.ridatsuEnd?"彼の岐路での関わりが、結末を分けました。記録は「設定・記録」で見返せます。":S.finishedNXDB?"おつかれさまでした。次は現在編（フィナーレ）です。記録は「設定・記録」で見返せます。":S.finished23B?"おつかれさまでした。次は大周回B・NXD期です。記録は「設定・記録」で見返せます。":S.finished23A?"おつかれさまでした。次は2023編・周Bです。記録は「設定・記録」で見返せます。":S.finished21B?"幕間2 ― 三度目の誘いへ進みます。":S.finished21A?"2021編・周Bへ進みます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub; const _th=$("#sb-thumb");if(_th){const _ts=S.eraNow==="2021"?"assets/nao/2021/profile-uniform-close.jpg":(S.eraNow==="2023"||S.eraNow==="nxd")?"assets/nao/2023/profile-uniform-close.jpg":"assets/nao/2019/profile-face2-close2.jpg";if(_th.getAttribute("src")!==_ts)_th.src=_ts;}
+ $("#sb-desc").textContent=(S.trueEnd||S.normalEnd||S.loopBad||S.bareEnd)?"物語は結末に到達しました。記録は「設定・記録」で見返せます。":S.ridatsuEnd?"彼の岐路での関わりが、結末を分けました。記録は「設定・記録」で見返せます。":S.finishedNXDB?"おつかれさまでした。次は現在編（フィナーレ）です。記録は「設定・記録」で見返せます。":S.finished23B?"おつかれさまでした。次は大周回B・NXD期です。記録は「設定・記録」で見返せます。":S.finished23A?"おつかれさまでした。次は2023編・周Bです。記録は「設定・記録」で見返せます。":S.finished21B?"幕間2 ― 三度目の誘いへ進みます。":S.finished21A?"2021編・周Bへ進みます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub; const _th=$("#sb-thumb");if(_th){const _ts=S.eraNow==="2021"?"assets/nao/2021/profile-uniform-close.jpg":(S.eraNow==="2023"||S.eraNow==="nxd")?"assets/nao/2023/profile-uniform-close.jpg":"assets/nao/2019/profile-face3b-close2.jpg";if(_th.getAttribute("src")!==_ts)_th.src=_ts;}
  const _bdg={prog:([S.flags.ranked,S.flags.ranked21,S.flags.ranked23,S.flags.rankedB,S.flags.ranked21B,S.flags.ranked23B].filter(Boolean).length||""),talk:(talkUnreadTotal()||""),settings:(S.diffs&&S.diffs.length?S.diffs.length:"")};
  $("#apps").innerHTML=APPS.map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span>${_bdg[a.id]?`<span class="bdg">${_bdg[a.id]}</span>`:""}<span class="lb">${a.lb}</span></button>`).join("");
  document.querySelectorAll("#apps .appicon").forEach(b=>b.onclick=()=>{const a=APPS.find(x=>x.id===b.dataset.app);if(a.lock&&a.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}openApp(a.id);});
@@ -2016,9 +2016,9 @@ function naoRankRow(era,loop){const D={
 "y2021B":[16,"中間 17位 → 最終 16位 ― 周Aの18位から上昇（デビュー圏外）"],
 "y2023A":[22,"第1回 27位 → 第2回 23位 → 第3回 22位で脱落（枠の手前）"],
 "y2023B":[19,"第1回 20位 → 第2回 17位 → 第3回 19位で脱落 ― 周Aの22位から上昇（デビュー圏外）"]};
-const img=era==="y2019"?"assets/nao/2019/profile-face2-close2.jpg":era==="y2021"?"assets/nao/2021/profile-uniform-close.jpg":"assets/nao/2023/profile-uniform-close.jpg";
+const img=era==="y2019"?"assets/nao/2019/profile-face3b-close2.jpg":era==="y2021"?"assets/nao/2021/profile-uniform-close.jpg":"assets/nao/2023/profile-uniform-close.jpg";
 const d=D[era+loop];return `<div class="rankrow me"><div class="rk" style="color:var(--gold)">${d[0]}</div><img src="${img}"><div><div class="rnm">三浦渚央${loop==="B"?"（周B）":""}</div><div class="rmeta">${d[1]}</div></div></div>`;}
-function naoPopHTML(era){const t={y2019:`個人ファンカムの再生は上位圏。実力クラスはCまでで、「顔は上位圏、実力は中位」のギャップが番組内外で話題に。中間発表の人気は高かったが、最終結果は生存枠の手前だった。`,y2021:`中国でもビジュアル先行で名前が売れた。人気は上位圏、実力は中位のまま――ギャップはこの時代でも話題になり、結果はデビューの枠の手前で止まった。`,y2023:`個人ファンカム（チッケム）の再生が実力以上に伸び、中間発表の順位はそこそこ上まで来た。ただしデビュー圏には入れない。人気が上がるほど「近づいてしまう」緊張が、彼女を離脱（辞退）へ向かわせる伏線になる。`};return `<div class="rankrow me"><div class="rk" style="font-size:12px;color:var(--gold)">人気</div><img src="assets/nao/${era==="y2019"?"2019/profile-face2-close2":era==="y2021"?"2021/profile-close":"2023/profile-close"}.jpg"><div><div class="rnm">三浦渚央 ― ビジュアル人気</div><div class="rmeta" style="white-space:normal">${t[era]}</div></div></div>`;}
+function naoPopHTML(era){const t={y2019:`個人ファンカムの再生は上位圏。実力クラスはCまでで、「顔は上位圏、実力は中位」のギャップが番組内外で話題に。中間発表の人気は高かったが、最終結果は生存枠の手前だった。`,y2021:`中国でもビジュアル先行で名前が売れた。人気は上位圏、実力は中位のまま――ギャップはこの時代でも話題になり、結果はデビューの枠の手前で止まった。`,y2023:`個人ファンカム（チッケム）の再生が実力以上に伸び、中間発表の順位はそこそこ上まで来た。ただしデビュー圏には入れない。人気が上がるほど「近づいてしまう」緊張が、彼女を離脱（辞退）へ向かわせる伏線になる。`};return `<div class="rankrow me"><div class="rk" style="font-size:12px;color:var(--gold)">人気</div><img src="assets/nao/${era==="y2019"?"2019/profile-face3b-close2":era==="y2021"?"2021/profile-close":"2023/profile-close"}.jpg"><div><div class="rnm">三浦渚央 ― ビジュアル人気</div><div class="rmeta" style="white-space:normal">${t[era]}</div></div></div>`;}
 function canon23HTML(){const g=S.g;return `<div class="canon"><h3>CANON LOCK ― BOYS PLANET・第3回順位発表の内訳</h3>
  <div class="crow"><span class="fixed">絶対不変</span><div>デビューできない結末（彼はZEROBASEONEのメンバーに入らない）／第3回発表で脱落する回は変更なし</div></div>
  <div class="crow"><span class="changed">周Aの結果</span><div>井汲大翔：<b>21位</b>（史実どおり＝最低ライン）／届いた応援：<b>${g.todoita}件</b>／評価と人気が噛み合わない中でも、キリングパートは届いた</div></div>
@@ -2128,7 +2128,7 @@ function renderGallery(){
   {img:"assets/nao/common/audience-back.jpg",cap:"0周目：彼女は客席とテレビの向こうにいた",cmp:"0周目の記録",gate:true},
   {img:"assets/nao/common/room.jpg",cap:"現在：配信を見上げる、彼女の部屋",cmp:"変わる現在を見つめる場所",gate:!S.finishedA},
   {img:"assets/nao/common/livehouse.jpg",cap:"現在：小さなライブハウスの客席",cmp:"最後の現在 ― 彼が待つ場所",gate:!S.finishedNXDA},
-  {img:"assets/nao/2019/profile-face2-full.jpg",cap:"この周：練習生「三浦渚央」のプロフィール",cmp:"差分 ― 1周目にはいなかった顔",gate:!S.flags.leaped},
+  {img:"assets/nao/2019/profile-face3b-full.jpg",cap:"この周：練習生「三浦渚央」のプロフィール",cmp:"差分 ― 1周目にはいなかった顔",gate:!S.flags.leaped},
   {img:"assets/nao/2019/practice.jpg",cap:"この周：練習室の夜、隣で踊った時間",cmp:"差分 ― 同じ練習室にいる",gate:S.idx<68},
   {img:"assets/nao/2019/dorm.jpg",cap:"この周：合宿所の日常",cmp:"差分 ― 同じ屋根の下",gate:S.idx<35},
   {img:"assets/nao/2019/cafeteria.jpg",cap:"この周：食堂の夜、半分このプリン",cmp:"差分 ― 小さな攻防の夜",gate:S.idx<100},
@@ -2381,7 +2381,7 @@ $("#thd-back").onclick=()=>{renderTalk();show("talk");};
 function naoProfImg(){
  if(S.eraNow==="2021")return "assets/nao/2021/profile-uniform-close.jpg";
  if(S.eraNow==="2023"||S.eraNow==="nxd")return "assets/nao/2023/profile-uniform-close.jpg";
- return "assets/nao/2019/profile-face2-close2.jpg";
+ return "assets/nao/2019/profile-face3b-close2.jpg";
 }
 function naoStatus(){
  if(S.trueEnd||S.finishedNXDB)return "2026年 ― 約束の現在";
