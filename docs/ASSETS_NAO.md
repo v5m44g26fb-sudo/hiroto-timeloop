@@ -34,7 +34,7 @@
 
 - 用途（想定）: 各時代のアバター、練習生名簿のプロフィール、番組公式プロフィール画面
 - 未確定事項: 本人のOKが出るまでゲームには組み込まない。差し替え生成が来たら本ファイルのパスを更新する
-- **2026-11-09 face2 全面差し替え（完了・v56〜v60）**: 2019は face2 へ差し替え完了。2021・2023のプロフィール（`2021/profile.jpg`、`2023/profile.jpg`、`2023/profile-close.jpg`）と、ナオが写る場面カット類（2019: dorm / practice / ranking-close / selfie / stage / stage2、2021: daily / practice / stage / study、2023: daily / fancam-close / fancam2 / practice / stage）は face2 基準で再生成し、全点目視確認のうえ組み込み済み。旧フェイスとの混在なし。再生成前の旧フェイス版は `hidden_files/nao-oldface-backup/` に保管。顔の写らないカット（`common/room.jpg`、`common/livehouse.jpg`、後ろ姿の `common/audience-back.jpg`）は差し替え対象外
+- **2026-11-09 face2 全面差し替え（完了・v56〜v60）**: 2019は face2 へ差し替え完了。2021・2023のプロフィール（`2021/profile.jpg`、`2023/profile.jpg`、`2023/profile-close.jpg`）と、ナオが写る場面カット類（2019: dorm / practice / ranking-close / selfie / stage / stage2、2021: daily / practice / stage / study、2023: daily / fancam-close / fancam2 / practice / stage）は face2 基準で再生成し、全点目視確認のうえ組み込み済み。旧フェイスとの混在なし。再生成前の旧フェイス版は `hidden_files/nao-oldface-backup/` に保管。顔の写らないカット（`common/room.jpg`、`common/live-venue.jpg`、後ろ姿の `common/audience-back.jpg`）は差し替え対象外
 - **渚央の順位の表示（v60〜）**: 順位タブと順位発表の場面に、彼女自身の順位を金枠の別行で表示する。数値の定義は DESIGN.md §3.6
 
 ## 3. まだ不足している画像リスト
@@ -104,7 +104,7 @@
 - v148（2021編）：プロフィールは基準顔の19歳相当を新規生成（創造営の紺制服＋白パイピング＋三角ロゴ、背景は屋外＝島・海）。寄り2種はそのクロップ。場面カット5点（daily／practice／ranking-close／study／shop-night）を19歳相当で再生成。**stage.jpg のみ生成側の内部エラーで未了（旧顔のまま）→ 要フォロー**
 - v149（2019編＋og）：プロフィール（profile-face3b-full）は face3b 方式を廃し、基準顔の17歳版で再生成。寄り2種はそのクロップ。場面カット7点（stage／stage2／dorm／practice／ranking-close／selfie／cafeteria）を17歳相当で再生成。リンクプレビュー用に `assets/og.jpg`（1200×630、新stageから作成）と og メタタグを新設（従来は og:image 自体が無く、クローラがページ内画像＝旧stageを拾っていた）
 - 生成方式（成功パターン）：キャンバス（既存カット）＋ standard-final.jpg ＋ 黒ニット原写真の3点を与え、「2枚目と同一人物の◯歳版に差し替え、パーツの形は同一に保ち年齢だけ変える、決定要素の列挙、鋳型禁止、耳は普通、髪色は暗めアッシュブラウン、構図・衣装・背景は1枚目のまま」と指示。生成マスターは ~/workspace/imagine_media/ に media-generation-std{19,21,23}-* として残存
-- ロック画面壁紙・ホーム写真ウィジェット・トークのアバター・番組アプリのカード類は、すべて上記ファイルの内容差し替えで自動追随（参照はファイル名ベース）。タイトル画面スライドショー8枚のうち nao の顔が出る7枚は新基準化（残り1枚 common/livehouse.jpg は大翔のみ）。**唯一の残件は 2021/stage.jpg**（タイトル3枚目・2021ロック壁紙に出る）
+- ロック画面壁紙・ホーム写真ウィジェット・トークのアバター・番組アプリのカード類は、すべて上記ファイルの内容差し替えで自動追随（参照はファイル名ベース）。タイトル画面スライドショー8枚のうち nao の顔が出る7枚は新基準化（残り1枚 common/live-venue.jpg は大翔のみ）。**唯一の残件は 2021/stage.jpg**（タイトル3枚目・2021ロック壁紙に出る）
 - 旧カットは hidden_files/nao-std-replace-backup/{2019,2021,2023}/ に保管。候補ファイル群（cand-*、profile-grown／real／real2、profile-final＝standard-finalにsuperseded、2021/profile-uniform-outdoor.jpg）は v150 で hidden_files/nao-candidates-retired/ へ退避し、assets から除去（表示参照ゼロを確認済み）
 
 ## 2026-11-09 v151 残件解消
@@ -194,4 +194,4 @@
 - 作り直し（2点）：
   - **2023 ranking-close**：順位発表式なのに首下げのスタッフ証風バッジ（BOYS PLANET P-27）＋黒Tインナー。実物の順位発表式は公式制服（グレーブレザー＋片襟だけ淡ピンク＋白シャツ＋ピンクのリボンタイ）で首下げバッジは存在せず、装着物ルールにも違反 → 公式制服に差し替え、バッジ・ストラップを除去。生成マスターは media-generation-nao-2023-ranking-uniform-fix-*、旧カットは hidden_files/nao-erafix-backup/2023/
   - **2021 ranking-close**：ファイナルの夜（成団夜）の場面なのに「创造营2021」ロゴ入りフーディ＋客席。実物の成団夜ファイナリストは黒の正装スーツ → 黒テーラードスーツ＋白シャツ＋黒タイに差し替え（祈る構図・ファイナル会場の背景は維持）。生成マスターは media-generation-nao-2021-ranking-suit-fix-*、旧カットは hidden_files/nao-erafix-backup/2021/
-- 申し送り：common/livehouse.jpg の看板「2026 LIVE」は、2025年ソロデビューの場面（idx2281）でも同一ファイルで共用されている。看板の年が読める大きさだが、同一ファイルの使い回し前提（2026年フィナーレが主用途）のため分離は大きな変更になる。作り直し対象にせず本人の判断材料とする
+- 申し送り（v247で解消済み）：旧 common/livehouse.jpg の看板「2026 LIVE」が2025年ソロデビューの場面（idx2281）でも読める年ズレは、本人の会場見直し決定（ライブハウス→小さなライブ会場）に伴い、看板を中立化した common/live-venue.jpg への差し替えで解消。旧ファイルは hidden_files/livehouse-backup/ に保管
