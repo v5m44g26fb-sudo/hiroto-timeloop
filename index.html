@@ -161,6 +161,21 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 .trow .tn{font-size:14.5px;font-weight:700}
 .trow .tp{font-size:12px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
 .trow .tt{margin-left:auto;font-size:11px;color:var(--sub);flex:none;max-width:86px;text-align:right;line-height:1.45}
+/* v136 talk realism (ported from hiroto-tinder LINE list: .ubadge/.pv + keep-kanri unread totals) */
+.tav{width:46px;height:46px;border-radius:50%;overflow:hidden;flex:none;display:grid;place-items:center}
+.tav img{width:100%;height:100%;object-fit:cover;object-position:top}
+.tmid{flex:1;min-width:0}
+.trow .tp{max-width:none}
+.ubadge{background:#06c755;color:#fff;border-radius:999px;min-width:19px;height:19px;font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;margin-left:7px;vertical-align:2px}
+.thd-date{text-align:center;margin:4px 0 14px}
+.thd-date span{background:rgba(20,30,60,.38);color:#fff;font-size:10.5px;padding:3px 10px;border-radius:99px}
+.thd-col{display:flex;flex-direction:column;max-width:82%}
+.thd-name{font-size:11px;color:#fff;margin:0 0 3px 2px;text-shadow:0 1px 3px rgba(20,30,60,.35)}
+.thd-bubw{display:flex;align-items:flex-end;gap:5px}
+.thd-meta{font-size:9.5px;color:rgba(255,255,255,.92);flex:none;line-height:1.35;text-shadow:0 1px 2px rgba(20,30,60,.3)}
+.thd-row.me .thd-meta{align-self:flex-end;text-align:right}
+.thd-av{width:34px;height:34px;border-radius:50%;flex:none;display:grid;place-items:center;overflow:hidden}
+#thd-nobar{padding:13px;text-align:center;font-size:12px;color:var(--sub);background:#fff;border-top:1px solid var(--line)}
 </style>
 <style>
 /* ===== v4 design system ===== */
@@ -496,16 +511,17 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 
 <!-- talk -->
 <section class="screen" id="talk">
-  <div class="apphead"><button class="back" data-home>‹</button><div><div class="ah-t">トーク</div><div class="ah-s">合宿中の連絡</div></div></div>
+  <div class="apphead"><button class="back" data-home>‹</button><div><div class="ah-t">トーク</div></div></div>
   <div class="appbody" id="talk-body"></div>
 </section>
 
 <!-- thread -->
 <section class="screen" id="thread">
-  <div class="apphead"><button class="back" id="thd-back">‹</button><div><div class="ah-t">井汲大翔</div><div class="ah-s">フリートーク ― 彼の返信は短く、少ないです</div></div></div>
+  <div class="apphead"><button class="back" id="thd-back">‹</button><div><div class="ah-t" id="thd-title">井汲大翔</div><div class="ah-s" id="thd-sub"></div></div></div>
   <div class="appbody" id="thd-body"></div>
   <div id="thd-chips"></div>
   <div id="thd-bar"><input id="thd-in" type="text" placeholder="メッセージを入力" autocomplete="off"><button id="thd-send">送信</button></div>
+  <div id="thd-nobar" style="display:none">このトークではメッセージを送信できません</div>
 </section>
 
 <!-- settings -->
@@ -521,11 +537,11 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v135";
+const VER="v136";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
- flags:{},ledger:[],keeps:[],diffs:[],snaps:{},votedDay:-1,voteTime:"",day:1,finishedA:false,hisSeen:false,talkSeen:false};
+ flags:{},ledger:[],keeps:[],diffs:[],snaps:{},votedDay:-1,voteTime:"",day:1,finishedA:false,hisSeen:false,talkSeen:false,talkRead:null};
 let S; try{S=Object.assign(JSON.parse(JSON.stringify(DEF)),JSON.parse(localStorage.getItem("tlSaveV2")||"{}"));}catch(e){S=JSON.parse(JSON.stringify(DEF));}
 if(!S.g)S.g=JSON.parse(JSON.stringify(DEF.g));
 function save(){try{localStorage.setItem("tlSaveV2",JSON.stringify(S));}catch(e){}}
@@ -1623,7 +1639,7 @@ function renderHome(){
  $("#w-sub").textContent=S.trueEnd?"過去の全部を共有した、二人の現在。":S.normalEnd?"デジャヴだけが残った、優しい現在。":S.loopBad?"約束は、守れなかった。":S.bareEnd?"秘密は、限界を迎えた。":S.ridatsuEnd?"歌っていた彼を、知っているのは彼女だけになった。":S.finishedNXDB?"約束の現在が、待っている。":S.finished23B?"3つの時代に、彼女のいた証拠が残った。":S.finished23A?"三度目の隣にも、彼女がいた。":S.flags.boys?"評価と人気が噛み合わない彼と、人気が先行する彼女。":S.finished21B?"2つの時代に、彼女のいた証拠が残った。":S.finished21A?"2つ目の時代でも、彼女は彼の隣にいた。":S.flags.chuang?"言葉のアウェーでも、応援は届く。":S.finishedB?"彼の歴史に、彼女のいた証拠が残った。":(S.flags.leaped?"結末は変えられない。でも順位も、彼との毎日も、努力で動く。":"1周目（史実）には、彼女は彼の歴史のどこにもいない。");
  $("#sb-title").textContent=S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":S.finishedNXDB?"大周回B ― 過去編・完":S.finished23B?"2023 ボイプラ編 ― 完":S.finished23A?"2023 ボイプラ編 ― 周A 完":S.finished21B?"2021 創造営編 ― 完":S.finished21A?"2021 創造営編 ― 周A 完":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"2019 日プ編 ― 完":c.title;
  $("#sb-desc").textContent=(S.trueEnd||S.normalEnd||S.loopBad||S.bareEnd)?"物語は結末に到達しました。記録は「設定・記録」で見返せます。":S.ridatsuEnd?"彼の岐路での関わりが、結末を分けました。記録は「設定・記録」で見返せます。":S.finishedNXDB?"おつかれさまでした。次は現在編（フィナーレ）です。記録は「設定・記録」で見返せます。":S.finished23B?"おつかれさまでした。次は大周回B・NXD期です。記録は「設定・記録」で見返せます。":S.finished23A?"おつかれさまでした。次は2023編・周Bです。記録は「設定・記録」で見返せます。":S.finished21B?"幕間2 ― 三度目の誘いへ進みます。":S.finished21A?"2021編・周Bへ進みます。":(S.finishedB&&!S.finishedM1&&c.title.startsWith("第1部"))?"幕間 ― 彼の岐路へ進みます。":c.sub; const _th=$("#sb-thumb");if(_th){const _ts=S.eraNow==="2021"?"assets/nao/2021/profile-close.jpg":(S.eraNow==="2023"||S.eraNow==="nxd")?"assets/nao/2023/profile-close.jpg":"assets/nao/2019/profile-face2-close2.jpg";if(_th.getAttribute("src")!==_ts)_th.src=_ts;}
- const _bdg={prog:([S.flags.ranked,S.flags.ranked21,S.flags.ranked23,S.flags.rankedB,S.flags.ranked21B,S.flags.ranked23B].filter(Boolean).length||""),talk:(!S.talkSeen&&S.flags.leaped&&S.idx>47?"1":""),settings:(S.diffs&&S.diffs.length?S.diffs.length:"")};
+ const _bdg={prog:([S.flags.ranked,S.flags.ranked21,S.flags.ranked23,S.flags.rankedB,S.flags.ranked21B,S.flags.ranked23B].filter(Boolean).length||""),talk:(talkUnreadTotal()||""),settings:(S.diffs&&S.diffs.length?S.diffs.length:"")};
  $("#apps").innerHTML=APPS.map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span>${_bdg[a.id]?`<span class="bdg">${_bdg[a.id]}</span>`:""}<span>${a.lb}</span></button>`).join("");
  document.querySelectorAll("#apps .appicon").forEach(b=>b.onclick=()=>{const a=APPS.find(x=>x.id===b.dataset.app);if(a.lock&&a.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}openApp(a.id);});
  const w3t=$("#w3-title"),w3d=$("#w3-desc");
@@ -1915,34 +1931,75 @@ $("#vw-prev").onclick=()=>{if(!GAL.length)return;vwI=(vwI-1+GAL.length)%GAL.leng
 $("#vw-next").onclick=()=>{if(!GAL.length)return;vwI=(vwI+1)%GAL.length;vwShow();seTap(0.6);};
 (function(){const v=$("#viewer");if(!v)return;let sx=0,sy=0;v.addEventListener("touchstart",e=>{const t=e.changedTouches[0];sx=t.clientX;sy=t.clientY;},{passive:true});v.addEventListener("touchend",e=>{if(!GAL.length)return;const t=e.changedTouches[0];const dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.4){if(dx<0)vwI=(vwI+1)%GAL.length;else vwI=(vwI-1+GAL.length)%GAL.length;vwShow();seTap(0.6);}},{passive:true});})();
 /* ============ talk ============ */
-function renderTalk(){
- const msgs=[
-  {at:47,who:"合宿連絡（全体）",img:"assets/hiroto/hiroto.jpg",p:"明日の集合は7時です。レベル分け評価の結果は掲示板で確認してください。",t:"合宿2日目"},
-  {at:75,who:"井汲大翔",img:"assets/hiroto/hiroto.jpg",p:"……今日の練習、ありがとうございました",t:"合宿中盤"},
-  {at:100,who:"井汲大翔",img:"assets/hiroto/hiroto.jpg",p:"飴、……ありがとう",t:"脱落の夜"},
-  {flag:"known",who:"井汲大翔",img:"assets/hiroto/hiroto.jpg",p:"……今度は最初から、分かってる。……よろしく、な",t:"2019年・大周回B"},
-  {flag:"tsukameB",who:"井汲大翔",img:"assets/hiroto/hiroto.jpg",p:"……歌詞、飛ばんかった。……ありがとう",t:"再評価の後で（周B）"},
-  {flag:"chuang",who:"創造営・学員連絡（全体）",img:"assets/hiroto21/hiroto.jpg",p:"欢迎来到创造营2021（ようこそ創造営2021へ）。初回評価のリハーサルは明日9時からです。",t:"2021年"},
-  {flag:"c21practice",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"今日の練習、ありがとうございました。中国語、もっと頑張ります",t:"2021年・合宿中"},
-  {flag:"c21stage",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"……ステージ、見てた。……すごかったな",t:"2021年・初回評価の後で"},
-  {flag:"ranked21",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"15位でした。……見ててくれて、ありがとう",t:"ファイナルの夜"},
-  {flag:"known21",who:"井汲大翔",img:"assets/hiroto21/hiroto.jpg",p:"ノート、最後のページ見た？　……名前、練習した",t:"2021年・周B"},
-  {flag:"boys",who:"BOYS PLANET 連絡（全体）",img:"assets/hiroto23/hiroto.jpg",p:"スターレベルテストのリハーサルは明日です。Gグループは第2練習室に集合してください。",t:"2023年"},
-  {flag:"b23stage",who:"井汲大翔",img:"assets/hiroto23/hiroto.jpg",p:"……星は2つやった。……でも、やれることはやった",t:"スターレベルテストの後で"},
-  {flag:"b23battle",who:"井汲大翔",img:"assets/hiroto23/hiroto.jpg",p:"今日の練習、撮ってくれてありがとう。……キリング、決める",t:"2023年・合宿中"},
-  {flag:"ranked23",who:"井汲大翔",img:"assets/hiroto23/hiroto.jpg",p:"21位でした。三回も挑戦させてもらえて、感謝しかないです",t:"第3回発表の夜"},
-  {flag:"known23",who:"井汲大翔",img:"assets/hiroto23/hiroto.jpg",p:"……三度目も、よろしくな。今度は最初から分かってる",t:"2023年・周B"},
-  {flag:"ranked23B",who:"井汲大翔",img:"assets/hiroto23/hiroto.jpg",p:"結果は出た。……でも今までで一番、届いた気がする",t:"順位発表（2回目）の後で"},
-  {flag:"nxdB",who:"井汲大翔",img:"assets/hiroto23/hiroto.jpg",p:"……延期、また決まった。……でも、練習は続ける",t:"NXD期・周B"},
-  {flag:"nxdDone",who:"井汲大翔",img:"assets/hiroto23/hiroto.jpg",p:"ソロで、デビューします。……見に来てくれますか",t:"2025年"}
- ];
+/* v136: talk list rebuilt as real threads.
+   Ported from hiroto-tinder LINE (1 contact = 1 thread, latest-message preview,
+   .ubadge unread pill, open-to-clear) and keep-kanri (per-thread unread counts
+   feeding the home badge). Times are story-calendar values (d "YYYY/M/D", tm "H:MM"). */
+const TALK_THREADS={
+ pd:{name:"合宿連絡（全体）",group:true,color:"#5b7fa6",sub:"メンバー 101人"},
+ hiroto:{name:"井汲大翔",group:false},
+ cy:{name:"創造営・学員連絡（全体）",group:true,color:"#7a6fb0",sub:"メンバー 90人"},
+ bp:{name:"BOYS PLANET 連絡（全体）",group:true,color:"#4f8f7a",sub:"メンバー 98人"}
+};
+const TALK_MSGS=[
+ {th:"pd",at:47,from:"運営スタッフ",p:"明日の集合は7時です。レベル分け評価の結果は掲示板で確認してください。",d:"2019/9/3",tm:"21:04"},
+ {th:"hiroto",at:75,img:"assets/hiroto/hiroto.jpg",p:"……今日の練習、ありがとうございました",d:"2019/9/20",tm:"23:12"},
+ {th:"hiroto",at:100,img:"assets/hiroto/hiroto.jpg",p:"飴、……ありがとう",d:"2019/11/1",tm:"23:47"},
+ {th:"hiroto",flag:"known",cyc:"B",img:"assets/hiroto/hiroto.jpg",p:"……今度は最初から、分かってる。……よろしく、な",d:"2019/9/2",tm:"22:31"},
+ {th:"hiroto",flag:"tsukameB",cyc:"B",img:"assets/hiroto/hiroto.jpg",p:"……歌詞、飛ばんかった。……ありがとう",d:"2019/9/10",tm:"22:05"},
+ {th:"cy",flag:"chuang",from:"運営",p:"欢迎来到创造营2021（ようこそ創造営2021へ）。初回評価のリハーサルは明日9時からです。",d:"2021/1/18",tm:"20:15"},
+ {th:"hiroto",flag:"c21practice",img:"assets/hiroto21/hiroto.jpg",p:"今日の練習、ありがとうございました。中国語、もっと頑張ります",d:"2021/2/6",tm:"22:38"},
+ {th:"hiroto",flag:"c21stage",img:"assets/hiroto21/hiroto.jpg",p:"……ステージ、見てた。……すごかったな",d:"2021/2/20",tm:"23:05"},
+ {th:"hiroto",flag:"ranked21",img:"assets/hiroto21/hiroto.jpg",p:"15位でした。……見ててくれて、ありがとう",d:"2021/4/24",tm:"23:52"},
+ {th:"hiroto",flag:"known21",cyc:"B",img:"assets/hiroto21/hiroto.jpg",p:"ノート、最後のページ見た？　……名前、練習した",d:"2021/1/19",tm:"22:10"},
+ {th:"bp",flag:"boys",from:"運営",p:"スターレベルテストのリハーサルは明日です。Gグループは第2練習室に集合してください。",d:"2023/1/5",tm:"19:40"},
+ {th:"hiroto",flag:"b23stage",img:"assets/hiroto23/hiroto.jpg",p:"……星は2つやった。……でも、やれることはやった",d:"2023/2/3",tm:"22:26"},
+ {th:"hiroto",flag:"b23battle",img:"assets/hiroto23/hiroto.jpg",p:"今日の練習、撮ってくれてありがとう。……キリング、決める",d:"2023/3/4",tm:"21:17"},
+ {th:"hiroto",flag:"ranked23",img:"assets/hiroto23/hiroto.jpg",p:"21位でした。三回も挑戦させてもらえて、感謝しかないです",d:"2023/4/7",tm:"23:41"},
+ {th:"hiroto",flag:"known23",cyc:"B",img:"assets/hiroto23/hiroto.jpg",p:"……三度目も、よろしくな。今度は最初から分かってる",d:"2023/1/6",tm:"21:03"},
+ {th:"hiroto",flag:"ranked23B",cyc:"B",img:"assets/hiroto23/hiroto.jpg",p:"結果は出た。……でも今までで一番、届いた気がする",d:"2023/4/7",tm:"23:58"},
+ {th:"hiroto",flag:"nxdB",cyc:"B",img:"assets/hiroto23/hiroto.jpg",p:"……延期、また決まった。……でも、練習は続ける",d:"2024/10/15",tm:"22:20"},
+ {th:"hiroto",flag:"nxdDone",img:"assets/hiroto23/hiroto.jpg",p:"ソロで、デビューします。……見に来てくれますか",d:"2025/6/28",tm:"20:30"}
+];
+function talkVisMsgs(){
  const eraOrd={"2019":0,"2021":1,"2023":2,"nxd":3,"now":4};
  const curOrd=S.eraNow!==undefined?eraOrd[S.eraNow]:(S.flags.boys?2:S.flags.chuang?1:0);
- const msgEra=m=>{if(!m.flag)return 0;if(m.flag==="chuang"||m.flag==="ranked21"||m.flag==="known21"||m.flag.indexOf("c21")===0)return 1;if(m.flag==="boys"||m.flag==="ranked23"||m.flag==="ranked23B"||m.flag==="known23"||m.flag.indexOf("b23")===0)return 2;return 0;};
- const vis=msgs.filter(m=>(m.flag?!!S.flags[m.flag]:(S.idx>=m.at))&&msgEra(m)<=curOrd);
- $("#talk-body").innerHTML=(vis.length?vis.map((m,i)=>`<div class="trow"><img src="${m.img}"><div><div class="tn">${m.who}${i===vis.length-1?'<span class="tnew">新着</span>':''}</div><div class="tp">${m.p}</div></div><div class="tt">${m.t}</div></div>`).join(""):`<div class="empty">まだトークはありません。<br>物語を進めると、合宿中の連絡が届きます。</div>`)+`<p class="small" style="padding:12px 16px">※ 彼のメッセージは短く、少ない。人見知りの彼のペースそのままです。<br>※ 井汲大翔のトークをタップすると、スレッドが開きます（フリートークはおまけで、物語の数値には影響しません）。</p>`;
- document.querySelectorAll("#talk-body .trow").forEach((el,i)=>{const m=vis[i];if(m&&m.who==="井汲大翔"){el.classList.add("th-open");el.onclick=()=>{seTap(1);openThread(vis.filter(x=>x.who==="井汲大翔"));};}});
- if(!S.talkSeen){S.talkSeen=true;save();}
+ const me=m=>{if(m.th==="cy")return 1;if(m.th==="bp")return 2;const f=m.flag||"";if(f.indexOf("c21")===0||f==="ranked21"||f==="known21")return 1;if(f.indexOf("b23")===0||f==="ranked23"||f==="ranked23B"||f==="known23")return 2;if(f==="nxdB"||f==="nxdDone")return 3;return 0;};
+ return TALK_MSGS.filter(m=>(m.flag?!!S.flags[m.flag]:S.idx>=m.at)&&me(m)<=curOrd);
+}
+function ensureTalkRead(){
+ if(S.talkRead===null||S.talkRead===undefined){S.talkRead={};const vis=talkVisMsgs();Object.keys(TALK_THREADS).forEach(t=>{S.talkRead[t]=vis.filter(m=>m.th===t).length;});save();}
+}
+function talkUnreadTotal(){
+ ensureTalkRead();const vis=talkVisMsgs();
+ return Object.keys(TALK_THREADS).reduce((a,t)=>a+Math.max(0,vis.filter(m=>m.th===t).length-(S.talkRead[t]||0)),0);
+}
+const WD=["日","月","火","水","木","金","土"];
+function dLabel(dstr){const p=dstr.split("/").map(Number);return p[0]+"年"+p[1]+"月"+p[2]+"日（"+WD[new Date(p[0],p[1]-1,p[2]).getDay()]+"）";}
+function listTime(m,today){
+ if(!today||m.d===today)return m.tm;
+ const a=m.d.split("/").map(Number),b=today.split("/").map(Number);
+ const diff=Math.round((new Date(b[0],b[1]-1,b[2])-new Date(a[0],a[1]-1,a[2]))/86400000);
+ if(diff===1)return "昨日";
+ if(a[0]===b[0])return a[1]+"/"+a[2];
+ return a[0]+"/"+a[1]+"/"+a[2];
+}
+function groupAv(color,sz){return `<span class="tav" style="background:${color};${sz?`width:${sz}px;height:${sz}px`:""}"><svg viewBox="0 0 24 24" width="62%" height="62%"><circle cx="9" cy="8.6" r="3.5" fill="#fff"/><path d="M2.6 19.6c.7-3.4 3.2-5.2 6.4-5.2s5.7 1.8 6.4 5.2z" fill="#fff"/><circle cx="17.2" cy="9.6" r="2.8" fill="#fff" opacity=".72"/><path d="M15.6 14.7c2.9-.2 5.1 1.5 5.8 4.5l.2.4h-4.4c-.3-2-1-3.7-2.1-4.8z" fill="#fff" opacity=".72"/></svg></span>`;}
+function renderTalk(){
+ ensureTalkRead();
+ const vis=talkVisMsgs();
+ const today=vis.length?vis[vis.length-1].d:null;
+ const rows=Object.keys(TALK_THREADS).map(tid=>{
+  const ms=vis.filter(m=>m.th===tid);if(!ms.length)return null;
+  const last=ms[ms.length-1];
+  return {tid,last,un:Math.max(0,ms.length-(S.talkRead[tid]||0)),ord:TALK_MSGS.indexOf(last)};
+ }).filter(Boolean).sort((a,b)=>b.ord-a.ord);
+ $("#talk-body").innerHTML=rows.length?rows.map(r=>{
+  const T=TALK_THREADS[r.tid];
+  const av=T.group?groupAv(T.color):`<span class="tav"><img src="${r.last.img}" alt=""></span>`;
+  return `<div class="trow" data-th="${r.tid}">${av}<div class="tmid"><div class="tn">${T.name}${r.un?`<span class="ubadge">${r.un>99?"99+":r.un}</span>`:""}</div><div class="tp">${r.last.p}</div></div><div class="tt">${listTime(r.last,today)}</div></div>`;
+ }).join(""):`<div class="empty">トークはまだありません。</div>`;
+ document.querySelectorAll("#talk-body .trow").forEach(el=>{el.onclick=()=>{seTap(1);openThread(el.dataset.th);};});
 }
 /* ============ talk thread + free chat (bonus; no effect on story numbers) ============ */
 let thdImg="assets/hiroto/hiroto.jpg",thdBusy=false,thdDef=0;
@@ -1980,8 +2037,40 @@ const THD_RULES=[
  {k:["英語"],r:["……英語は、もっと分からん","……歌詞の意味だけ、調べたりする"]}
 ];
 const THD_DEF=["……うん","……ありがとう","……また明日な","……練習、戻るわ","……そっか","……うん、聞いてる"];
-function thdBub(me,t,img){return me?`<div class="thd-row me"><div class="thd-bub">${esc(t)}</div></div>`:`<div class="thd-row"><img src="${img||thdImg}"><div class="thd-bub">${esc(t)}</div></div>`;}
-function openThread(hist){if(hist.length)thdImg=hist[hist.length-1].img;const b=$("#thd-body");b.innerHTML=`<div class="thd-note">― これまでのトーク ―</div>`+hist.map(m=>thdBub(false,m.p,m.img)).join("")+`<div class="thd-note">― フリートーク（ここから自由に送れます）―</div>`;$("#thd-chips").innerHTML=["おつかれさま","応援してる","飴あげる","プリン買ってきた","明日もがんばろ","順位どうだった？","約束覚えてる？","新曲どう？","おやすみ","緊張してない？"].map(c=>`<button>${c}</button>`).join("");document.querySelectorAll("#thd-chips button").forEach(x=>x.onclick=()=>sendThd(x.textContent));b.scrollTop=b.scrollHeight;show("thread");}
+let curTh="hiroto",thdClock=null;
+function minsOf(tm){const p=tm.split(":").map(Number);return p[0]*60+p[1];}
+function tmOf(mins){mins=((mins%1440)+1440)%1440;return Math.floor(mins/60)+":"+String(mins%60).padStart(2,"0");}
+function thdBub(me,t,img,m){
+ if(me)return `<div class="thd-row me"><span class="thd-meta pr">${thdClock?tmOf(thdClock.mins):""}</span><div class="thd-bub">${esc(t)}</div></div>`;
+ const T=m&&m.th?TALK_THREADS[m.th]:null;
+ const av=T&&T.group?groupAv(T.color,34):`<img src="${img||thdImg}">`;
+ const tm=m&&m.tm?m.tm:(thdClock?tmOf(thdClock.mins):"");
+ return `<div class="thd-row">${av}<div class="thd-col">${m&&m.from?`<div class="thd-name">${m.from}</div>`:""}<div class="thd-bubw"><div class="thd-bub">${esc(t)}</div>${tm?`<span class="thd-meta">${tm}</span>`:""}</div></div></div>`;
+}
+function openThread(tid){
+ curTh=tid;const T=TALK_THREADS[tid];if(!T)return;
+ ensureTalkRead();
+ const vis=talkVisMsgs().filter(m=>m.th===tid);
+ S.talkRead[tid]=vis.length;save();
+ $("#thd-title").textContent=T.name;
+ $("#thd-sub").textContent=T.group?T.sub:"";
+ $("#thd-sub").style.display=T.group?"":"none";
+ const his=vis.filter(m=>m.img);if(his.length)thdImg=his[his.length-1].img;
+ let html="",lastD="";
+ vis.forEach(m=>{if(m.d!==lastD){html+=`<div class="thd-date"><span>${dLabel(m.d)}${m.cyc==="B"?" ― 2周目":""}</span></div>`;lastD=m.d;}html+=thdBub(false,m.p,m.img,m);});
+ $("#thd-body").innerHTML=html;
+ const isH=tid==="hiroto";
+ $("#thd-chips").style.display=isH?"":"none";
+ $("#thd-bar").style.display=isH?"":"none";
+ $("#thd-nobar").style.display=isH?"none":"";
+ if(isH){
+  const last=vis[vis.length-1];
+  thdClock=last?{d:last.d,mins:minsOf(last.tm)}:{d:"2019/9/20",mins:23*60+12};
+  $("#thd-chips").innerHTML=["おつかれさま","応援してる","飴あげる","プリン買ってきた","明日もがんばろ","順位どうだった？","約束覚えてる？","新曲どう？","おやすみ","緊張してない？"].map(c=>`<button>${c}</button>`).join("");
+  document.querySelectorAll("#thd-chips button").forEach(x=>x.onclick=()=>sendThd(x.textContent));
+ }
+ const b=$("#thd-body");b.scrollTop=b.scrollHeight;show("thread");
+}
 const THD_ERA={
  "2019":["……今日も練習室やった","……合宿のごはん、意外とうまい","……ツカメ、あとちょっとやねん","……明日も早い。……寝な","……宿舎の布団、かたいねん","……洗濯、ためすぎた"],
  "2021":["……中国語、まだ勉強中やねん","……今日、寮で練習した","……こっちは暑い。……そっちは？","……単語帳、最後までいった","……海、近いねん。……風、強いけど","……こっちのごはん、辛い日が増えた","……関西弁、中国語でも出るらしい"],
@@ -1990,7 +2079,22 @@ const THD_ERA={
  "now":["……今日は配信ある","……この前は、来てくれてありがとう","……歌、聴いてくれた？","……新曲、練習中やねん","……次は、ライブでな","……髪、ちょっと切った。……気づいた？","……ファンミの準備中。……楽しみにしててな","……配信、コメント読んでるで","……次の曲、もうちょっとで聴かせられる"]
 };
 function hirotoReply(t){for(const rule of THD_RULES){if(rule.k.some(k=>t.includes(k)))return rule.r[Math.floor(Math.random()*rule.r.length)];}const era=(S.trueEnd||S.finishedNXDB)?"now":(S.eraNow||"2019");const pool=(THD_ERA[era]||[]).concat(THD_DEF);const d=pool[thdDef%pool.length];thdDef++;return d;}
-function sendThd(txt){txt=(txt||"").trim();if(!txt||thdBusy)return;const b=$("#thd-body");b.insertAdjacentHTML("beforeend",thdBub(true,txt));$("#thd-in").value="";b.scrollTop=b.scrollHeight;thdBusy=true;const _lag=600+Math.random()*1400;setTimeout(()=>{if(!document.querySelector("#thread").classList.contains("on")){thdBusy=false;return;}b.insertAdjacentHTML("beforeend",`<div class="thd-row" id="thd-typing"><img src="${thdImg}"><div class="thd-bub">……</div></div>`);b.scrollTop=b.scrollHeight;},_lag);setTimeout(()=>{const ty=$("#thd-typing");if(ty)ty.outerHTML=thdBub(false,hirotoReply(txt));b.scrollTop=b.scrollHeight;thdBusy=false;seTap(0.7);},_lag+900);}
+function sendThd(txt){
+ txt=(txt||"").trim();if(!txt||thdBusy||curTh!=="hiroto")return;
+ const b=$("#thd-body");
+ if(thdClock)thdClock.mins+=2;
+ b.insertAdjacentHTML("beforeend",thdBub(true,txt));
+ $("#thd-in").value="";b.scrollTop=b.scrollHeight;thdBusy=true;
+ const _lag=600+Math.random()*1400;
+ setTimeout(()=>{if(!document.querySelector("#thread").classList.contains("on")){thdBusy=false;return;}b.insertAdjacentHTML("beforeend",`<div class="thd-row" id="thd-typing"><img src="${thdImg}"><div class="thd-bub">……</div></div>`);b.scrollTop=b.scrollHeight;},_lag);
+ setTimeout(()=>{
+  const ty=$("#thd-typing");if(thdClock)thdClock.mins+=1;
+  if(ty)ty.outerHTML=thdBub(false,hirotoReply(txt));
+  /* 既読: ported from hiroto-tinder himMsg -- his reply flips my pending metas to 既読 */
+  document.querySelectorAll("#thd-body .thd-row.me .thd-meta.pr").forEach(mt=>{mt.innerHTML="既読<br>"+mt.textContent;mt.classList.remove("pr");});
+  b.scrollTop=b.scrollHeight;thdBusy=false;seTap(0.7);
+ },_lag+900);
+}
 $("#thd-send").onclick=()=>sendThd($("#thd-in").value);
 $("#thd-in").addEventListener("keydown",e=>{if(e.key==="Enter")sendThd($("#thd-in").value);});
 $("#thd-back").onclick=()=>{renderTalk();show("talk");};
@@ -2019,7 +2123,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  <div class="srow"><span>到達した結末</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":"（まだ到達していません）"}</span></div>
  <div class="srow"><span>サウンド</span><span class="sv"><button id="snd-btn" style="background:${S.soundOn!==false?"#17172a":"#c6c6d4"};color:#fff;border:none;border-radius:999px;padding:6px 18px;font-size:12.5px;font-weight:700;cursor:pointer">${S.soundOn!==false?"ON":"OFF"}</button></span></div>
  <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
- <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加／v83 フリーチャットの話題拡充（2019専用プール＋新キーワード6種＋チップ追加）／v84 周Aの彼の記憶の線引きで全監査（2021・2023到着場面と彼の画面3件を連続した同僚の前提に書き換え）／v85 2019周A・練習室の夜に彼の視点（インライン）を追加／v86 2021周A・寮の一夜に彼の視点（インライン）を追加／v87 2023周A・コンビニの夜に彼の視点（インライン）を追加／v88 台帳・Keepsake・Diffの時代分類を修正（NXD期グループ新設、誤分類6件を是正）／v89 場面カット追加（2023順位発表の夜・face2基準で新規生成）／v90 場面カット追加（2021ファイナルの夜・face2基準で新規生成）／v91 節目 ― 全アプリ走査／v92 日常回「自販機の夜」（2023・周B）を追加／v93 2019周A・レベル分け評価に彼の視点（インライン）を追加／v94 写真アプリに時代別グルーピング（見出し＋枚数）を追加／v95 場面カット追加（NXD期・夜の練習室、face2基準で新規生成）／v96 フリーチャットの時代別プールを拡充（各時代＋2件）／v97 2019周B・発覚に彼の視点（インライン）を追加／v98 2021周B・再会に彼の視点（インライン）を追加／v99 2023周B・発覚に彼の視点（インライン）を追加／v100 節目 ― 全編通しプレイ検証／v101 効果音の配線追加（台帳・Keepsake・彼の視点）／v102 トークに彼のメッセージを3件追加／v103 タイトルのスライドショー拡充（8枚）とホーム背景のNXD期差し替え／v104 2023周B・再会に彼の視点（インライン）を追加／v105 2021周B・売店の夜に彼の視点（インライン）を追加／v106 NXD期・周B「移籍の決断」に彼の視点（インライン）を追加／v107 2023周B・共同作戦に彼の視点（インライン）を追加／v108 2019周B・共同作戦（ツカメ対策）に彼の視点（インライン）を追加／v109 2021周B・共同作戦に彼の視点（インライン）を追加／v110 NXD期・周B「延期の季節 ― 二度目」に彼の視点（インライン）を追加／v111 フリーチャット拡充（キーワード応答3種・チップ2件・現在編プール拡充）／v112 節目 ― 全アプリ走査／v113 2023周B・自販機の夜に彼の視点（インライン）を追加／v114 2019周A・食堂の夜に彼の視点（インライン）を追加／v115 2021周B・順位発表の締めに彼の視点（インライン）を追加／v116 設計ドキュメントの実装状況を更新／v117 場面カット追加（2019食堂の夜・face2基準で新規生成）／v118 場面カット追加（2021売店の夜・face2基準で新規生成）／v119 場面カット追加（2023コンビニの夜・face2基準で新規生成）／v120 背景の差し替え（現在編の冒頭とソロデビューの場面）／v121 節目 ― 全編通しプレイ検証（v101〜v120の追加後）／v122 画像出典メモ（IMAGE_SOURCES.md）に新規カット6点とface2基準を追記／v123 READMEの状態表記を現行（本編完結・公開中）に更新／v124 視覚QAで発見した順位タブの防御的修正（順位値の欠損時に最低ラインへフォールバック）／v125 節目 ― 全画面の視覚QA（撮影確認）／v126 節目 ― 別エンディング到達検証（秘密バレIF・離脱した現在）／v127 節目 ― 全5エンディング到達検証の完了（通常現在・ループ継続BADを追加確認）／v128 設計ドキュメントの実装状況に最終検証結果を追記／v129 READMEの現行版表記を更新／v130 生成メタファイルを .gitignore に追加して作業ツリーを整理／v131 「届くはずのなかった手紙」に背景を設定（食堂カットの引き継ぎを解消）／v132 フリーチャットの応答拡充（キーワード応答8種・時代別プール各+2件・チップ2件を追加）／v133 仕上げのUI調整（ホームのアプリアイコンのラベルの可読性を向上、ストーリー画面のゲージチップを均等な3+3配置に整形）／v134 フリーチャットに語学の話題を追加（中国語・韓国語・英語へのキーワード応答）／v135 節目 ― 朝まで改修の最終版（全アプリ走査・ドキュメント同期）</span></div>
+ <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加／v83 フリーチャットの話題拡充（2019専用プール＋新キーワード6種＋チップ追加）／v84 周Aの彼の記憶の線引きで全監査（2021・2023到着場面と彼の画面3件を連続した同僚の前提に書き換え）／v85 2019周A・練習室の夜に彼の視点（インライン）を追加／v86 2021周A・寮の一夜に彼の視点（インライン）を追加／v87 2023周A・コンビニの夜に彼の視点（インライン）を追加／v88 台帳・Keepsake・Diffの時代分類を修正（NXD期グループ新設、誤分類6件を是正）／v89 場面カット追加（2023順位発表の夜・face2基準で新規生成）／v90 場面カット追加（2021ファイナルの夜・face2基準で新規生成）／v91 節目 ― 全アプリ走査／v92 日常回「自販機の夜」（2023・周B）を追加／v93 2019周A・レベル分け評価に彼の視点（インライン）を追加／v94 写真アプリに時代別グルーピング（見出し＋枚数）を追加／v95 場面カット追加（NXD期・夜の練習室、face2基準で新規生成）／v96 フリーチャットの時代別プールを拡充（各時代＋2件）／v97 2019周B・発覚に彼の視点（インライン）を追加／v98 2021周B・再会に彼の視点（インライン）を追加／v99 2023周B・発覚に彼の視点（インライン）を追加／v100 節目 ― 全編通しプレイ検証／v101 効果音の配線追加（台帳・Keepsake・彼の視点）／v102 トークに彼のメッセージを3件追加／v103 タイトルのスライドショー拡充（8枚）とホーム背景のNXD期差し替え／v104 2023周B・再会に彼の視点（インライン）を追加／v105 2021周B・売店の夜に彼の視点（インライン）を追加／v106 NXD期・周B「移籍の決断」に彼の視点（インライン）を追加／v107 2023周B・共同作戦に彼の視点（インライン）を追加／v108 2019周B・共同作戦（ツカメ対策）に彼の視点（インライン）を追加／v109 2021周B・共同作戦に彼の視点（インライン）を追加／v110 NXD期・周B「延期の季節 ― 二度目」に彼の視点（インライン）を追加／v111 フリーチャット拡充（キーワード応答3種・チップ2件・現在編プール拡充）／v112 節目 ― 全アプリ走査／v113 2023周B・自販機の夜に彼の視点（インライン）を追加／v114 2019周A・食堂の夜に彼の視点（インライン）を追加／v115 2021周B・順位発表の締めに彼の視点（インライン）を追加／v116 設計ドキュメントの実装状況を更新／v117 場面カット追加（2019食堂の夜・face2基準で新規生成）／v118 場面カット追加（2021売店の夜・face2基準で新規生成）／v119 場面カット追加（2023コンビニの夜・face2基準で新規生成）／v120 背景の差し替え（現在編の冒頭とソロデビューの場面）／v121 節目 ― 全編通しプレイ検証（v101〜v120の追加後）／v122 画像出典メモ（IMAGE_SOURCES.md）に新規カット6点とface2基準を追記／v123 READMEの状態表記を現行（本編完結・公開中）に更新／v124 視覚QAで発見した順位タブの防御的修正（順位値の欠損時に最低ラインへフォールバック）／v125 節目 ― 全画面の視覚QA（撮影確認）／v126 節目 ― 別エンディング到達検証（秘密バレIF・離脱した現在）／v127 節目 ― 全5エンディング到達検証の完了（通常現在・ループ継続BADを追加確認）／v128 設計ドキュメントの実装状況に最終検証結果を追記／v129 READMEの現行版表記を更新／v130 生成メタファイルを .gitignore に追加して作業ツリーを整理／v131 「届くはずのなかった手紙」に背景を設定（食堂カットの引き継ぎを解消）／v132 フリーチャットの応答拡充（キーワード応答8種・時代別プール各+2件・チップ2件を追加）／v133 仕上げのUI調整（ホームのアプリアイコンのラベルの可読性を向上、ストーリー画面のゲージチップを均等な3+3配置に整形）／v134 フリーチャットに語学の話題を追加（中国語・韓国語・英語へのキーワード応答）／v135 節目 ― 朝まで改修の最終版（全アプリ走査・ドキュメント同期）／v136 トークを実物化（1相手=1スレッドに集約・未読バッジ・プレビュー・実物時刻・日付チップ・自分の送信への既読表示。仕組みは『現役アイドル、Tinderやってた件』のLINEと『キープ管理中！』の未読管理から移植）</span></div>
  <div class="pad"><p class="small">エンディングは5種（TRUE現在／通常現在／離脱した現在／秘密バレIF／ループ継続BAD）。結末は、彼の岐路での関わり・手がかり（Keepsakeと届いた数）・男装バレ度・最後の選択で分かれます。なお「デビューしてしまう現在」はIF候補として設計にのみ記録され、本編では採用していません（デビューメンバー構成は不変のため）。</p></div>
  <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
  const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV2");location.reload();}};
