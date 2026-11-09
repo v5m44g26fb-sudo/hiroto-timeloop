@@ -368,6 +368,37 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 #thd-bar{display:flex;gap:8px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line)}
 #thd-in{flex:1;border:1px solid var(--line);border-radius:999px;padding:10px 14px;font-size:14px;outline:none;background:#f7f7fa}
 #thd-send{background:var(--acc);color:#fff;border:none;border-radius:999px;padding:0 18px;font-size:13.5px;font-weight:700;cursor:pointer}
+/* ===== v139: talk matched to hiroto-tinder v462 LINE (measured side-by-side) ===== */
+#talk .apphead .back,#thread .apphead .back{color:#111}
+#talk .apphead{padding:12px 14px 10px}
+#talk .apphead .ah-t{font-size:16.5px;font-weight:800}
+#thread .apphead .ah-t{font-size:15.5px;font-weight:800}
+#thd-av{width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:top;flex:none;background:#fff}
+#talk-search-wrap{padding:8px 12px;background:#fff;border-bottom:1px solid #f2f2f7}
+#talk-search{width:100%;border:none;background:#f2f2f7;border-radius:10px;padding:8px 12px;font-size:13.5px;outline:none;box-sizing:border-box;font-family:inherit}
+#talk-body .trow{border-bottom:1px solid #f2f2f7}
+#talk-body .tav{width:48px;height:48px}
+#talk-body .trow .tn{font-size:15px}
+#talk-body .trow .tp{font-size:12.5px;color:#71717a}
+#talk-body .trow .tt{color:#71717a}
+#talk-body .ubadge{border-radius:10px;font-weight:700}
+#thread{background:#8ba6c9}
+#thd-body{background:#8ba6c9;display:flex;flex-direction:column;gap:9px;padding:14px 12px 8px}
+.thd-row{margin-bottom:0}
+.thd-bub{border-radius:16px;border-bottom-left-radius:4px;padding:8px 12px;font-size:14.5px;line-height:1.55;max-width:80%;box-shadow:none}
+.thd-row.me .thd-bub{background:#a7e28f;border-top-left-radius:16px;border-top-right-radius:16px;border-bottom-left-radius:16px;border-bottom-right-radius:4px}
+.thd-meta{font-size:10px;color:rgba(255,255,255,.95)}
+.thd-date{margin:2px 0 4px}
+.thd-date span{background:rgba(0,0,0,.22);font-size:11px;padding:3px 11px;border-radius:11px}
+.thd-note{margin:2px 0 4px}
+.thd-name{font-size:10px;color:rgba(38,64,96,.72);text-shadow:none;margin:1px 0 2px 1px}
+#thd-chips{background:#fff;border-top:1px solid #f2f2f7}
+#thd-chips button{border:1.5px solid #06c755;color:#07873a;background:#f2fdf5;border-radius:20px;padding:8px 13px;font-weight:700}
+#thd-chips button:active{background:#dcf5e3}
+#thd-bar{padding:9px 12px calc(9px + env(safe-area-inset-bottom));align-items:center}
+#thd-in{border:none;background:#f2f2f7;border-radius:18px;padding:10px 13px}
+#thd-send{background:#06c755;border-radius:16px;padding:8px 13px;font-size:13px;font-weight:800}
+.thd-ic{flex:none;display:grid;place-items:center;background:none;border:none;padding:2px;cursor:pointer}
 /* ===== v22: program app polish ===== */
 .rank-note{margin:12px 16px 4px;background:linear-gradient(120deg,#fdf6ff,#eef4ff);border:1px solid #e3d9f5;border-radius:14px;padding:12px 14px;font-size:12.5px;line-height:1.7;color:#4a4458}
 .rank-note b{color:#7a4fd0}
@@ -511,15 +542,16 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <!-- talk -->
 <section class="screen" id="talk">
   <div class="apphead"><button class="back" data-home>‹</button><div><div class="ah-t">トーク</div></div></div>
+  <div id="talk-search-wrap"><input id="talk-search" type="text" placeholder="検索" autocomplete="off"></div>
   <div class="appbody" id="talk-body"></div>
 </section>
 
 <!-- thread -->
 <section class="screen" id="thread">
-  <div class="apphead"><button class="back" id="thd-back">‹</button><div><div class="ah-t" id="thd-title">井汲大翔</div><div class="ah-s" id="thd-sub"></div></div></div>
+  <div class="apphead"><button class="back" id="thd-back">‹</button><img id="thd-av" alt=""><div><div class="ah-t" id="thd-title">井汲大翔</div><div class="ah-s" id="thd-sub"></div></div></div>
   <div class="appbody" id="thd-body"></div>
   <div id="thd-chips"></div>
-  <div id="thd-bar"><input id="thd-in" type="text" placeholder="メッセージを入力" autocomplete="off"><button id="thd-send">送信</button></div>
+  <div id="thd-bar"><button class="thd-ic" id="thd-plus" aria-label="チップ表示切替"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button><button class="thd-ic" id="thd-cam" aria-label="写真を開く"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="1.8" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="14" r="3.6"/></svg></button><input id="thd-in" type="text" placeholder="メッセージを入力" autocomplete="off"><button id="thd-send">送信</button></div>
   <div id="thd-nobar" style="display:none">このトークではメッセージを送信できません</div>
 </section>
 
@@ -536,7 +568,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v138";
+const VER="v139";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -2057,6 +2089,7 @@ function openThread(tid){
  $("#thd-sub").textContent=T.group?T.sub:"";
  $("#thd-sub").style.display=T.group?"":"none";
  const his=vis.filter(m=>m.img);if(his.length)thdImg=his[his.length-1].img;
+ const _av=$("#thd-av");if(T.group){_av.style.display="none";}else{_av.style.display="";_av.src=thdImg;}
  let html="",lastD="";
  vis.forEach(m=>{if(m.d!==lastD){html+=`<div class="thd-date"><span>${dLabel(m.d)}${m.cyc==="B"?" ― 2周目":""}</span></div>`;lastD=m.d;}html+=thdBub(false,m.p,m.img,m);});
  $("#thd-body").innerHTML=html;
@@ -2096,6 +2129,10 @@ function sendThd(txt){
   b.scrollTop=b.scrollHeight;thdBusy=false;seTap(0.7);
  },_lag+900);
 }
+/* v139: talk search (ported from hiroto-tinder #line-search) + input-bar icons */
+const _ts=$("#talk-search");if(_ts)_ts.addEventListener("input",()=>{const q=_ts.value.trim();document.querySelectorAll("#talk-body .trow").forEach(el=>{const T=TALK_THREADS[el.dataset.th];const hit=!q||(T&&T.name.includes(q))||el.textContent.includes(q);el.style.display=hit?"":"none";});});
+const _tp=$("#thd-plus");if(_tp)_tp.onclick=()=>{const c=$("#thd-chips");if(c)c.style.display=(c.style.display==="none")?"":"none";};
+const _tc=$("#thd-cam");if(_tc)_tc.onclick=()=>openApp("gallery");
 $("#thd-send").onclick=()=>sendThd($("#thd-in").value);
 $("#thd-in").addEventListener("keydown",e=>{if(e.key==="Enter")sendThd($("#thd-in").value);});
 $("#thd-back").onclick=()=>{renderTalk();show("talk");};
@@ -2124,7 +2161,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  <div class="srow"><span>到達した結末</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":"（まだ到達していません）"}</span></div>
  <div class="srow"><span>サウンド</span><span class="sv"><button id="snd-btn" style="background:${S.soundOn!==false?"#17172a":"#c6c6d4"};color:#fff;border:none;border-radius:999px;padding:6px 18px;font-size:12.5px;font-weight:700;cursor:pointer">${S.soundOn!==false?"ON":"OFF"}</button></span></div>
  <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
- <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加／v83 フリーチャットの話題拡充（2019専用プール＋新キーワード6種＋チップ追加）／v84 周Aの彼の記憶の線引きで全監査（2021・2023到着場面と彼の画面3件を連続した同僚の前提に書き換え）／v85 2019周A・練習室の夜に彼の視点（インライン）を追加／v86 2021周A・寮の一夜に彼の視点（インライン）を追加／v87 2023周A・コンビニの夜に彼の視点（インライン）を追加／v88 台帳・Keepsake・Diffの時代分類を修正（NXD期グループ新設、誤分類6件を是正）／v89 場面カット追加（2023順位発表の夜・face2基準で新規生成）／v90 場面カット追加（2021ファイナルの夜・face2基準で新規生成）／v91 節目 ― 全アプリ走査／v92 日常回「自販機の夜」（2023・周B）を追加／v93 2019周A・レベル分け評価に彼の視点（インライン）を追加／v94 写真アプリに時代別グルーピング（見出し＋枚数）を追加／v95 場面カット追加（NXD期・夜の練習室、face2基準で新規生成）／v96 フリーチャットの時代別プールを拡充（各時代＋2件）／v97 2019周B・発覚に彼の視点（インライン）を追加／v98 2021周B・再会に彼の視点（インライン）を追加／v99 2023周B・発覚に彼の視点（インライン）を追加／v100 節目 ― 全編通しプレイ検証／v101 効果音の配線追加（台帳・Keepsake・彼の視点）／v102 トークに彼のメッセージを3件追加／v103 タイトルのスライドショー拡充（8枚）とホーム背景のNXD期差し替え／v104 2023周B・再会に彼の視点（インライン）を追加／v105 2021周B・売店の夜に彼の視点（インライン）を追加／v106 NXD期・周B「移籍の決断」に彼の視点（インライン）を追加／v107 2023周B・共同作戦に彼の視点（インライン）を追加／v108 2019周B・共同作戦（ツカメ対策）に彼の視点（インライン）を追加／v109 2021周B・共同作戦に彼の視点（インライン）を追加／v110 NXD期・周B「延期の季節 ― 二度目」に彼の視点（インライン）を追加／v111 フリーチャット拡充（キーワード応答3種・チップ2件・現在編プール拡充）／v112 節目 ― 全アプリ走査／v113 2023周B・自販機の夜に彼の視点（インライン）を追加／v114 2019周A・食堂の夜に彼の視点（インライン）を追加／v115 2021周B・順位発表の締めに彼の視点（インライン）を追加／v116 設計ドキュメントの実装状況を更新／v117 場面カット追加（2019食堂の夜・face2基準で新規生成）／v118 場面カット追加（2021売店の夜・face2基準で新規生成）／v119 場面カット追加（2023コンビニの夜・face2基準で新規生成）／v120 背景の差し替え（現在編の冒頭とソロデビューの場面）／v121 節目 ― 全編通しプレイ検証（v101〜v120の追加後）／v122 画像出典メモ（IMAGE_SOURCES.md）に新規カット6点とface2基準を追記／v123 READMEの状態表記を現行（本編完結・公開中）に更新／v124 視覚QAで発見した順位タブの防御的修正（順位値の欠損時に最低ラインへフォールバック）／v125 節目 ― 全画面の視覚QA（撮影確認）／v126 節目 ― 別エンディング到達検証（秘密バレIF・離脱した現在）／v127 節目 ― 全5エンディング到達検証の完了（通常現在・ループ継続BADを追加確認）／v128 設計ドキュメントの実装状況に最終検証結果を追記／v129 READMEの現行版表記を更新／v130 生成メタファイルを .gitignore に追加して作業ツリーを整理／v131 「届くはずのなかった手紙」に背景を設定（食堂カットの引き継ぎを解消）／v132 フリーチャットの応答拡充（キーワード応答8種・時代別プール各+2件・チップ2件を追加）／v133 仕上げのUI調整（ホームのアプリアイコンのラベルの可読性を向上、ストーリー画面のゲージチップを均等な3+3配置に整形）／v134 フリーチャットに語学の話題を追加（中国語・韓国語・英語へのキーワード応答）／v135 節目 ― 朝まで改修の最終版（全アプリ走査・ドキュメント同期）／v136 トークを実物化（1相手=1スレッドに集約・未読バッジ・プレビュー・実物時刻・日付チップ・自分の送信への既読表示。仕組みは『現役アイドル、Tinderやってた件』のLINEと『キープ管理中！』の未読管理から移植）／v137 2021・2023の渚央プロフィールを制服版に統一（創造営の紺制服／ボイプラの淡グレー制服。名簿・順位・パネル・背景・写真の参照を全て profile-uniform 系へ）／v138 ロック画面とホームの実物化（主通知の送信者を実アプリ名にし未読トークがあれば最新メッセージを表示、日付を月日＋曜日の実物形式に、ホームと写真の操作説明文を撤去）</span></div>
+ <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加／v83 フリーチャットの話題拡充（2019専用プール＋新キーワード6種＋チップ追加）／v84 周Aの彼の記憶の線引きで全監査（2021・2023到着場面と彼の画面3件を連続した同僚の前提に書き換え）／v85 2019周A・練習室の夜に彼の視点（インライン）を追加／v86 2021周A・寮の一夜に彼の視点（インライン）を追加／v87 2023周A・コンビニの夜に彼の視点（インライン）を追加／v88 台帳・Keepsake・Diffの時代分類を修正（NXD期グループ新設、誤分類6件を是正）／v89 場面カット追加（2023順位発表の夜・face2基準で新規生成）／v90 場面カット追加（2021ファイナルの夜・face2基準で新規生成）／v91 節目 ― 全アプリ走査／v92 日常回「自販機の夜」（2023・周B）を追加／v93 2019周A・レベル分け評価に彼の視点（インライン）を追加／v94 写真アプリに時代別グルーピング（見出し＋枚数）を追加／v95 場面カット追加（NXD期・夜の練習室、face2基準で新規生成）／v96 フリーチャットの時代別プールを拡充（各時代＋2件）／v97 2019周B・発覚に彼の視点（インライン）を追加／v98 2021周B・再会に彼の視点（インライン）を追加／v99 2023周B・発覚に彼の視点（インライン）を追加／v100 節目 ― 全編通しプレイ検証／v101 効果音の配線追加（台帳・Keepsake・彼の視点）／v102 トークに彼のメッセージを3件追加／v103 タイトルのスライドショー拡充（8枚）とホーム背景のNXD期差し替え／v104 2023周B・再会に彼の視点（インライン）を追加／v105 2021周B・売店の夜に彼の視点（インライン）を追加／v106 NXD期・周B「移籍の決断」に彼の視点（インライン）を追加／v107 2023周B・共同作戦に彼の視点（インライン）を追加／v108 2019周B・共同作戦（ツカメ対策）に彼の視点（インライン）を追加／v109 2021周B・共同作戦に彼の視点（インライン）を追加／v110 NXD期・周B「延期の季節 ― 二度目」に彼の視点（インライン）を追加／v111 フリーチャット拡充（キーワード応答3種・チップ2件・現在編プール拡充）／v112 節目 ― 全アプリ走査／v113 2023周B・自販機の夜に彼の視点（インライン）を追加／v114 2019周A・食堂の夜に彼の視点（インライン）を追加／v115 2021周B・順位発表の締めに彼の視点（インライン）を追加／v116 設計ドキュメントの実装状況を更新／v117 場面カット追加（2019食堂の夜・face2基準で新規生成）／v118 場面カット追加（2021売店の夜・face2基準で新規生成）／v119 場面カット追加（2023コンビニの夜・face2基準で新規生成）／v120 背景の差し替え（現在編の冒頭とソロデビューの場面）／v121 節目 ― 全編通しプレイ検証（v101〜v120の追加後）／v122 画像出典メモ（IMAGE_SOURCES.md）に新規カット6点とface2基準を追記／v123 READMEの状態表記を現行（本編完結・公開中）に更新／v124 視覚QAで発見した順位タブの防御的修正（順位値の欠損時に最低ラインへフォールバック）／v125 節目 ― 全画面の視覚QA（撮影確認）／v126 節目 ― 別エンディング到達検証（秘密バレIF・離脱した現在）／v127 節目 ― 全5エンディング到達検証の完了（通常現在・ループ継続BADを追加確認）／v128 設計ドキュメントの実装状況に最終検証結果を追記／v129 READMEの現行版表記を更新／v130 生成メタファイルを .gitignore に追加して作業ツリーを整理／v131 「届くはずのなかった手紙」に背景を設定（食堂カットの引き継ぎを解消）／v132 フリーチャットの応答拡充（キーワード応答8種・時代別プール各+2件・チップ2件を追加）／v133 仕上げのUI調整（ホームのアプリアイコンのラベルの可読性を向上、ストーリー画面のゲージチップを均等な3+3配置に整形）／v134 フリーチャットに語学の話題を追加（中国語・韓国語・英語へのキーワード応答）／v135 節目 ― 朝まで改修の最終版（全アプリ走査・ドキュメント同期）／v136 トークを実物化（1相手=1スレッドに集約・未読バッジ・プレビュー・実物時刻・日付チップ・自分の送信への既読表示。仕組みは『現役アイドル、Tinderやってた件』のLINEと『キープ管理中！』の未読管理から移植）／v137 2021・2023の渚央プロフィールを制服版に統一（創造営の紺制服／ボイプラの淡グレー制服。名簿・順位・パネル・背景・写真の参照を全て profile-uniform 系へ）／v138 ロック画面とホームの実物化（主通知の送信者を実アプリ名にし未読トークがあれば最新メッセージを表示、日付を月日＋曜日の実物形式に、ホームと写真の操作説明文を撤去）／v139 トークをTinder版（v462）LINEと実測比較して一致（バブルの角・色・文字サイズ、入力欄、送信ボタン、日付チップ、一覧の行構成と検索ボックス、スレッドヘッダーのアバター）</span></div>
  <div class="pad"><p class="small">エンディングは5種（TRUE現在／通常現在／離脱した現在／秘密バレIF／ループ継続BAD）。結末は、彼の岐路での関わり・手がかり（Keepsakeと届いた数）・男装バレ度・最後の選択で分かれます。なお「デビューしてしまう現在」はIF候補として設計にのみ記録され、本編では採用していません（デビューメンバー構成は不変のため）。</p></div>
  <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
  const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV2");location.reload();}};
