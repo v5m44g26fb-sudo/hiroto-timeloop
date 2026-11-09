@@ -163,6 +163,13 @@
 - 2019：profile-face3b-full／close2 は正面の素立ちで問題なし（変更なし）
 - 旧カットは hidden_files/nao-genderfix-backup/ に保管
 
+## 2019の年齢感は「ちゃんと17歳」（2026-11-09 本人指摘・v180で修正）
+- 本人の指摘：2019（日プ）時代の顔が、17歳にしては幼すぎる
+- 監査：2019の全10点を確認。顔が大きく写るカットほどベビーフェイスに寄っていた。逸脱は4点：profile-face3b-full／profile-face3b-close2（頬の丸みで14〜15歳読み）、selfie（15〜16歳読み）、yancha（14〜15歳読み）。stage／stage2／dorm／practice／ranking-close／cafeteria は16〜17歳の範囲で問題なし
+- 修正方法：基準顔のパーツ・比率・目の下のほくろは維持し、頬の赤ちゃんのような丸みを抑え、輪郭と顎のラインを少しだけ大人びさせて「17歳（高校3年生）」の年齢感に再生成。20代にはしすぎない。profile-face3b-close2 は新しい full から頭部約58%で再クロップし、v170の質感後処理（2019強度）も full／close2 に再適用
+- 生成マスター（webp）は ~/workspace/imagine_media/ に media-generation-nao-2019-profile-age17-* / -selfie-age17-* / -yancha-age17-* として残存。旧カットは hidden_files/nao-agefix-backup/2019/ に保管
+- 今後の年齢監査では「若くしすぎ（ベビーフェイス化）」も逸脱として扱う（中顔面の長さだけでなく頬の丸み・輪郭の幼さを見る）
+
 ## プロフィールの質感（2026-11-09 本人指摘・v170で適用）
 - 生成画像は画質がクリアすぎるため、プロフィール系は各時代の実在公式写真の質感に寄せる：軽い縮小→拡大でAI特有のシャープさを落とし、微粒子グレインを加え、コントラストを少し下げて時代の色調に寄せる後処理を行う。顔そのもの（基準顔・比率）は変えない
 - 適用済み（v170）：2019 profile-face3b-full／close2（最強）、2021 profile-uniform／同close／profile-close、2023 profile-uniform／同close／profile-close。standard-final.jpg（生成の基準マスター）は同一性維持のため対象外。元のファイルは hidden_files/texture-backup/ に保管
