@@ -106,3 +106,6 @@
 - 生成方式（成功パターン）：キャンバス（既存カット）＋ standard-final.jpg ＋ 黒ニット原写真の3点を与え、「2枚目と同一人物の◯歳版に差し替え、パーツの形は同一に保ち年齢だけ変える、決定要素の列挙、鋳型禁止、耳は普通、髪色は暗めアッシュブラウン、構図・衣装・背景は1枚目のまま」と指示。生成マスターは ~/workspace/imagine_media/ に media-generation-std{19,21,23}-* として残存
 - ロック画面壁紙・ホーム写真ウィジェット・トークのアバター・番組アプリのカード類は、すべて上記ファイルの内容差し替えで自動追随（参照はファイル名ベース）。タイトル画面スライドショー8枚のうち nao の顔が出る7枚は新基準化（残り1枚 common/livehouse.jpg は大翔のみ）。**唯一の残件は 2021/stage.jpg**（タイトル3枚目・2021ロック壁紙に出る）
 - 旧カットは hidden_files/nao-std-replace-backup/{2019,2021,2023}/ に保管。候補ファイル群（cand-*、profile-grown／real／real2、profile-final＝standard-finalにsuperseded、2021/profile-uniform-outdoor.jpg）は v150 で hidden_files/nao-candidates-retired/ へ退避し、assets から除去（表示参照ゼロを確認済み）
+
+## 2026-11-09 v151 残件解消
+- 2021/stage.jpg（タイトル3枚目・2021時代のロック壁紙）を基準顔の19歳版で差し替え。これで顔が出る全素材の新基準化が完了。
