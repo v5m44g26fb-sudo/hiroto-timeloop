@@ -480,6 +480,38 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 #lk-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .45s ease;z-index:45}
 #lock .lk-btn{cursor:pointer;font-family:inherit;transition:transform .12s}
 #lock .lk-btn:active{transform:scale(.92)}
+/* ===== v142: home screen evolution (ported from hiroto-tinder home: page dots + search pill, page 2, glass dock) ===== */
+#home .home-bg{animation:lkKB 30s ease-in-out infinite alternate}
+#home .sb .sb-icons{display:inline-flex;gap:6px;align-items:center}
+#hwrap{position:relative;z-index:2;flex:1;overflow:hidden;min-height:0}
+#hpages{display:flex;height:100%;transition:transform .38s cubic-bezier(.22,.8,.32,1)}
+.hpage{flex:0 0 100%;min-width:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+.hp2-row{display:flex;gap:12px;margin:10px 16px 4px}
+.hp2-row .widget{margin:0;flex:1}
+.widget.calw{cursor:pointer}
+.calw-dow{font-size:12px;font-weight:800;letter-spacing:.14em;color:#ff9f0a}
+.calw-day{font-size:46px;font-weight:300;line-height:1.08;color:#fff}
+.calw-full{font-size:11px;color:#d9d9ec;margin-top:2px}
+.widget.photow{padding:0;overflow:hidden;position:relative;min-height:124px;cursor:pointer}
+#photow-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .3s}
+.photow-cap{position:absolute;left:10px;bottom:8px;z-index:2;background:rgba(10,10,18,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:10.5px;padding:3px 9px;border-radius:999px}
+.home-pages{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:10px}
+.home-pages i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45);display:block;cursor:pointer}
+.home-pages i.on{background:#fff}
+.home-pages .hp-search{margin-left:8px;background:rgba(255,255,255,.28);backdrop-filter:blur(10px);color:#fff;font-size:11px;font-weight:600;border:none;border-radius:12px;padding:3px 10px;display:inline-flex;align-items:center;gap:4px;cursor:pointer;font-family:inherit}
+#dock{position:relative;z-index:2;margin:10px 18px 16px;background:rgba(28,28,42,.45);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(16px);border-radius:26px;padding:10px 18px;display:flex;justify-content:space-between}
+#dock .appicon .bdg{right:-2px}
+#hsearch{position:absolute;inset:0;z-index:30;background:rgba(8,8,16,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:none;flex-direction:column;padding:64px 18px 18px}
+#hsearch.on{display:flex}
+#hs-input{width:100%;border:none;border-radius:12px;background:rgba(255,255,255,.94);padding:12px 14px;font-size:15px;font-family:inherit;outline:none;color:#17172a}
+#hs-list{margin-top:12px;display:flex;flex-direction:column;gap:8px;overflow-y:auto}
+.hs-row{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.94);border:none;border-radius:14px;padding:10px 12px;cursor:pointer;text-align:left;font-family:inherit;width:100%}
+.hs-row .ic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
+.hs-row .ic svg{width:24px;height:24px}
+.hs-row .hs-t{font-size:14px;font-weight:700;color:#17172a;display:block}
+.hs-row .hs-s{font-size:11px;color:#8a8a96;display:block}
+.hs-none{color:rgba(255,255,255,.75);font-size:12.5px;text-align:center;padding:14px 0}
+#hs-close{margin-top:12px;background:none;border:none;color:#fff;font-size:14px;font-weight:700;padding:10px;cursor:pointer;font-family:inherit}
 </style>
 </head>
 <body>
@@ -532,7 +564,8 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <section class="screen" id="home">
   <img class="home-bg" src="assets/nao/2019/stage.jpg" alt="">
   <div class="home-shade"></div>
-  <div class="sb"><span id="home-clock">0:00</span><span class="sb-icons"><svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff" opacity=".4"/></svg><svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" fill="none" stroke="#fff" opacity=".5"/><rect x="2.5" y="2.5" width="14" height="7" rx="2" fill="#fff"/><path d="M23.5 4v4a2.2 2.2 0 0 0 0-4z" fill="#fff" opacity=".6"/></svg></span></div>
+  <div class="sb"><span id="home-clock">0:00</span><span class="sb-icons"><svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff" opacity=".4"/></svg><span class="batt-n" id="home-batt"></span><svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" fill="none" stroke="#fff" opacity=".5"/><rect x="2.5" y="2.5" width="14" height="7" rx="2" fill="#fff"/><path d="M23.5 4v4a2.2 2.2 0 0 0 0-4z" fill="#fff" opacity=".6"/></svg></span></div>
+  <div id="hwrap"><div id="hpages"><div class="hpage" id="hp1">
   <div class="widget">
     <div class="w-era" id="w-era">CYCLE 0 ― 2026 / 現在</div>
     <div class="w-date" id="w-date">2026年・彼のソロ活動を見ている日々</div>
@@ -549,6 +582,12 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
     <div class="sb-chev">›</div>
   </div>
   <div id="apps"></div>
+  </div>
+  <div class="hpage" id="hp2">
+  <div class="hp2-row">
+    <div class="widget calw" id="calw"><div class="calw-dow" id="calw-dow">土曜日</div><div class="calw-day" id="calw-day">9</div><div class="calw-full" id="calw-full">2019年11月9日</div></div>
+    <div class="widget photow" id="photow"><img id="photow-img" src="assets/nao/2019/stage.jpg" alt=""><span class="photow-cap" id="photow-cap">2019 ― ステージ</span></div>
+  </div>
   <div class="widget w2" id="w2">
     <div class="w2-row"><span class="w2-k">届いた応援</span><span class="w2-v" id="w2-todoita">0件</span><span class="w2-k">違和感</span><span class="w2-v" id="w2-iwakan">0</span><span class="w2-k">差分の記録</span><span class="w2-v" id="w2-diff">0件</span></div>
   </div>
@@ -557,7 +596,10 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
     <div class="w3-t" id="w3-title">レベル分け評価</div>
     <div class="w3-d" id="w3-desc">物語を進めると、ここに現在の課題が表示されます。</div>
   </div>
-  <div class="dots"><i></i><i class="off"></i></div>
+  </div></div></div>
+  <div class="home-pages"><i class="on" data-hp="0"></i><i data-hp="1"></i><button class="hp-search" id="hp-search-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>検索</button></div>
+  <div id="dock"></div>
+  <div id="hsearch"><input id="hs-input" type="text" placeholder="アプリや記録を検索" autocomplete="off"><div id="hs-list"></div><button id="hs-close">キャンセル</button></div>
 </section>
 
 <!-- story -->
@@ -632,7 +674,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v141";
+const VER="v142";
 /* ============ state ============ */
 const DEF={idx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -1750,6 +1792,13 @@ function renderHome(){
  const _bdg={prog:([S.flags.ranked,S.flags.ranked21,S.flags.ranked23,S.flags.rankedB,S.flags.ranked21B,S.flags.ranked23B].filter(Boolean).length||""),talk:(talkUnreadTotal()||""),settings:(S.diffs&&S.diffs.length?S.diffs.length:"")};
  $("#apps").innerHTML=APPS.map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span>${_bdg[a.id]?`<span class="bdg">${_bdg[a.id]}</span>`:""}<span>${a.lb}</span></button>`).join("");
  document.querySelectorAll("#apps .appicon").forEach(b=>b.onclick=()=>{const a=APPS.find(x=>x.id===b.dataset.app);if(a.lock&&a.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}openApp(a.id);});
+ const _dock=$("#dock");if(_dock){_dock.innerHTML=["talk","gallery","prog","settings"].map(id=>APPS.find(x=>x.id===id)).map(a=>`<button class="appicon ${a.lock&&a.lock()?"locked":""}" data-app="${a.id}"><span class="ic" style="background:${a.bg}">${a.ic}</span>${_bdg[a.id]?`<span class="bdg">${_bdg[a.id]}</span>`:""}</button>`).join("");
+  _dock.querySelectorAll(".appicon").forEach(b=>b.onclick=()=>{const a=APPS.find(x=>x.id===b.dataset.app);if(a.lock&&a.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}openApp(a.id);});}
+ {const _yr=S.eraNow==="nxd"?2024:S.eraNow==="now"?2026:S.eraNow==="2023"?2023:S.eraNow==="2021"?2021:S.eraNow==="2019"?2019:S.flags.boys?2023:S.flags.chuang?2021:(S.flags&&S.flags.leaped)?2019:2026;const _nw=new Date();const _dt=new Date(_yr,_nw.getMonth(),_nw.getDate());const WDF=["日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日"];
+  const _cd=$("#calw-dow");if(_cd)_cd.textContent=WDF[_dt.getDay()];const _cn=$("#calw-day");if(_cn)_cn.textContent=_dt.getDate();const _cf=$("#calw-full");if(_cf)_cf.textContent=_yr+"年"+(_dt.getMonth()+1)+"月"+_dt.getDate()+"日";
+  const _pl=(S.trueEnd||S.finishedNXDB)?["assets/nao/common/livehouse.jpg"]:!S.flags.leaped?["assets/nao/common/room.jpg","assets/nao/common/audience-back.jpg"]:S.eraNow==="2021"?["assets/nao/2021/stage.jpg","assets/nao/2021/ranking-close.jpg"]:S.eraNow==="2023"?["assets/nao/2023/stage.jpg","assets/nao/2023/ranking-close.jpg"]:S.eraNow==="nxd"?["assets/nao/2023/nxd-night.jpg"]:["assets/nao/2019/stage.jpg","assets/nao/2019/ranking-close.jpg"];
+  window._photowList=_pl;const _pi=$("#photow-img");if(_pi&&_pi.getAttribute("src")!==_pl[0])_pi.src=_pl[0];
+  const _pc=$("#photow-cap");if(_pc)_pc.textContent=(S.trueEnd||S.finishedNXDB)?"現在 ― ライブハウス":!S.flags.leaped?"0周目 ― ファンの日々":S.eraNow==="2021"?"2021 ― ステージ":S.eraNow==="2023"?"2023 ― ステージ":S.eraNow==="nxd"?"NXD期 ― 夜":"2019 ― ステージ";}
  const w3t=$("#w3-title"),w3d=$("#w3-desc");
  if(w3t&&w3d){const ml=(typeof missionsNow==="function")?missionsNow():MISSIONS;const ci=Math.min(chapIndexNow(),ml.length-1);
   if(S.finishedNXDB){w3t.textContent="現在編 ― 2026年、約束の現在";w3d.textContent="手がかりを辿る彼と、最後の選択をする彼女の時間です。";}
@@ -1766,6 +1815,38 @@ function renderHome(){
 $("#w2").onclick=()=>{renderSettings("gauge");show("settings");};
 $("#w3").onclick=()=>{if(!S.flags.leaped){alert("まだ使えません（物語を進めると解放されます）");return;}renderProg("mission");show("prog");};
 $("#story-banner").onclick=()=>{openStory();};
+/* ===== v142: home pages / dock / search wiring ===== */
+let hpCur=0;
+function setHp(i){hpCur=Math.max(0,Math.min(1,i));const hp=$("#hpages");if(hp)hp.style.transform="translateX(-"+(hpCur*100)+"%)";document.querySelectorAll(".home-pages i").forEach((d,j)=>d.classList.toggle("on",j===hpCur));}
+document.querySelectorAll(".home-pages i").forEach(d=>d.onclick=()=>setHp(+d.dataset.hp));
+{const home=$("#home");let sx=0,sy=0;
+ home.addEventListener("pointerdown",e=>{sx=e.clientX;sy=e.clientY;});
+ home.addEventListener("pointerup",e=>{const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)>52&&Math.abs(dx)>Math.abs(dy)*1.4){window._hpSwipeAt=Date.now();setHp(dx<0?hpCur+1:hpCur-1);}});
+ home.addEventListener("click",e=>{if(window._hpSwipeAt&&Date.now()-window._hpSwipeAt<400){e.stopPropagation();e.preventDefault();window._hpSwipeAt=0;}},true);}
+{const pw=$("#photow");if(pw)pw.onclick=()=>openApp("gallery");
+ const cw=$("#calw");if(cw)cw.onclick=()=>{renderSettings("chaps");show("settings");};
+ if(!window._photowTimer){window._photowTimer=setInterval(()=>{const im=$("#photow-img");if(!im||!window._photowList||window._photowList.length<2)return;if(!$("#home").classList.contains("on"))return;window._photowIdx=((window._photowIdx||0)+1)%window._photowList.length;im.style.opacity="0";setTimeout(()=>{im.src=window._photowList[window._photowIdx];im.style.opacity="1";},280);},5200);}}
+const HS_PLAY='<svg viewBox="0 0 24 24" width="24" height="24"><path fill="#fff" d="M8 5v14l11-7z"/></svg>';
+const HS_HEART='<svg viewBox="0 0 24 24" width="24" height="24"><path fill="#fff" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+const HS_MARK='<svg viewBox="0 0 24 24" width="24" height="24"><path fill="#fff" d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.2L5 21V4a1 1 0 0 1 1-1z"/></svg>';
+const HS_SHUF='<svg viewBox="0 0 24 24" width="24" height="24"><path fill="#fff" d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>';
+function hsDest(){const ap=id=>APPS.find(x=>x.id===id);return [
+ {t:"ストーリーを進める",s:"物語のつづき",ic:HS_PLAY,bg:"linear-gradient(120deg,#ffd60a,#ffb340)",go:()=>openStory()},
+ {t:"番組アプリ",s:"名簿・順位・投票・ミッション",ic:ap("prog").ic,bg:ap("prog").bg,lock:ap("prog").lock,go:()=>openApp("prog")},
+ {t:"トーク",s:"井汲大翔とのスレッド",ic:ap("talk").ic,bg:ap("talk").bg,lock:ap("talk").lock,go:()=>openApp("talk")},
+ {t:"写真",s:"時代のカット",ic:ap("gallery").ic,bg:ap("gallery").bg,go:()=>openApp("gallery")},
+ {t:"設定・記録",s:"ゲージと記録",ic:ap("settings").ic,bg:ap("settings").bg,go:()=>openApp("settings")},
+ {t:"応援台帳",s:"設定・記録",ic:HS_HEART,bg:"linear-gradient(150deg,#ff8a80,#e53935)",go:()=>{renderSettings("ledger");show("settings");}},
+ {t:"Keepsake",s:"設定・記録",ic:HS_MARK,bg:"linear-gradient(150deg,#b388ff,#7c4dff)",go:()=>{renderSettings("keep");show("settings");}},
+ {t:"Diff Log",s:"設定・記録",ic:HS_SHUF,bg:"linear-gradient(150deg,#64b5f6,#1e88e5)",go:()=>{renderSettings("diff");show("settings");}},
+ {t:"章の記録",s:"設定・記録",ic:ap("settings").ic,bg:"linear-gradient(150deg,#9ca3af,#6b7280)",go:()=>{renderSettings("chaps");show("settings");}}
+];}
+function hsRender(q){const list=$("#hs-list");if(!list)return;const all=hsDest();const items=all.filter(d=>!q||d.t.includes(q)||(d.s&&d.s.includes(q)));
+ list.innerHTML=items.length?items.map(d=>`<button class="hs-row" data-hs="${all.indexOf(d)}"><span class="ic" style="background:${d.bg}">${d.ic}</span><span><span class="hs-t">${d.t}</span><span class="hs-s">${d.s}</span></span></button>`).join(""):'<div class="hs-none">見つかりませんでした</div>';
+ list.querySelectorAll(".hs-row").forEach(r=>r.onclick=()=>{const d=all[+r.dataset.hs];$("#hsearch").classList.remove("on");if(d.lock&&d.lock()){alert("まだ使えません（物語を進めると解放されます）");return;}d.go();});}
+{const sb=$("#hp-search-btn");if(sb)sb.onclick=()=>{$("#hsearch").classList.add("on");const inp=$("#hs-input");if(inp){inp.value="";hsRender("");setTimeout(()=>inp.focus(),60);}};
+ const cl=$("#hs-close");if(cl)cl.onclick=()=>$("#hsearch").classList.remove("on");
+ const inp2=$("#hs-input");if(inp2)inp2.oninput=()=>hsRender(inp2.value.trim());}
 function openApp(id){if(id==="prog"){show("prog");const pb=$("#prog-body");if(pb)pb.innerHTML=`<div class="skl"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>`;setTimeout(()=>renderProg("roster"),320);}if(id==="gallery"){renderGallery();show("gallery");}if(id==="talk"){renderTalk();if(typeof ltReset==="function")ltReset();show("talk");}if(id==="settings"){renderSettings("gauge");show("settings");}}
 /* ============ story engine ============ */
 if(!S.log)S.log=[]; if(S.stageImg===undefined)S.stageImg=null; if(S.capTxt===undefined)S.capTxt=null; if(S.pendingChoice===undefined)S.pendingChoice=false;
@@ -2304,7 +2385,7 @@ function renderSettings(tab){setTab=tab;document.querySelectorAll("#set-tabs but
  <div class="srow"><span>到達した結末</span><span class="sv">${S.trueEnd?"TRUE END ― 現在":S.normalEnd?"END ― 通常現在":S.loopBad?"BAD END ― ループ継続":S.bareEnd?"END ― 秘密バレIF":S.ridatsuEnd?"END ― 離脱した現在":"（まだ到達していません）"}</span></div>
  <div class="srow"><span>サウンド</span><span class="sv"><button id="snd-btn" style="background:${S.soundOn!==false?"#17172a":"#c6c6d4"};color:#fff;border:none;border-radius:999px;padding:6px 18px;font-size:12.5px;font-weight:700;cursor:pointer">${S.soundOn!==false?"ON":"OFF"}</button></span></div>
  <div class="srow"><span>フィクション</span><span class="sv">実在の記録をもとにした創作です</span></div>
- <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加／v83 フリーチャットの話題拡充（2019専用プール＋新キーワード6種＋チップ追加）／v84 周Aの彼の記憶の線引きで全監査（2021・2023到着場面と彼の画面3件を連続した同僚の前提に書き換え）／v85 2019周A・練習室の夜に彼の視点（インライン）を追加／v86 2021周A・寮の一夜に彼の視点（インライン）を追加／v87 2023周A・コンビニの夜に彼の視点（インライン）を追加／v88 台帳・Keepsake・Diffの時代分類を修正（NXD期グループ新設、誤分類6件を是正）／v89 場面カット追加（2023順位発表の夜・face2基準で新規生成）／v90 場面カット追加（2021ファイナルの夜・face2基準で新規生成）／v91 節目 ― 全アプリ走査／v92 日常回「自販機の夜」（2023・周B）を追加／v93 2019周A・レベル分け評価に彼の視点（インライン）を追加／v94 写真アプリに時代別グルーピング（見出し＋枚数）を追加／v95 場面カット追加（NXD期・夜の練習室、face2基準で新規生成）／v96 フリーチャットの時代別プールを拡充（各時代＋2件）／v97 2019周B・発覚に彼の視点（インライン）を追加／v98 2021周B・再会に彼の視点（インライン）を追加／v99 2023周B・発覚に彼の視点（インライン）を追加／v100 節目 ― 全編通しプレイ検証／v101 効果音の配線追加（台帳・Keepsake・彼の視点）／v102 トークに彼のメッセージを3件追加／v103 タイトルのスライドショー拡充（8枚）とホーム背景のNXD期差し替え／v104 2023周B・再会に彼の視点（インライン）を追加／v105 2021周B・売店の夜に彼の視点（インライン）を追加／v106 NXD期・周B「移籍の決断」に彼の視点（インライン）を追加／v107 2023周B・共同作戦に彼の視点（インライン）を追加／v108 2019周B・共同作戦（ツカメ対策）に彼の視点（インライン）を追加／v109 2021周B・共同作戦に彼の視点（インライン）を追加／v110 NXD期・周B「延期の季節 ― 二度目」に彼の視点（インライン）を追加／v111 フリーチャット拡充（キーワード応答3種・チップ2件・現在編プール拡充）／v112 節目 ― 全アプリ走査／v113 2023周B・自販機の夜に彼の視点（インライン）を追加／v114 2019周A・食堂の夜に彼の視点（インライン）を追加／v115 2021周B・順位発表の締めに彼の視点（インライン）を追加／v116 設計ドキュメントの実装状況を更新／v117 場面カット追加（2019食堂の夜・face2基準で新規生成）／v118 場面カット追加（2021売店の夜・face2基準で新規生成）／v119 場面カット追加（2023コンビニの夜・face2基準で新規生成）／v120 背景の差し替え（現在編の冒頭とソロデビューの場面）／v121 節目 ― 全編通しプレイ検証（v101〜v120の追加後）／v122 画像出典メモ（IMAGE_SOURCES.md）に新規カット6点とface2基準を追記／v123 READMEの状態表記を現行（本編完結・公開中）に更新／v124 視覚QAで発見した順位タブの防御的修正（順位値の欠損時に最低ラインへフォールバック）／v125 節目 ― 全画面の視覚QA（撮影確認）／v126 節目 ― 別エンディング到達検証（秘密バレIF・離脱した現在）／v127 節目 ― 全5エンディング到達検証の完了（通常現在・ループ継続BADを追加確認）／v128 設計ドキュメントの実装状況に最終検証結果を追記／v129 READMEの現行版表記を更新／v130 生成メタファイルを .gitignore に追加して作業ツリーを整理／v131 「届くはずのなかった手紙」に背景を設定（食堂カットの引き継ぎを解消）／v132 フリーチャットの応答拡充（キーワード応答8種・時代別プール各+2件・チップ2件を追加）／v133 仕上げのUI調整（ホームのアプリアイコンのラベルの可読性を向上、ストーリー画面のゲージチップを均等な3+3配置に整形）／v134 フリーチャットに語学の話題を追加（中国語・韓国語・英語へのキーワード応答）／v135 節目 ― 朝まで改修の最終版（全アプリ走査・ドキュメント同期）／v136 トークを実物化（1相手=1スレッドに集約・未読バッジ・プレビュー・実物時刻・日付チップ・自分の送信への既読表示。仕組みは『現役アイドル、Tinderやってた件』のLINEと『キープ管理中！』の未読管理から移植）／v137 2021・2023の渚央プロフィールを制服版に統一（創造営の紺制服／ボイプラの淡グレー制服。名簿・順位・パネル・背景・写真の参照を全て profile-uniform 系へ）／v138 ロック画面とホームの実物化（主通知の送信者を実アプリ名にし未読トークがあれば最新メッセージを表示、日付を月日＋曜日の実物形式に、ホームと写真の操作説明文を撤去）／v139 トークをTinder版（v462）LINEと実測比較して一致（バブルの角・色・文字サイズ、入力欄、送信ボタン、日付チップ、一覧の行構成と検索ボックス、スレッドヘッダーのアバター）／v140 トークにLINEアプリのシェルを移植（下部タブバー＋タブ画面を新設。タブの数・並び・切替挙動はTinder版LINEと同一で、ホームタブは三浦渚央のプロフィール＋届いた応援カード＋友だちリストのパネル、ニュースは番組アプリ、その他は設定・記録へ接続）／v141 ロック画面の進化（時計を88px・太字に、通知カードをblur20px＋saturateの実物仕様にして幅を統一、スタック通知のアイコンをアプリ別SVGに分けて出現をスタッガード化。ステータスバーと電池％を追加し、壁紙を時代連動＋緩やかなズームに。下部のライトは白フラッシュが光る実働ボタンに、カメラは写真アプリへ直行。通知はタップで該当アプリ・記録へ遷移）</span></div>
+ <div class="srow"><span>アップデート</span><span class="sv">v16 サウンドと画面遷移／v17 差分再演REPLAYとDiff時代別表示／v18 現在の小さな変化／v19 トークのスレッドとフリーチャット／v20・v23・v32 場面カットの追加／v21 日常回（食堂の夜・売店の夜）／v22 番組アプリの情報デザイン／v24 ホーム背景の時代連動と進行％／v25 タイトルのスライドショー／v26 彼の画面のカウンタ／v27 ロック画面の通知スタック／v28 写真の全画面ビューア／v30 章ごとの記録カード／v31 フィナーレ直前の彼の視点／v33 フリーチャットの時代別応答／v34 投票レシート／v35 ミッション進捗バー／v36 ゲージの危険域表示／v37 選んだ記録の判別表示／v38 台帳の時代別表示／v39 Keepsakeの時代バッジ／v41 章名つきロック画面／v42 トークの新着バッジ／v43 名簿の詳細パネル／v44 写真のスワイプ送り／v45 BGMの時代連動／v46 順位・差分の専用SE／v47 長押し早送り／v48 章セレクト／v50 REPLAY再演の追加／v52 日常回（コンビニの夜）／v53 タイトル通知のセーブ連動／v54 アプリアイコンのバッジ／v55 主人公の正式名「三浦渚央」と2019プロフィールの新フェイス差し替え／v56〜v59 プロフィール・場面カットの新フェイス再生成／v60 カード画角の統一（頭部55〜60%）と三浦渚央の順位表示／v61 名簿メモへの順位追記と凡例／v62 周B順位発表の彼の視点／v63 ストーリーバナーのサムネ時代連動／v64 タイトルに正式名／v65 ロック画面に順位通知／v66 情報タブに順位の記録／v67 順位行の文字色修正／v68 現在の小さな変化（順位の残響）／v69 写真メモに順位結果／v70 節目 ― 全アプリ走査／v71 フリーチャットの話題追加／v72 トークのチップ追加／v73・v74 順位タブの空状態整理／v75 順位変動のDiff記録／v76 節目 ― 全アプリ走査／v77 2021周A・初回ステージ後に彼の画面を追加／v78 2023周A・ファンカム章に彼の視点（インライン）を追加／v79 2019周A・順位発表式に彼の視点（インライン）を追加／v80 2023周A・VERY NICE本番前に彼の視点（インライン）を追加／v81 2023周A・寮の夜に彼の視点（インライン）を追加／v82 2019周A・届くはずのなかった手紙に彼の視点（インライン）を追加／v83 フリーチャットの話題拡充（2019専用プール＋新キーワード6種＋チップ追加）／v84 周Aの彼の記憶の線引きで全監査（2021・2023到着場面と彼の画面3件を連続した同僚の前提に書き換え）／v85 2019周A・練習室の夜に彼の視点（インライン）を追加／v86 2021周A・寮の一夜に彼の視点（インライン）を追加／v87 2023周A・コンビニの夜に彼の視点（インライン）を追加／v88 台帳・Keepsake・Diffの時代分類を修正（NXD期グループ新設、誤分類6件を是正）／v89 場面カット追加（2023順位発表の夜・face2基準で新規生成）／v90 場面カット追加（2021ファイナルの夜・face2基準で新規生成）／v91 節目 ― 全アプリ走査／v92 日常回「自販機の夜」（2023・周B）を追加／v93 2019周A・レベル分け評価に彼の視点（インライン）を追加／v94 写真アプリに時代別グルーピング（見出し＋枚数）を追加／v95 場面カット追加（NXD期・夜の練習室、face2基準で新規生成）／v96 フリーチャットの時代別プールを拡充（各時代＋2件）／v97 2019周B・発覚に彼の視点（インライン）を追加／v98 2021周B・再会に彼の視点（インライン）を追加／v99 2023周B・発覚に彼の視点（インライン）を追加／v100 節目 ― 全編通しプレイ検証／v101 効果音の配線追加（台帳・Keepsake・彼の視点）／v102 トークに彼のメッセージを3件追加／v103 タイトルのスライドショー拡充（8枚）とホーム背景のNXD期差し替え／v104 2023周B・再会に彼の視点（インライン）を追加／v105 2021周B・売店の夜に彼の視点（インライン）を追加／v106 NXD期・周B「移籍の決断」に彼の視点（インライン）を追加／v107 2023周B・共同作戦に彼の視点（インライン）を追加／v108 2019周B・共同作戦（ツカメ対策）に彼の視点（インライン）を追加／v109 2021周B・共同作戦に彼の視点（インライン）を追加／v110 NXD期・周B「延期の季節 ― 二度目」に彼の視点（インライン）を追加／v111 フリーチャット拡充（キーワード応答3種・チップ2件・現在編プール拡充）／v112 節目 ― 全アプリ走査／v113 2023周B・自販機の夜に彼の視点（インライン）を追加／v114 2019周A・食堂の夜に彼の視点（インライン）を追加／v115 2021周B・順位発表の締めに彼の視点（インライン）を追加／v116 設計ドキュメントの実装状況を更新／v117 場面カット追加（2019食堂の夜・face2基準で新規生成）／v118 場面カット追加（2021売店の夜・face2基準で新規生成）／v119 場面カット追加（2023コンビニの夜・face2基準で新規生成）／v120 背景の差し替え（現在編の冒頭とソロデビューの場面）／v121 節目 ― 全編通しプレイ検証（v101〜v120の追加後）／v122 画像出典メモ（IMAGE_SOURCES.md）に新規カット6点とface2基準を追記／v123 READMEの状態表記を現行（本編完結・公開中）に更新／v124 視覚QAで発見した順位タブの防御的修正（順位値の欠損時に最低ラインへフォールバック）／v125 節目 ― 全画面の視覚QA（撮影確認）／v126 節目 ― 別エンディング到達検証（秘密バレIF・離脱した現在）／v127 節目 ― 全5エンディング到達検証の完了（通常現在・ループ継続BADを追加確認）／v128 設計ドキュメントの実装状況に最終検証結果を追記／v129 READMEの現行版表記を更新／v130 生成メタファイルを .gitignore に追加して作業ツリーを整理／v131 「届くはずのなかった手紙」に背景を設定（食堂カットの引き継ぎを解消）／v132 フリーチャットの応答拡充（キーワード応答8種・時代別プール各+2件・チップ2件を追加）／v133 仕上げのUI調整（ホームのアプリアイコンのラベルの可読性を向上、ストーリー画面のゲージチップを均等な3+3配置に整形）／v134 フリーチャットに語学の話題を追加（中国語・韓国語・英語へのキーワード応答）／v135 節目 ― 朝まで改修の最終版（全アプリ走査・ドキュメント同期）／v136 トークを実物化（1相手=1スレッドに集約・未読バッジ・プレビュー・実物時刻・日付チップ・自分の送信への既読表示。仕組みは『現役アイドル、Tinderやってた件』のLINEと『キープ管理中！』の未読管理から移植）／v137 2021・2023の渚央プロフィールを制服版に統一（創造営の紺制服／ボイプラの淡グレー制服。名簿・順位・パネル・背景・写真の参照を全て profile-uniform 系へ）／v138 ロック画面とホームの実物化（主通知の送信者を実アプリ名にし未読トークがあれば最新メッセージを表示、日付を月日＋曜日の実物形式に、ホームと写真の操作説明文を撤去）／v139 トークをTinder版（v462）LINEと実測比較して一致（バブルの角・色・文字サイズ、入力欄、送信ボタン、日付チップ、一覧の行構成と検索ボックス、スレッドヘッダーのアバター）／v140 トークにLINEアプリのシェルを移植（下部タブバー＋タブ画面を新設。タブの数・並び・切替挙動はTinder版LINEと同一で、ホームタブは三浦渚央のプロフィール＋届いた応援カード＋友だちリストのパネル、ニュースは番組アプリ、その他は設定・記録へ接続）／v141 ロック画面の進化（時計を88px・太字に、通知カードをblur20px＋saturateの実物仕様にして幅を統一、スタック通知のアイコンをアプリ別SVGに分けて出現をスタッガード化。ステータスバーと電池％を追加し、壁紙を時代連動＋緩やかなズームに。下部のライトは白フラッシュが光る実働ボタンに、カメラは写真アプリへ直行。通知はタップで該当アプリ・記録へ遷移）／v142 ホーム画面の進化（Tinder版ホームのページ構成を移植：飾りだったドットを実働の2ページ化にし、横スワイプとドットタップで切替。2ページ目に物語暦のカレンダーウィジェットと時代のカットが切り替わる写真ウィジェットを新設し、記録サマリと次のミッションを移設。ドットの横に検索ピルを追加し、アプリ・記録を検索して直接開けるシートを実装。下部にガラスのドック（トーク／写真／番組アプリ／設定・記録、バッジ連動）を追加。ステータスバーに電池％、壁紙に緩やかなズーム）</span></div>
  <div class="pad"><p class="small">エンディングは5種（TRUE現在／通常現在／離脱した現在／秘密バレIF／ループ継続BAD）。結末は、彼の岐路での関わり・手がかり（Keepsakeと届いた数）・男装バレ度・最後の選択で分かれます。なお「デビューしてしまう現在」はIF候補として設計にのみ記録され、本編では採用していません（デビューメンバー構成は不変のため）。</p></div>
  <div class="pad"><button class="btn" id="reset-btn" style="background:#ff3b30">データを消して最初から</button></div>`;
  const rb=$("#reset-btn");if(rb)rb.onclick=()=>{if(confirm("セーブデータを消して最初から始めますか？")){localStorage.removeItem("tlSaveV2");location.reload();}};
