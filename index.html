@@ -589,6 +589,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 #his-body .his-new{animation:hispop .35s ease}
 @keyframes hispop{from{transform:translateY(8px);opacity:0}}
 #his-count{margin-left:auto;color:#a5a3b8;font-size:11px;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+#his-exit{background:none;border:none;color:#8f8ca3;font-size:21px;line-height:1;padding:10px 6px 10px 12px;cursor:pointer;font-family:inherit}
 .roster-head .rh-t{font-size:15px;font-weight:800}
 .roster-head .rh-c{margin-left:auto;font-size:11.5px;color:var(--sub)}
 .legend{display:flex;gap:6px;padding:6px 16px 2px}
@@ -1127,7 +1128,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
   <div id="his-shade"></div>
   <div id="his-light"></div>
   <div id="his-dust"></div>
-  <div class="his-head"><img id="his-av" src="assets/hiroto/hiroto.jpg" alt="" loading="lazy" decoding="async"><div><div class="his-nm">井汲大翔</div><div class="his-sb">彼の画面 ― 大翔の視点</div></div><span id="his-count"></span></div>
+  <div class="his-head"><img id="his-av" src="assets/hiroto/hiroto.jpg" alt="" loading="lazy" decoding="async"><div><div class="his-nm">井汲大翔</div><div class="his-sb">彼の画面 ― 大翔の視点</div></div><span id="his-count"></span><button id="his-exit" aria-label="閉じる">×</button></div>
   <div id="his-prog"><i id="his-prog-i"></i></div>
   <div id="his-body"></div>
   <div id="his-next"><span id="his-next-tx">タップで進む</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 9l7 7 7-7" stroke="#c9c7d8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -1225,7 +1226,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 
 <!-- settings -->
 <section class="screen" id="settings">
-  <div class="apphead"><button class="back" data-home>‹</button><div><div class="ah-t">設定・記録</div><div class="ah-s">ゲージ／応援台帳／宝物／差分の記録／章／回想／情報</div></div></div>
+  <div class="apphead"><button class="back" data-home>‹</button><div><div class="ah-t">設定・記録</div><div class="ah-s">ゲージ・台帳・宝物・差分・章・回想・情報</div></div></div>
   <div class="tabs" id="set-tabs">
     <button data-stab="gauge" class="on">ゲージ</button><button data-stab="ledger">応援台帳</button><button data-stab="keep">宝物</button><button data-stab="diff">差分の記録</button><button data-stab="chaps">章</button><button data-stab="memory">回想</button><button data-stab="about">情報</button>
   </div>
@@ -1237,7 +1238,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v288";
+const VER="v289";
 /* ============ state ============ */
 const DEF={idx:0,maxIdx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -2882,7 +2883,9 @@ function buildMentionsX(seg){const list=xSegPosts(seg).filter(x=>x.p.who==="naof
  em.style.display=list.length?"none":"block";
  list.slice().reverse().forEach(x=>ml.appendChild(postElX(x.p,false)));
  const mn=$("#x-men-n");if(mn)mn.textContent=list.length?`(${list.length})`:"";}
-function openThreadX(p){["tl","trend","mention","me","search"].forEach(k=>{const el=$("#x-pane-"+k);if(el)el.style.display="none";});
+let xFromPane="tl";
+function openThreadX(p){const cur=["tl","trend","mention","me","search"].find(k=>{const el=$("#x-pane-"+k);return el&&el.style.display!=="none";});if(cur)xFromPane=cur;
+ ["tl","trend","mention","me","search"].forEach(k=>{const el=$("#x-pane-"+k);if(el)el.style.display="none";});
  const th=$("#x-thread");th.style.display="block";
  const main=$("#thread-main");main.innerHTML="";main.appendChild(postElX(p,true));
  const rw=$("#thread-replies");rw.innerHTML="";const reps=xRepliesFor(p);
@@ -2909,7 +2912,7 @@ function xShowPane(k){document.querySelectorAll("#x [data-xtab]").forEach(b=>b.c
  $("#x-thread").style.display="none";
  ["tl","trend","mention","me","search"].forEach(key=>{const el=$("#x-pane-"+key);if(el)el.style.display=key===k?"block":"none";});}
 document.querySelectorAll("#x [data-xtab]").forEach(b=>b.addEventListener("click",()=>{if(typeof seTap==="function")seTap(0.6);xShowPane(b.dataset.xtab);const sc=$("#x-scroll");if(sc)sc.scrollTop=0;}));
-$("#thread-back").addEventListener("click",()=>{if(typeof seTap==="function")seTap(0.6);xShowPane("tl");});
+$("#thread-back").addEventListener("click",()=>{if(typeof seTap==="function")seTap(0.6);xShowPane(xFromPane||"tl");});
 $("#x-search-btn").addEventListener("click",()=>doSearchX($("#x-q").value));
 $("#x-q").addEventListener("keydown",e=>{if(e.key==="Enter")doSearchX($("#x-q").value);});
 
@@ -2931,15 +2934,16 @@ function renderIG(){const seg=snsSeg();const c=chapNow();
  const head=$("#ig-head-block");
  head.innerHTML=`<div class="ig-prof"><img loading="lazy" decoding="async" src="${xHrtAv()}" alt=""><div class="ig-stats"><div><b>${posts.length}</b><span>投稿</span></div><div><b>${igFollowers(seg)}</b><span>フォロワー</span></div><div><b>96</b><span>フォロー中</span></div></div></div>
  <div class="ig-bio"><b>井汲大翔 / HIROTO IKUMI</b>
-歌手
+${(["nxdA","nxdB","inter","now","zero"].includes(seg))?`歌手
 1st Single『Tasty』発売中
-<a>linktr.ee/193hiroto</a></div>`+(posts.length?`<div class="stories"><figure><div class="ring"><img loading="lazy" decoding="async" src="assets/nao/common/stream.jpg" alt=""></div><figcaption>配信告知</figcaption></figure><figure><div class="ring"><img loading="lazy" decoding="async" src="assets/hiroto23/hiroto.jpg" alt=""></div><figcaption>お知らせ</figcaption></figure></div>`:"")+`<div class="ig-grid">${posts.map(p=>`<img loading="lazy" decoding="async" src="${p.img}" alt="">`).join("")}</div>`;
+<a>linktr.ee/193hiroto</a>`:`練習生`}</div>`+(posts.length?`<div class="stories"><figure><div class="ring"><img loading="lazy" decoding="async" src="assets/nao/common/stream.jpg" alt=""></div><figcaption>配信告知</figcaption></figure><figure><div class="ring"><img loading="lazy" decoding="async" src="assets/hiroto23/hiroto.jpg" alt=""></div><figcaption>お知らせ</figcaption></figure></div>`:"")+`<div class="ig-grid">${posts.map(p=>`<img loading="lazy" decoding="async" src="${p.img}" alt="">`).join("")}</div>`;
  const wrap=$("#ig-posts");wrap.innerHTML="";
  if(!posts.length){wrap.innerHTML=`<div class="ig-empty">この時代、彼の個人アカウントに投稿はまだありません。<br>表に出るのは、ずっと先のことです。</div>`;const sc=$("#ig-scroll");if(sc)sc.scrollTop=0;return;}
  posts.forEach(p=>{const d=document.createElement("div");d.className="ig-post";
   d.innerHTML=`<div class="ph"><img loading="lazy" decoding="async" src="${xHrtAv()}" alt="">193.hiroto_jixiang ${IG_VERI_SM}</div><img class="pimg" loading="lazy" decoding="async" src="${p.img}" alt=""><div class="acts"><span class="like-btn" data-n="${p.lk}">${SNS_IC_LK}</span><span>${SNS_IC_RP}</span><span><svg viewBox="0 0 24 24" width="21" height="21"><path fill="none" stroke="currentColor" stroke-width="1.9" d="M21 3 10.2 13.8M21 3l-6.8 18-3.4-7.6L3 10z"/></svg></span></div><div class="lk-n">いいね！<span class="cn">${snsFmtN(p.lk)}</span>件</div><div class="cap"><b>193.hiroto_jixiang</b> ${esc(p.cap)}</div>`+p.cmts.map(cm=>`<div class="cmt"><b>${esc(cm[0])}</b>${esc(cm[1])}<span class="tm">${esc(cm[2])}</span></div>`).join("");
   const lk=d.querySelector(".like-btn");lk.addEventListener("click",()=>{const on=lk.dataset.on==="1";lk.dataset.on=on?"":"1";lk.style.color=on?"":"#ff3040";const cn=d.querySelector(".lk-n .cn");if(cn)cn.textContent=snsFmtN(on?p.lk:p.lk+1);if(typeof seTap==="function")seTap(0.5);});
   wrap.appendChild(d);});
+ head.querySelectorAll(".ig-grid img").forEach((im,i)=>{im.style.cursor="pointer";im.addEventListener("click",()=>{const t=wrap.children[i];if(t)t.scrollIntoView({behavior:"smooth",block:"start"});if(typeof seTap==="function")seTap(0.5);});});
  const sc=$("#ig-scroll");if(sc)sc.scrollTop=0;}
 const TT_CARDS=[
  {who:"hrt",acct:"@193hiroto",img:"assets/nao/common/stream.jpg",cap:"『Tasty』ダンスチャレンジ、はじめます。たくさん踊ってください",lk:"31.2万",dur:"0:23",cmtn:"4,208",segs:["nxdA","nxdB","inter","now","zero"]},
@@ -2955,6 +2959,12 @@ const TT_CARDS=[
 const TT_PLAY='<svg viewBox="0 0 24 24" width="26" height="26"><path fill="#fff" d="M8 5.5v13l11-6.5z"/></svg>';
 function renderTT(){const seg=snsSeg();
  const av=$("#tt-ava");if(av)av.src=xHrtAv();
+ const _late=["inter","now","zero"].includes(seg),_nxd=(seg==="nxdA"||seg==="nxdB");
+ const _bs=document.querySelectorAll(".tt-stats b");if(_bs[1])_bs[1].textContent=_late?"86.4万":_nxd?"12.8万":"8,214";if(_bs[2])_bs[2].textContent=_late?"2140万":_nxd?"620万":"3.1万";
+ const _tb=document.querySelector(".tt-bio");if(_tb)_tb.innerHTML=(_late||_nxd)?`井汲大翔 / HIROTO IKUMI
+1st Single『Tasty』
+<span class="lnk">linktr.ee/193hiroto</span>`:`井汲大翔 / HIROTO IKUMI
+練習生`;
  const wrap=$("#tt-cards");wrap.innerHTML="";
  const cards=TT_CARDS.filter(cd=>cd.segs.includes(seg));
  if(!cards.length){wrap.innerHTML=`<div class="tt-empty">この時代に流れてくる動画は、まだありません。</div>`;return;}
@@ -3236,6 +3246,7 @@ function hisNext(){
  save();
 }
 $("#his-next").onclick=hisNext;$("#his-body").onclick=hisNext;
+{const _hx=$("#his-exit");if(_hx)_hx.onclick=e=>{e.stopPropagation();if(typeof hisFFStop==="function")hisFFStop();hisQueue=[];renderHome();show("home");};}
 /* v285: his screen gets the same long-press fast-forward as the story screen (bar + body,
    move cancels, release click suppressed after ticking). Stops when his lines run out so it
    never auto-exits to home. */
