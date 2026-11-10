@@ -1294,7 +1294,7 @@ body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-s
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const VER="v327";
+const VER="v328";
 /* ============ state ============ */
 const DEF={idx:0,maxIdx:0,started:false,consented:false,soundOn:true,
  g:{iwakan:0,bare:0,todoita:0,uta:8,dance:4,ishi:50},
@@ -3216,6 +3216,8 @@ const DEBUT_SEG={
  '21B':{era:'2021',col:'debut21',nao:10,hiro:11,need:4,tdNeed:3,was:'15位で脱落（史実）',helps:'「中国の作戦、立てよか」の一言。カウントの補助の、届け直し。中国語の練習ノート作りの手伝い。2019年の半分この約束。'},
  '23B':{era:'2023',col:'debut23',nao:8,hiro:9,need:4,tdNeed:3,was:'21位で脱落（史実）',helps:'「最後にしよう」と頷いた夜。二人で研究した、ファンカムの表情と角度。本番前夜の体調と緊張の管理。自販機の前で、黙って並んで飲んだ時間。'}};
 function debutSegAt(idx){return idx<163?'19A':idx<249?'21A':idx<364?'23A':idx<463?'19B':idx<527?'21B':'23B';}
+const SEG_STARTS={'19A':0,'21A':163,'23A':249,'19B':364,'21B':463,'23B':527};
+const SEG_OPEN_CHAP={};Object.keys(SEG_STARTS).forEach(sg=>{const st=SEG_STARTS[sg];const nx=Object.values(SEG_STARTS).filter(v=>v>st).sort((a,b)=>a-b)[0]||SCRIPT.length;for(let i=st;i<nx;i++){if(SCRIPT[i].k==='chap'){SEG_OPEN_CHAP[sg]=i;break;}}});
 function debutSnap(seg){if(S.flags['tdB_'+seg]===undefined){S.flags['tdB_'+seg]=S.g.todoita;S.flags['isB_'+seg]=S.g.ishi;}}
 function debutReadyFor(seg){if(S.debutEnd)return false;const m=DEBUT_SEG[seg];if(!m)return false;
  return (S.flags['help_'+seg]||0)>=m.need&&(S.g.todoita-(S.flags['tdB_'+seg]||0))>=m.tdNeed&&S.g.ishi>=Math.max(50,(S.flags['isB_'+seg]===undefined?50:S.flags['isB_'+seg]));}
@@ -3968,7 +3970,7 @@ document.querySelectorAll("#line-tabbar button").forEach(b=>b.onclick=()=>{
 let setTab="gauge";
 document.querySelectorAll("#set-tabs button").forEach(b=>b.onclick=()=>{renderSettings(b.dataset.stab);tabIn($("#set-body"));});
 function bar(v,max){return Math.max(0,Math.min(100,Math.round(v/max*100)));}
-function jumpToChapter(ci){const rec=S.snaps&&S.snaps[ci];if(!rec||typeof rec!=="object")return;let snap;try{snap=JSON.parse(rec.snap);}catch(e){return;}if(!snap||typeof snap!=="object"||Array.isArray(snap))return;const keepLog=(Array.isArray(S.log)?S.log:[]).slice(0,typeof rec.logLen==="number"&&rec.logLen>=0?rec.logLen:0);const keepSnaps={};Object.keys(S.snaps).forEach(k=>{if(+k<=ci)keepSnaps[k]=S.snaps[k];});const keepMax=(typeof S.maxIdx==="number"&&isFinite(S.maxIdx))?S.maxIdx:0;Object.keys(S).forEach(k=>delete S[k]);Object.assign(S,snap);S.snaps=keepSnaps;S.log=keepLog;S.pendingChoice=false;S.idx=ci;S.maxIdx=Math.max(keepMax,ci);sanitizeSave();S.idx=ci;if(S.maxIdx<keepMax)S.maxIdx=keepMax;save();openStory();}
+function jumpToChapter(ci){const rec=S.snaps&&S.snaps[ci];if(!rec||typeof rec!=="object")return;let snap;try{snap=JSON.parse(rec.snap);}catch(e){return;}if(!snap||typeof snap!=="object"||Array.isArray(snap))return;const keepLog=(Array.isArray(S.log)?S.log:[]).slice(0,typeof rec.logLen==="number"&&rec.logLen>=0?rec.logLen:0);const keepSnaps={};Object.keys(S.snaps).forEach(k=>{if(+k<=ci)keepSnaps[k]=S.snaps[k];});const keepMax=(typeof S.maxIdx==="number"&&isFinite(S.maxIdx))?S.maxIdx:0;Object.keys(S).forEach(k=>delete S[k]);Object.assign(S,snap);S.snaps=keepSnaps;S.log=keepLog;S.pendingChoice=false;S.idx=ci;S.maxIdx=Math.max(keepMax,ci);sanitizeSave();S.idx=ci;if(S.maxIdx<keepMax)S.maxIdx=keepMax;const _dseg=debutSegAt(ci);if(SEG_OPEN_CHAP[_dseg]===ci&&S.flags){delete S.flags['help_'+_dseg];delete S.flags['tdB_'+_dseg];delete S.flags['isB_'+_dseg];}save();openStory();}
 const SE_ICO={
  heart:'<svg width="32" height="32" viewBox="0 0 24 24"><path fill="#7a6fd0" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
  box:'<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7a6fd0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg>',
